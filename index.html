@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Hub - Premium Clothing and Fashion Items</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: #f0f0f0;
+            min-height: 100vh;
+        }
+        .hero-bg {
+            background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            background-blend-mode: overlay;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .product-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,215,0,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(255,215,0,0.2);
+            border-color: #ffd700;
+        }
+        .gold-text {
+            color: #ffd700;
+        }
+        .premium-button {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #1a1a1a;
+            transition: all 0.3s ease;
+        }
+        .premium-button:hover {
+            background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+            transform: scale(1.05);
+        }
+        .cart-icon {
+            position: relative;
+        }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ffd700;
+            color: #1a1a1a;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+        }
+        .star {
+            font-size: 1.2rem;
+            color: #ffd700;
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .premium-shadow {
+            box-shadow: 0 10px 30px rgba(255,215,0,0.1);
+        }
+        .search-bar {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+    </style>
+</head>
+<body class="text-gray-100">
+    <header class="bg-gradient-to-r from-gray-900 to-black shadow-lg sticky top-0 z-10 premium-shadow">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold gold-text mb-2">Fashion Hub</h1>
+                <p class="text-sm text-gray-400" id="powered-by">Powered by Memon Ayan and Mansuri Riyan</p>
+            </div>
+            <nav class="hidden md:flex justify-center space-x-8 mt-4">
+                <a href="#mens" class="text-gray-300 hover:gold-text transition duration-300">Men's Collection</a>
+                <a href="#womens" class="text-gray-300 hover:gold-text transition duration-300">Women's Collection</a>
+                <a href="#return-policy" class="text-gray-300 hover:gold-text transition duration-300">Return Policy</a>
+                <a href="#contact" class="text-gray-300 hover:gold-text transition duration-300">Contact</a>
+                <a href="#cart" class="cart-icon text-gray-300 hover:gold-text transition duration-300">
+                    <span>Cart</span>
+                    <span id="cart-count" class="cart-count hidden">0</span>
+                </a>
+            </nav>
+            <div class="flex flex-col md:flex-row items-center justify-center mt-4 space-y-4 md:space-y-0 md:space-x-4">
+                <input type="text" id="searchInput" placeholder="Search for products..." class="search-bar w-full md:w-1/3 p-2 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none">
+                <button id="mainLoginBtn" class="premium-button px-4 py-2 rounded font-semibold w-full md:w-auto">Login</button>
+                <div id="logged-in-options" class="hidden space-x-4">
+                    <button id="dashboardBtn" class="premium-button px-4 py-2 rounded font-semibold w-full md:w-auto">My Dashboard</button>
+                    <button id="addAccountBtn" class="bg-gray-600 text-white px-4 py-2 rounded font-semibold w-full md:w-auto hover:bg-gray-700">Add Account</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div id="main-content">
+        <section class="hero-bg text-white text-center py-24 fade-in-up">
+            <div class="container mx-auto px-4">
+                <h2 class="text-5xl font-bold mb-4 gold-text">Welcome to Fashion Hub</h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">Discover the pinnacle of luxury in clothing, shoes, watches, and perfumes. Elevate your style with our premium collection.</p>
+                <a href="#products" class="premium-button px-8 py-4 rounded-lg font-bold shadow-lg">Shop Luxuriously</a>
+            </div>
+        </section>
+
+        <section id="products" class="py-20 bg-gradient-to-b from-gray-900 to-black">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-16 gold-text">Our Premium Collection</h2>
+
+                <div id="mens" class="mb-20 fade-in-up">
+                    <h3 class="text-3xl font-semibold mb-10 text-center gold-text">Men's Collection</h3>
+                    <div id="mens-products">
+                        <div id="mens-lower" class="mb-10">
+                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Lower Class (Affordable)</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="mens-lower-products"></div>
+                        </div>
+                        <div id="mens-middle" class="mb-10">
+                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Middle Class (Mid-Range)</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="mens-middle-products"></div>
+                        </div>
+                        <div id="mens-higher">
+                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Higher Class (Premium)</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="mens-higher-products"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="womens" class="mb-20 fade-in-up">
+                    <h3 class="text-3xl font-semibold mb-10 text-center gold-text">Women's Collection</h3>
+                    <div id="womens-products">
+                        <div id="womens-lower" class="mb-10">
+                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Lower Class (Affordable)</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="womens-lower-products"></div>
+                        </div>
+                        <div id="womens-middle" class="mb-10">
+                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Middle Class (Mid-Range)</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="womens-middle-products"></div>
+                        </div>
+                        <div id="womens-higher">
+                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Higher Class (Premium)</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="womens-higher-products"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-8 rounded-lg mb-16 fade-in-up">
+                    <h3 class="text-2xl font-semibold mb-4 gold-text text-center" id="share-suggestion">Share Your Suggestion</h3>
+                    <form id="suggestion-form" class="max-w-md mx-auto">
+                        <input type="text" id="suggestion-name" placeholder="Your Name" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
+                        <textarea id="suggestion-text" placeholder="Your suggestion here..." class="w-full p-4 bg-gray-700 text-white rounded mb-4"></textarea>
+                        <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full">Submit Suggestion</button>
+                    </form>
+                </div>
+
+                <div id="return-policy" class="bg-gray-800 p-8 rounded-lg mb-16 fade-in-up">
+                    <h3 class="text-3xl font-semibold mb-6 gold-text text-center">Return Policy</h3>
+                    <p class="text-gray-300 mb-6 text-center">We offer a 7-day return policy and 24-hour cancellation. To return an item, please provide a valid reason and photo proof.</p>
+                    <form class="max-w-md mx-auto">
+                        <input type="text" placeholder="Order Number" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
+                        <textarea placeholder="Reason for Return" class="w-full p-3 mb-4 bg-gray-700 text-white rounded"></textarea>
+                        <input type="file" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
+                        <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full">Submit Return Request</button>
+                    </form>
+                </div>
+
+                <div class="bg-black py-12 text-center mb-16">
+                    <h3 class="text-2xl font-semibold gold-text mb-6" id="payment-methods">Payment Methods</h3>
+                    <p class="text-gray-300 mb-4">Choose from various secure payment options:</p>
+                    <div class="flex justify-center space-x-8">
+                        <span class="gold-text">Credit Card</span>
+                        <span class="gold-text">Debit Card</span>
+                        <span class="gold-text">UPI</span>
+                        <span class="gold-text">Net Banking</span>
+                        <span class="gold-text">Cash on Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="contact" class="bg-gray-900 py-12">
+            <div class="container mx-auto px-4 text-center">
+                <h3 class="text-2xl font-semibold gold-text mb-6">Contact Us</h3>
+                <p class="mb-1 text-gray-300">Phone: <span class="gold-text">9265247070</span></p>
+                <p class="mb-6 text-gray-300">Email: <a href="mailto:officialayan12@gmail.com" class="gold-text hover:underline">officialayan12@gmail.com</a></p>
+                <form class="max-w-md mx-auto">
+                    <input type="text" placeholder="Your Name" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
+                    <input type="email" placeholder="Your Email" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
+                    <textarea placeholder="Your Message" class="w-full p-3 mb-4 bg-gray-700 text-white rounded"></textarea>
+                    <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <section id="admin-panel" class="py-20 bg-gray-800 text-white admin-panel hidden">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-semibold mb-8 text-center gold-text" id="admin-panel-title">Admin Panel</h3>
+            <div class="bg-gray-700 p-8 rounded-lg shadow-lg">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-8">
+                    <div>
+                        <p class="text-sm text-gray-400">Total Sales</p>
+                        <p class="text-3xl font-bold gold-text" id="admin-sales-count">₹0</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400">Total Margin</p>
+                        <p class="text-3xl font-bold gold-text" id="admin-margin-count">₹0</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400">Total Orders</p>
+                        <p class="text-3xl font-bold gold-text" id="admin-orders-count">0</p>
+                    </div>
+                </div>
+                <h4 class="text-2xl font-semibold gold-text mt-8 mb-4">Manage Products</h4>
+                <div id="admin-product-management">
+                </div>
+                <h4 class="text-2xl font-semibold gold-text mt-8 mb-4">All Orders</h4>
+                <div id="admin-all-orders">
+                </div>
+                <h4 class="text-2xl font-semibold gold-text mt-8 mb-4">Return Requests</h4>
+                <div id="admin-return-requests">
+                </div>
+                <h4 class="text-2xl font-semibold gold-text mt-8 mb-4">Customer Reviews</h4>
+                <div id="admin-reviews-management">
+                </div>
+                <h4 class="text-2xl font-semibold gold-text mt-8 mb-4">Customer Suggestions</h4>
+                <div id="admin-suggestions">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="customer-dashboard" class="py-20 bg-gray-800 text-white hidden">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-4xl font-semibold gold-text" id="my-dashboard-title">My Dashboard</h3>
+                <button id="backBtn" class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700">Back</button>
+            </div>
+            <div id="dashboard-nav" class="flex justify-center space-x-4 mb-8">
+                <button id="profile-btn" class="px-6 py-2 rounded-lg bg-gray-700 hover:bg-gray-600">My Profile</button>
+                <button id="orders-btn" class="px-6 py-2 rounded-lg bg-gray-700 hover:bg-gray-600">My Orders</button>
+                <button id="suggestions-btn" class="px-6 py-2 rounded-lg bg-gray-700 hover:bg-gray-600">My Suggestions</button>
+                <button id="logoutBtn" class="px-6 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white">Logout</button>
+            </div>
+            <div id="my-profile-section" class="bg-gray-700 p-8 rounded-lg shadow-lg mb-8">
+                <h4 class="text-2xl font-semibold gold-text mb-4">My Profile</h4>
+                <div id="profile-details">
+                    <p class="text-gray-400">Please complete your profile.</p>
+                </div>
+            </div>
+            <div id="my-orders-section" class="bg-gray-700 p-8 rounded-lg shadow-lg mb-8 hidden">
+                <h4 class="text-2xl font-semibold gold-text mb-4">My Orders</h4>
+                <p>You have no pending orders.</p>
+            </div>
+            <div id="my-suggestions-section" class="bg-gray-700 p-8 rounded-lg shadow-lg hidden">
+                <h4 class="text-2xl font-semibold gold-text mb-4">My Suggestions</h4>
+                <p>You have not submitted any suggestions yet.</p>
+            </div>
+        </div>
+    </section>
+    
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-20 flex items-center justify-center">
+        <div class="bg-gray-800 p-6 rounded-lg max-w-md w-full mx-4">
+            <h3 class="text-xl font-bold mb-4 gold-text text-center">Your Cart</h3>
+            <ul id="cart-items" class="mb-4"></ul>
+            <p id="cart-total" class="mt-4 font-bold text-xl gold-text text-center">Total: ₹0</p>
+            <div class="flex justify-between mt-4">
+                <button onclick="closeCart()" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition">Close</button>
+                <button onclick="checkout()" id="checkoutBtn" class="premium-button px-4 py-2 rounded">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-selection-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-30 flex items-center justify-center">
+        <div class="bg-gray-800 p-8 rounded-lg max-w-sm w-full mx-4 text-center">
+            <h3 class="text-xl font-bold mb-6 gold-text">Select Login Type</h3>
+            <button onclick="openCustomerLogin()" class="premium-button px-6 py-3 rounded-lg w-full mb-4">Customer Login</button>
+            <button onclick="openAdminLogin()" class="premium-button px-6 py-3 rounded-lg w-full">Admin Login</button>
+            <button onclick="closeLoginSelection()" class="mt-4 text-gray-300 w-full">Close</button>
+        </div>
+    </div>
+
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-30 flex items-center justify-center">
+        <div class="bg-gray-800 p-8 rounded-lg max-w-sm w-full mx-4">
+            <h3 class="text-xl font-bold mb-6 gold-text text-center" id="login-title">Login</h3>
+            <input type="number" id="phone-number" placeholder="Phone Number" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
+            <input type="password" id="password-field" placeholder="Password" class="w-full p-3 mb-4 bg-gray-700 text-white rounded hidden" />
+            <input type="number" id="otp-field" placeholder="OTP" class="w-full p-3 mb-4 bg-gray-700 text-white rounded hidden" />
+            <button onclick="login()" class="premium-button px-6 py-3 rounded-lg w-full">Login</button>
+            <button onclick="closeLogin()" class="mt-4 text-gray-300 w-full">Close</button>
+        </div>
+    </div>
+
+    <div id="profile-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-30 flex items-center justify-center">
+        <div class="bg-gray-800 p-8 rounded-lg max-w-lg w-full mx-4">
+            <h3 class="text-xl font-bold mb-6 gold-text text-center">Complete Your Profile</h3>
+            <form id="profile-form">
+                <input type="text" id="profile-name" placeholder="Full Name" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
+                <input type="email" id="profile-email" placeholder="Email" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
+                <input type="number" id="profile-age" placeholder="Age" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
+                <select id="profile-gender" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <select id="profile-language" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required>
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="gu">Gujarati</option>
+                </select>
+                <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full">Save Profile</button>
+            </form>
+            <button onclick="closeProfileModal()" class="mt-4 text-gray-300 w-full">Close</button>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-30 flex items-center justify-center">
+        <div class="bg-gray-800 p-8 rounded-lg max-w-lg w-full mx-4">
+            <h3 class="text-xl font-bold mb-6 gold-text text-center">Enter Shipping Details</h3>
+            <form id="checkout-form">
+                <input type="text" id="checkout-address" placeholder="Address" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
+                <input type="text" id="checkout-city" placeholder="City" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
+                <input type="text" id="checkout-state" placeholder="State" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
+                <input type="text" id="checkout-pincode" placeholder="Pincode" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
+                <select id="payment-method" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required>
+                    <option value="">Select Payment Method</option>
+                    <option value="UPI">UPI</option>
+                    <option value="COD">Cash on Delivery</option>
+                </select>
+                <div id="upi-details" class="hidden">
+                    <input type="text" id="upi-id" placeholder="Enter UPI ID" class="w-full p-3 mb-2 bg-gray-700 text-white rounded mt-4" />
+                    <button type="button" onclick="verifyUpi()" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition">Verify UPI</button>
+                    <p id="upi-name" class="text-sm gold-text mt-2"></p>
+                </div>
+                <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full mt-4">Place Order</button>
+            </form>
+            <button onclick="closeCheckoutModal()" class="mt-4 text-gray-300 w-full">Close</button>
+        </div>
+    </div>
+    
+    <footer class="bg-gray-900 text-white py-8 premium-shadow">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Fashion Hub. All rights reserved.</p>
+            <p>Powered by Memon Ayan and Mansuri Riyan.</p>
+        </div>
+    </footer>
+
+    <script>
+        let cart = [];
+        let customers = JSON.parse(localStorage.getItem('customers')) || {};
+        let suggestions = JSON.parse(localStorage.getItem('suggestions')) || [];
+        let currentUserId = localStorage.getItem('currentUserId') || null;
+        let loginType = null;
+        let currentLanguage = 'en';
+        
+        const adminPhone = '9265247070';
+        const adminPassword = 'AK GAMING 1M';
+        const dummyOTP = '1234';
+        
+        const allProducts = {
+            'men-basic-tshirt': { name: 'Men\'s Basic T-Shirt', price: 599, stock: 10, category: 'men', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1621323862287-c1d48c9a6231?q=80&w=1887&auto=format&fit=crop', reviews: [] },
+            'men-casual-shorts': { name: 'Men\'s Casual Shorts', price: 799, stock: 5, category: 'men', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1620799140188-3b2a2bff0e87?q=80&w=1887&auto=format&fit=crop', reviews: [] },
+            'men-simple-hoodie': { name: 'Men\'s Simple Hoodie', price: 999, stock: 0, category: 'men', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1596752002360-192b1a1c97a9?q=80&w=1887&auto=format&fit=crop', reviews: [] },
+            'men-stylish-jeans': { name: 'Men\'s Stylish Jeans', price: 1599, stock: 8, category: 'men', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1594967399435-081035546b41?q=80&w=1964&auto=format&fit=crop', reviews: [] },
+            'men-polo-shirt': { name: 'Men\'s Premium Polo Shirt', price: 1299, stock: 20, category: 'men', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1593032464139-f9c15d48a313?q=80&w=1887&auto=format&fit=crop', reviews: [] },
+            'men-comfort-chinos': { name: 'Men\'s Comfort Chinos', price: 1899, stock: 12, category: 'men', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1610444588506-65c27599059e?q=80&w=1887&auto=format&fit=crop', reviews: [] },
+            'men-leather-jacket': { name: 'Men\'s Luxury Leather Jacket', price: 4999, stock: 3, category: 'men', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1616016149206-89d4432c66d6?q=80&w=1935&auto=format&fit=crop', reviews: [] },
+            'men-designer-suit': { name: 'Men\'s Designer Formal Suit', price: 8999, stock: 1, category: 'men', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1627051996963-8a9d0a649b5c?q=80&w=1887&auto=format&fit=crop', reviews: [] },
+            'men-cashmere-sweater': { name: 'Men\'s Premium Cashmere Sweater', price: 3499, stock: 7, category: 'men', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1607530666993-f3661138ae9e?q=80&w=1964&auto=format&fit=crop', reviews: [] },
+            'women-basic-tshirt': { name: 'Women\'s Basic T-Shirt', price: 699, stock: 14, category: 'women', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1548035174-8b63e8a609d0?q=80&w=1974&auto=format&fit=crop', reviews: [] },
+            'women-cotton-shorts': { name: 'Women\'s Cotton Shorts', price: 899, stock: 9, category: 'women', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1519782877020-00806441b223?q=80&w=1887&auto=format&fit=crop', reviews: [] },
+            'women-striped-tank-top': { name: 'Women\'s Striped Tank Top', price: 599, stock: 18, category: 'women', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1593922370776-52c6f376997d?q=80&w=1887&auto=format&fit=crop', reviews: [] },
+            'women-summer-dress': { name: 'Women\'s Summer Dress', price: 1299, stock: 6, category: 'women', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1519409540096-724e580e224e?q=80&w=1887&auto=format&fit=crop', reviews: [] },
+            'women-stylish-top': { name: 'Women\'s Stylish Top', price: 799, stock: 11, category: 'women', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1549721759-96860f38b251?q=80&w=1965&auto=format&fit=crop', reviews: [] },
+            'women-formal-trousers': { name: 'Women\'s Formal Trousers', price: 1499, stock: 4, category: 'women', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1594917573030-9b36d07d6118?q=80&w=1887&auto=format&fit=crop', reviews: [] },
+            'women-handbag': { name: 'Women\'s Designer Handbag', price: 3999, stock: 2, category: 'women', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1554564243-d8c9a3d4f5b2?q=80&w=1964&auto=format&fit=crop', reviews: [] },
+            'women-silk-gown': { name: 'Women\'s Silk Evening Gown', price: 4999, stock: 3, category: 'women', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1620023023062-8e1042b36b0d?q=80&w=1964&auto=format&fit=crop', reviews: [] },
+            'women-cashmere-sweater': { name: 'Women\'s Premium Cashmere Sweater', price: 3499, stock: 8, category: 'women', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1595166687915-0b04a9d702e5?q=80&w=1887&auto=format&fit=crop', reviews: [] }
+        };
+
+        const upiDatabase = {
+            'test@ybl': 'Ayan Memon',
+            'riyan.mansuri@okicici': 'Riyan Mansuri',
+            'john.doe@paytm': 'John Doe',
+            'jane.smith@googlepay': 'Jane Smith'
+        };
+
+        const translations = {
+            'en': {
+                'title': 'Fashion Hub - Premium Clothing and Fashion Items',
+                'powered_by': 'Powered by Memon Ayan and Mansuri Riyan',
+                'mens_collection': 'Men\'s Collection',
+                'womens_collection': 'Women\'s Collection',
+                'lower_class': 'Lower Class (Affordable)',
+                'middle_class': 'Middle Class (Mid-Range)',
+                'higher_class': 'Higher Class (Premium)',
+                'return_policy': 'Return Policy',
+                'contact': 'Contact',
+                'cart': 'Cart',
+                'login': 'Login',
+                'search_placeholder': 'Search for products...',
+                'welcome_message': 'Welcome to Fashion Hub',
+                'hero_subtext': 'Discover the pinnacle of luxury in clothing, shoes, watches, and perfumes. Elevate your style with our premium collection.',
+                'shop_button': 'Shop Luxuriously',
+                'our_collection': 'Our Premium Collection',
+                'share_suggestion': 'Share Your Suggestion',
+                'your_name': 'Your Name',
+                'your_suggestion': 'Your suggestion here...',
+                'submit_suggestion': 'Submit Suggestion',
+                'return_policy_text': 'We offer a 7-day return policy and 24-hour cancellation. To return an item, please provide a valid reason and photo proof.',
+                'order_number': 'Order Number',
+                'reason_for_return': 'Reason for Return',
+                'submit_return': 'Submit Return Request',
+                'payment_methods': 'Payment Methods',
+                'choose_payment': 'Choose from various secure payment options:',
+                'credit_card': 'Credit Card',
+                'debit_card': 'Debit Card',
+                'upi': 'UPI',
+                'net_banking': 'Net Banking',
+                'cash_on_delivery': 'Cash on Delivery',
+                'your_cart': 'Your Cart',
+                'total': 'Total:',
+                'close': 'Close',
+                'checkout': 'Checkout',
+                'select_login_type': 'Select Login Type',
+                'customer_login': 'Customer Login',
+                'admin_login': 'Admin Login',
+                'phone_number': 'Phone Number',
+                'password_placeholder': 'Password',
+                'otp_placeholder': 'OTP',
+                'complete_profile': 'Complete Your Profile',
+                'full_name': 'Full Name',
+                'email': 'Email',
+                'age': 'Age',
+                'gender': 'Gender',
+                'select_gender': 'Select Gender',
+                'select_language': 'Select Language',
+                'save_profile': 'Save Profile',
+                'enter_shipping': 'Enter Shipping Details',
+                'address': 'Address',
+                'city': 'City',
+                'state': 'State',
+                'pincode': 'Pincode',
+                'select_payment_method': 'Select Payment Method',
+                'place_order': 'Place Order',
+                'contact_us': 'Contact Us',
+                'no_reviews': 'No reviews yet',
+                'add_to_cart': 'Add to Cart',
+                'my_dashboard': 'My Dashboard',
+                'my_profile': 'My Profile',
+                'my_orders': 'My Orders',
+                'my_suggestions': 'My Suggestions',
+                'profile_details_missing': 'Please complete your profile.',
+                'no_orders': 'You have no pending orders.',
+                'order_placed': 'Order placed successfully!',
+                'cancel_order': 'Cancel Order',
+                'rate_review': 'Rate & Review',
+                'submit_review': 'Submit Review',
+                'your_review': 'Your Review',
+                'admin_panel': 'Admin Panel',
+                'total_sales': 'Total Sales',
+                'total_margin': 'Total Margin',
+                'total_orders': 'Total Orders',
+                'manage_products': 'Manage Products',
+                'all_orders': 'All Orders',
+                'return_requests': 'Return Requests',
+                'customer_reviews': 'Customer Reviews',
+                'customer_suggestions': 'Customer Suggestions',
+                'no_suggestions': 'No new suggestions.',
+                'from': 'From:',
+                'suggestion': 'Suggestion:',
+                'admin_reply': 'Admin Reply:',
+                'awaiting_reply': 'Awaiting admin reply...',
+                'stock': 'Stock:',
+                'out_of_stock': 'This item is currently out of stock!',
+                'login_to_order': 'Please log in to place an order.',
+                'complete_profile_first': 'Please complete your profile before placing an order.',
+                'fill_details': 'Please fill in all the details.',
+                'invalid_admin': 'Invalid Admin credentials.',
+                'invalid_otp': 'Invalid OTP.',
+                'profile_saved': 'Profile saved successfully!',
+                'suggestion_submitted': 'Suggestion submitted successfully!',
+                'fill_suggestion': 'Please enter your name and a suggestion.',
+                'order_cancelled': 'Order has been cancelled.',
+                'cannot_cancel': 'This order cannot be cancelled as it is already being processed or delivered.',
+                'cancel_window_passed': 'The 24-hour cancellation window has passed for this order.',
+                'review_thanks': 'Thank you for your review!',
+                'send_reply': 'Send Reply',
+                'verify_upi': 'Verify UPI',
+                'upi_verified': 'UPI Verified. Account Name:',
+                'invalid_upi': 'Invalid UPI ID.',
+                'invalid_phone': 'Invalid Indian mobile number. Please enter a 10-digit number starting with 6, 7, 8, or 9.',
+                'back': 'Back',
+                'logout': 'Logout'
+            },
+            'hi': {
+                'title': 'फैशन हब - प्रीमियम कपड़े और फैशन आइटम',
+                'powered_by': 'मेमन अयान और मंसूरी रियान द्वारा संचालित',
+                'mens_collection': 'पुरुषों का संग्रह',
+                'womens_collection': 'महिलाओं का संग्रह',
+                'lower_class': 'लोअर क्लास (सुलभ)',
+                'middle_class': 'मिडल क्लास (मध्यम-रेंज)',
+                'higher_class': 'हायर क्लास (प्रीमियम)',
+                'return_policy': 'वापसी नीति',
+                'contact': 'संपर्क',
+                'cart': 'कार्ट',
+                'login': 'लॉगिन',
+                'search_placeholder': 'उत्पादों की खोज करें...',
+                'welcome_message': 'फैशन हब में आपका स्वागत है',
+                'hero_subtext': 'कपड़ों, जूतों, घड़ियों और परफ्यूम में लक्जरी की पराकाष्ठा खोजें। हमारे प्रीमियम संग्रह के साथ अपनी शैली को ऊंचा करें।',
+                'shop_button': 'लक्जरी की खरीदारी करें',
+                'our_collection': 'हमारा प्रीमियम संग्रह',
+                'share_suggestion': 'अपना सुझाव साझा करें',
+                'your_name': 'आपका नाम',
+                'your_suggestion': 'आपका सुझाव यहाँ...',
+                'submit_suggestion': 'सुझाव सबमिट करें',
+                'return_policy_text': 'हम 7-दिन की वापसी नीति और 24-घंटे की रद्दीकरण सुविधा प्रदान करते हैं। किसी आइटम को वापस करने के लिए, कृपया एक वैध कारण और फोटो प्रूफ प्रदान करें।',
+                'order_number': 'ऑर्डर नंबर',
+                'reason_for_return': 'वापसी का कारण',
+                'submit_return': 'वापसी अनुरोध सबमिट करें',
+                'payment_methods': 'भुगतान के तरीके',
+                'choose_payment': 'विभिन्न सुरक्षित भुगतान विकल्पों में से चुनें:',
+                'credit_card': 'क्रेडिट कार्ड',
+                'debit_card': 'डेबिट कार्ड',
+                'upi': 'यूपीआई',
+                'net_banking': 'नेट बैंकिंग',
+                'cash_on_delivery': 'कैश ऑन डिलीवरी',
+                'your_cart': 'आपका कार्ट',
+                'total': 'कुल:',
+                'close': 'बंद करें',
+                'checkout': 'चेकआउट',
+                'select_login_type': 'लॉगिन प्रकार चुनें',
+                'customer_login': 'ग्राहक लॉगिन',
+                'admin_login': 'एडमिन लॉगिन',
+                'phone_number': 'फ़ोन नंबर',
+                'password_placeholder': 'पासवर्ड',
+                'otp_placeholder': 'ओटीपी',
+                'complete_profile': 'अपनी प्रोफाइल पूरी करें',
+                'full_name': 'पूरा नाम',
+                'email': 'ईमेल',
+                'age': 'आयु',
+                'gender': 'लिंग',
+                'select_gender': 'लिंग चुनें',
+                'select_language': 'भाषा चुनें',
+                'save_profile': 'प्रोफाइल सहेजें',
+                'enter_shipping': 'शिपिंग विवरण दर्ज करें',
+                'address': 'पता',
+                'city': 'शहर',
+                'state': 'राज्य',
+                'pincode': 'पिनकोड',
+                'select_payment_method': 'भुगतान विधि चुनें',
+                'place_order': 'ऑर्डर दें',
+                'contact_us': 'हमसे संपर्क करें',
+                'no_reviews': 'अभी तक कोई समीक्षा नहीं',
+                'add_to_cart': 'कार्ट में जोड़ें',
+                'my_dashboard': 'मेरा डैशबोर्ड',
+                'my_profile': 'मेरी प्रोफाइल',
+                'my_orders': 'मेरे ऑर्डर',
+                'my_suggestions': 'मेरे सुझाव',
+                'profile_details_missing': 'कृपया अपनी प्रोफाइल पूरी करें।',
+                'no_orders': 'आपके पास कोई लंबित ऑर्डर नहीं है।',
+                'order_placed': 'ऑर्डर सफलतापूर्वक दिया गया!',
+                'cancel_order': 'ऑर्डर रद्द करें',
+                'rate_review': 'रेट और समीक्षा करें',
+                'submit_review': 'समीक्षा सबमिट करें',
+                'your_review': 'आपकी समीक्षा',
+                'admin_panel': 'एडमिन पैनल',
+                'total_sales': 'कुल बिक्री',
+                'total_margin': 'कुल मार्जिन',
+                'total_orders': 'कुल ऑर्डर',
+                'manage_products': 'उत्पाद प्रबंधित करें',
+                'all_orders': 'बधा ऑर्डर',
+                'return_requests': 'वापसी अनुरोध',
+                'customer_reviews': 'ग्राहक समीक्षाएँ',
+                'customer_suggestions': 'ग्राहक सुझाव',
+                'no_suggestions': 'कोई नया सुझाव नहीं।',
+                'from': 'से:',
+                'suggestion': 'सुझाव:',
+                'admin_reply': 'एडमिन जवाब:',
+                'awaiting_reply': 'एडमिन के जवाब की प्रतीक्षा है...',
+                'stock': 'स्टॉक:',
+                'out_of_stock': 'यह आइटम वर्तमान में स्टॉक में नहीं है!',
+                'login_to_order': 'ऑर्डर देने के लिए कृपया लॉगिन करें।',
+                'complete_profile_first': 'ऑर्डर देने से पहले कृपया अपनी प्रोफाइल पूरी करें।',
+                'fill_details': 'कृपया सभी विवरण भरें।',
+                'invalid_admin': 'अवैध एडमिन क्रेडेंशियल।',
+                'invalid_otp': 'अवैध ओटीपी।',
+                'profile_saved': 'प्रोफाइल सफलतापूर्वक सहेजी गई!',
+                'suggestion_submitted': 'सुझाव सफलतापूर्वक सबमिट किया गया!',
+                'fill_suggestion': 'कृपया अपना नाम और एक सुझाव दर्ज करें।',
+                'order_cancelled': 'ऑर्डर रद्द कर दिया गया है।',
+                'cannot_cancel': 'इस ऑर्डर को रद्द नहीं किया जा सकता क्योंकि यह पहले से ही प्रोसेस या डिलीवर किया जा रहा है।',
+                'cancel_window_passed': 'इस ऑर्डर के लिए 24 घंटे की रद्दीकरण अवधि बीत चुकी है।',
+                'review_thanks': 'आपकी समीक्षा के लिए धन्यवाद!',
+                'send_reply': 'जवाब भेजें',
+                'verify_upi': 'यूपीआई सत्यापित करें',
+                'upi_verified': 'यूपीआई सत्यापित। खाता धारक का नाम:',
+                'invalid_upi': 'अवैध यूपीआई आईडी।',
+                'invalid_phone': 'अवैध भारतीय मोबाइल नंबर। कृपया 6, 7, 8, या 9 से शुरू होने वाला 10-अंकों का नंबर दर्ज करें।',
+                'back': 'वापस',
+                'logout': 'लॉग आउट'
+            },
+            'gu': {
+                'title': 'ફેશન હબ - પ્રીમિયમ કપડાં અને ફેશન વસ્તુઓ',
+                'powered_by': 'મેમણ અયાન અને મન્સૂરી રિયાન દ્વારા સંચાલિત',
+                'mens_collection': 'પુરુષોનો સંગ્રહ',
+                'womens_collection': 'મહિલાઓનો સંગ્રહ',
+                'lower_class': 'લોઅર ક્લાસ (સુલભ)',
+                'middle_class': 'મિડલ ક્લાસ (મધ્યમ-રેન્જ)',
+                'higher_class': 'હાયર ક્લાસ (પ્રીમિયમ)',
+                'return_policy': 'વળતર નીતિ',
+                'contact': 'સંપર્ક',
+                'cart': 'કાર્ટ',
+                'login': 'લોગિન',
+                'search_placeholder': 'ઉત્પાદનો શોધો...',
+                'welcome_message': 'ફેશન હબ માં આપનું સ્વાગત છે',
+                'hero_subtext': 'કપડાં, જૂતા, ઘડિયાળો અને પરફ્યુમમાં વૈભવીતાની ટોચ શોધો. અમારા પ્રીમિયમ સંગ્રહ સાથે તમારી શૈલીને ઉન્નત કરો.',
+                'shop_button': 'વૈભવી ખરીદી કરો',
+                'our_collection': 'અમારો પ્રીમિયમ સંગ્રહ',
+                'share_suggestion': 'તમારું સૂચન શેર કરો',
+                'your_name': 'તમારું નામ',
+                'your_suggestion': 'તમારું સૂચન અહીં...',
+                'submit_suggestion': 'સૂચન સબમિટ કરો',
+                'return_policy_text': 'અમે 7-દિવસની વળતર નીતિ અને 24-કલાકની રદ્દીકરણ સુવિધા પ્રદાન કરીએ છીએ. કોઈ વસ્તુ પરત કરવા માટે, કૃપા કરીને એક માન્ય કારણ અને ફોટો પ્રૂફ પ્રદાન કરો.',
+                'order_number': 'ઓર્ડર નંબર',
+                'reason_for_return': 'વળતરનું કારણ',
+                'submit_return': 'વળતર વિનંતી સબમિટ કરો',
+                'payment_methods': 'ચુકવણી પદ્ધતિઓ',
+                'choose_payment': 'વિવિધ સુરક્ષિત ચુકવણી વિકલ્પોમાંથી પસંદ કરો:',
+                'credit_card': 'ક્રેડિટ કાર્ડ',
+                'debit_card': 'ડેબિટ કાર્ડ',
+                'upi': 'યુપીઆઈ',
+                'net_banking': 'નેટ બેંકિંગ',
+                'cash_on_delivery': 'કેશ ઓન ડિલિવરી',
+                'your_cart': 'તમારું કાર્ટ',
+                'total': 'કુલ:',
+                'close': 'બંધ કરો',
+                'checkout': 'ચેકઆઉટ',
+                'select_login_type': 'લોગિન પ્રકાર પસંદ કરો',
+                'customer_login': 'ગ્રાહક લોગિન',
+                'admin_login': 'એડમિન લોગિન',
+                'phone_number': 'ફોન નંબર',
+                'password_placeholder': 'પાસવર્ડ',
+                'otp_placeholder': 'ઓટીપી',
+                'complete_profile': 'તમારી પ્રોફાઇલ પૂર્ણ કરો',
+                'full_name': 'પૂરું નામ',
+                'email': 'ઈમેલ',
+                'age': 'ઉંમર',
+                'gender': 'લિંગ',
+                'select_gender': 'લિંગ પસંદ કરો',
+                'select_language': 'ભાષા પસંદ કરો',
+                'save_profile': 'પ્રોફાઇલ સાચવો',
+                'enter_shipping': 'શિપિંગ વિગતો દાખલ કરો',
+                'address': 'સરનામું',
+                'city': 'શહેર',
+                'state': 'રાજ્ય',
+                'pincode': 'પિનકોડ',
+                'select_payment_method': 'ચુકવણી પદ્ધતિ પસંદ કરો',
+                'place_order': 'ઓર્ડર આપો',
+                'contact_us': 'અમારો સંપર્ક કરો',
+                'no_reviews': 'હજી કોઈ સમીક્ષાઓ નથી',
+                'add_to_cart': 'કાર્ટમાં ઉમેરો',
+                'my_dashboard': 'મારું ડેશબોર્ડ',
+                'my_profile': 'મારી પ્રોફાઇલ',
+                'my_orders': 'મારા ઓર્ડર',
+                'my_suggestions': 'મારા સૂચનો',
+                'profile_details_missing': 'કૃપા કરીને તમારી પ્રોફાઇલ પૂર્ણ કરો.',
+                'no_orders': 'તમારી પાસે કોઈ બાકી ઓર્ડર નથી.',
+                'order_placed': 'ઓર્ડર સફળતાપૂર્વક આપ્યો!',
+                'cancel_order': 'ઓર્ડર રદ કરો',
+                'rate_review': 'રેટ અને સમીક્ષા કરો',
+                'submit_review': 'સમીક્ષા સબમિટ કરો',
+                'your_review': 'તમારી સમીક્ષા',
+                'admin_panel': 'એડમિન પેનલ',
+                'total_sales': 'કુલ વેચાણ',
+                'total_margin': 'કુલ માર્જિન',
+                'total_orders': 'કુલ ઓર્ડર',
+                'manage_products': 'ઉત્પાદનોનું સંચાલન કરો',
+                'all_orders': 'બધા ઓર્ડર',
+                'return_requests': 'વળતર વિનંતીઓ',
+                'customer_reviews': 'ગ્રાહક સમીક્ષાઓ',
+                'customer_suggestions': 'ગ્રાહક સૂચનો',
+                'no_suggestions': 'કોઈ નવા સૂચનો નથી.',
+                'from': 'તરફથી:',
+                'suggestion': 'સૂચન:',
+                'admin_reply': 'એડમિન જવાબ:',
+                'awaiting_reply': 'એડમિન જવાબની રાહ જોઈ રહ્યા છે...',
+                'stock': 'સ્ટોક:',
+                'out_of_stock': 'આ વસ્તુ હાલમાં સ્ટોકમાં નથી!',
+                'login_to_order': 'ઓર્ડર આપવા માટે કૃપા કરીને લોગિન કરો.',
+                'complete_profile_first': 'ઓર્ડર આપતા પહેલા કૃપા કરીને તમારી પ્રોફાઇલ પૂર્ણ કરો.',
+                'fill_details': 'કૃપા કરીને બધી વિગતો ભરો.',
+                'invalid_admin': 'અમાન્ય એડમિન ઓળખપત્રો.',
+                'invalid_otp': 'અમાન્ય ઓટીપી.',
+                'profile_saved': 'પ્રોફાઇલ સફળતાપૂર્વક સાચવવામાં આવી!',
+                'suggestion_submitted': 'સૂચન સફળતાપૂર્વક સબમિટ કર્યું!',
+                'fill_suggestion': 'કૃપા કરીને તમારું નામ અને એક સૂચન દાખલ કરો.',
+                'order_cancelled': 'ઓર્ડર રદ કરવામાં આવ્યો છે.',
+                'cannot_cancel': 'આ ઓર્ડર રદ કરી શકાતો નથી કારણ કે તે પહેલેથી જ પ્રક્રિયા થઈ રહ્યો છે અથવા પહોંચાડવામાં આવી રહ્યો છે.',
+                'cancel_window_passed': 'આ ઓર્ડર માટે 24-કલાકની રદ્દીકરણ અવધિ પસાર થઈ ગઈ છે।',
+                'review_thanks': 'તમારી સમીક્ષા માટે આભાર!',
+                'send_reply': 'જવાબ મોકલો',
+                'verify_upi': 'યુપીઆઈ ચકાસો',
+                'upi_verified': 'યુપીઆઈ ચકાસાઈ. ખાતા ધારકનું નામ:',
+                'invalid_upi': 'અમાન્ય યુપીઆઈ આઈડી।',
+                'invalid_phone': 'અમાન્ય ભારતીય મોબાઇલ નંબર। કૃપા કરીને 6, 7, 8, અથવા 9 થી શરૂ થતો 10-અંકોનો નંબર દાખલ કરો।',
+                'back': 'પાછા',
+                'logout': 'લૉગ આઉટ'
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.title = translations[lang]['title'];
+            document.getElementById('powered-by').textContent = translations[lang]['powered_by'];
+            document.querySelector('a[href="#mens"]').textContent = translations[lang]['mens_collection'];
+            document.querySelector('a[href="#womens"]').textContent = translations[lang]['womens_collection'];
+            document.querySelector('a[href="#return-policy"]').textContent = translations[lang]['return_policy'];
+            document.querySelector('a[href="#contact"]').textContent = translations[lang]['contact'];
+            document.querySelector('a[href="#cart"] span').textContent = translations[lang]['cart'];
+            document.getElementById('mainLoginBtn').textContent = translations[lang]['login'];
+            document.getElementById('searchInput').placeholder = translations[lang]['search_placeholder'];
+            document.querySelector('.hero-bg h2').textContent = translations[lang]['welcome_message'];
+            document.querySelector('.hero-bg p').textContent = translations[lang]['hero_subtext'];
+            document.querySelector('.hero-bg a').textContent = translations[lang]['shop_button'];
+            document.querySelector('#products h2').textContent = translations[lang]['our_collection'];
+            document.querySelector('#mens h3').textContent = translations[lang]['mens_collection'];
+            document.querySelector('#womens h3').textContent = translations[lang]['womens_collection'];
+            document.querySelector('#mens-lower h4').textContent = translations[lang]['lower_class'];
+            document.querySelector('#mens-middle h4').textContent = translations[lang]['middle_class'];
+            document.querySelector('#mens-higher h4').textContent = translations[lang]['higher_class'];
+            document.querySelector('#womens-lower h4').textContent = translations[lang]['lower_class'];
+            document.querySelector('#womens-middle h4').textContent = translations[lang]['middle_class'];
+            document.querySelector('#womens-higher h4').textContent = translations[lang]['higher_class'];
+            document.querySelector('#share-suggestion').textContent = translations[lang]['share_suggestion'];
+            document.querySelector('#suggestion-name').placeholder = translations[lang]['your_name'];
+            document.querySelector('#suggestion-text').placeholder = translations[lang]['your_suggestion'];
+            document.querySelector('#suggestion-form button').textContent = translations[lang]['submit_suggestion'];
+            document.querySelector('#return-policy h3').textContent = translations[lang]['return_policy'];
+            document.querySelector('#return-policy p').textContent = translations[lang]['return_policy_text'];
+            document.querySelector('#return-policy input[placeholder="Order Number"]').placeholder = translations[lang]['order_number'];
+            document.querySelector('#return-policy textarea').placeholder = translations[lang]['reason_for_return'];
+            document.querySelector('#return-policy button').textContent = translations[lang]['submit_return'];
+            document.querySelector('#payment-methods').textContent = translations[lang]['payment_methods'];
+            document.querySelector('#payment-methods + p').textContent = translations[lang]['choose_payment'];
+            document.getElementById('contact h3').textContent = translations[lang]['contact_us'];
+            document.getElementById('my-dashboard-title').textContent = translations[lang]['my_dashboard'];
+            document.getElementById('backBtn').textContent = translations[lang]['back'];
+            document.getElementById('profile-btn').textContent = translations[lang]['my_profile'];
+            document.getElementById('orders-btn').textContent = translations[lang]['my_orders'];
+            document.getElementById('suggestions-btn').textContent = translations[lang]['my_suggestions'];
+            document.getElementById('logoutBtn').textContent = translations[lang]['logout'];
+            document.getElementById('profile-details').innerHTML = `<p class="text-gray-400">${translations[currentLanguage]['profile_details_missing']}</p>`;
+            document.getElementById('my-orders-section p').textContent = translations[lang]['no_orders'];
+            document.getElementById('my-suggestions-section p').textContent = translations[lang]['no_suggestions'];
+            document.getElementById('login-selection-modal h3').textContent = translations[lang]['select_login_type'];
+            document.querySelector('#login-selection-modal button:nth-of-type(1)').textContent = translations[lang]['customer_login'];
+            document.querySelector('#login-selection-modal button:nth-of-type(2)').textContent = translations[lang]['admin_login'];
+            document.querySelector('#login-selection-modal button:nth-of-type(3)').textContent = translations[lang]['close'];
+            document.getElementById('login-title').textContent = translations[lang]['login'];
+            document.getElementById('phone-number').placeholder = translations[lang]['phone_number'];
+            document.getElementById('password-field').placeholder = translations[lang]['password_placeholder'];
+            document.getElementById('otp-field').placeholder = translations[lang]['otp_placeholder'];
+            document.querySelector('#login-modal button').textContent = translations[lang]['login'];
+            document.getElementById('login-modal').querySelector('button:last-of-type').textContent = translations[lang]['close'];
+            document.getElementById('profile-modal h3').textContent = translations[lang]['complete_profile'];
+            document.getElementById('profile-name').placeholder = translations[lang]['full_name'];
+            document.getElementById('profile-email').placeholder = translations[lang]['email'];
+            document.getElementById('profile-age').placeholder = translations[lang]['age'];
+            document.getElementById('profile-gender').options[0].textContent = translations[lang]['select_gender'];
+            document.getElementById('profile-language').options[0].textContent = translations[lang]['select_language'];
+            document.getElementById('profile-modal').querySelector('button:last-of-type').textContent = translations[lang]['close'];
+            document.getElementById('checkout-modal h3').textContent = translations[lang]['enter_shipping'];
+            document.getElementById('checkout-address').placeholder = translations[lang]['address'];
+            document.getElementById('checkout-city').placeholder = translations[lang]['city'];
+            document.getElementById('checkout-state').placeholder = translations[lang]['state'];
+            document.getElementById('checkout-pincode').placeholder = translations[lang]['pincode'];
+            document.getElementById('payment-method').options[0].textContent = translations[lang]['select_payment_method'];
+            document.getElementById('upi-id').placeholder = translations[lang]['upi'];
+            document.getElementById('checkoutBtn').textContent = translations[lang]['checkout'];
+            document.querySelector('.cart-icon span').textContent = translations[lang]['cart'];
+            
+            // Re-render dynamic content
+            renderProducts(allProducts);
+            if (currentUserId) {
+                renderCustomerDashboard();
+            }
+        }
+        
+        function renderProducts(productsToRender) {
+            const mensLowerContainer = document.getElementById('mens-lower-products');
+            const mensMiddleContainer = document.getElementById('mens-middle-products');
+            const mensHigherContainer = document.getElementById('mens-higher-products');
+            const womensLowerContainer = document.getElementById('womens-lower-products');
+            const womensMiddleContainer = document.getElementById('womens-middle-products');
+            const womensHigherContainer = document.getElementById('womens-higher-products');
+        
+            mensLowerContainer.innerHTML = '';
+            mensMiddleContainer.innerHTML = '';
+            mensHigherContainer.innerHTML = '';
+            womensLowerContainer.innerHTML = '';
+            womensMiddleContainer.innerHTML = '';
+            womensHigherContainer.innerHTML = '';
+
+            for (const [productId, product] of Object.entries(productsToRender)) {
+                let ratingHtml = '';
+                if (product.reviews.length > 0) {
+                    const totalRating = product.reviews.reduce((sum, review) => sum + review.rating, 0);
+                    const avgRating = (totalRating / product.reviews.length).toFixed(1);
+                    ratingHtml = `<div class="star-rating mb-2">⭐ ${avgRating} / 5</div>`;
+                } else {
+                    ratingHtml = `<p class="text-gray-500 text-sm mb-2">${translations[currentLanguage]['no_reviews']}</p>`;
+                }
+                
+                const isOutOfStock = product.stock <= 0;
+                const buttonHtml = isOutOfStock ? `<span class="text-red-500 font-bold">${translations[currentLanguage]['out_of_stock']}</span>` : `<button class="add-to-cart premium-button py-2 px-6 rounded-full mt-4" data-product-id="${productId}">${translations[currentLanguage]['add_to_cart']}</button>`;
+
+                const card = `
+                    <div class="product-card p-6 rounded-lg text-center">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover rounded-md mb-4">
+                        <h4 class="text-xl font-semibold gold-text">${product.name}</h4>
+                        ${ratingHtml}
+                        <p class="text-gray-400">${translations[currentLanguage]['stock']} ${isOutOfStock ? 0 : product.stock}</p>
+                        <div class="text-xl font-bold mt-4 gold-text">₹<span id="price-${productId}">${product.price}</span></div>
+                        ${buttonHtml}
+                    </div>
+                `;
+                if (product.category === 'men') {
+                    if (product.priceTier === 'lower') mensLowerContainer.innerHTML += card;
+                    else if (product.priceTier === 'middle') mensMiddleContainer.innerHTML += card;
+                    else if (product.priceTier === 'higher') mensHigherContainer.innerHTML += card;
+                } else if (product.category === 'women') {
+                    if (product.priceTier === 'lower') womensLowerContainer.innerHTML += card;
+                    else if (product.priceTier === 'middle') womensMiddleContainer.innerHTML += card;
+                    else if (product.priceTier === 'higher') womensHigherContainer.innerHTML += card;
+                }
+            }
+
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = this.dataset.productId;
+                    const product = allProducts[productId];
+                    if (product.stock <= 0) {
+                        alert(translations[currentLanguage]['out_of_stock']);
+                        return;
+                    }
+                    cart.push(product);
+                    updateCart();
+                });
+            });
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.length;
+            cartCount.classList.remove('hidden');
+
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'text-gray-300';
+                li.textContent = `${item.name} - ₹${item.price}`;
+                cartItemsContainer.appendChild(li);
+                total += item.price;
+            });
+            document.getElementById('cart-total').textContent = `${translations[currentLanguage]['total']} ₹${total}`;
+        }
+
+        function closeCart() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert(translations[currentLanguage]['your_cart_empty']);
+                closeCart();
+                return;
+            }
+            if (!currentUserId) {
+                alert(translations[currentLanguage]['login_to_order']);
+                closeCart();
+                openLoginSelection();
+                return;
+            }
+            if (!customers[currentUserId].profileCompleted) {
+                alert(translations[currentLanguage]['complete_profile_first']);
+                closeCart();
+                openProfileModal();
+                return;
+            }
+            closeCart();
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function placeOrder() {
+            const address = document.getElementById('checkout-address').value;
+            const city = document.getElementById('checkout-city').value;
+            const state = document.getElementById('checkout-state').value;
+            const pincode = document.getElementById('checkout-pincode').value;
+            const paymentMethod = document.getElementById('payment-method').value;
+
+            if (!address || !city || !state || !pincode || !paymentMethod) {
+                alert(translations[currentLanguage]['fill_details']);
+                return;
+            }
+            
+            if (paymentMethod === 'UPI' && !document.getElementById('upi-name').textContent) {
+                 alert('Please verify your UPI ID first.');
+                 return;
+            }
+
+
+            const orderId = 'ORD-' + Math.floor(Math.random() * 10000);
+            const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+
+            const newOrder = {
+                id: orderId,
+                items: [...cart],
+                totalAmount: totalAmount,
+                address: address,
+                city: city,
+                state: state,
+                pincode: pincode,
+                paymentMethod: paymentMethod,
+                status: 'Pending',
+                orderDate: new Date().getTime(),
+                deliveryDate: new Date(new Date().setDate(new Date().getDate() + 5))
+            };
+
+            if (!customers[currentUserId].orders) {
+                customers[currentUserId].orders = [];
+            }
+            customers[currentUserId].orders.push(newOrder);
+            cart = [];
+            updateCart();
+            
+            alert(translations[currentLanguage]['order_placed']);
+            closeCheckoutModal();
+            renderCustomerDashboard();
+            renderAdminDashboard();
+            saveData();
+        }
+
+        function renderCustomerDashboard() {
+            const customer = customers[currentUserId];
+            if (!customer) return;
+
+            // Render Profile
+            const profileContainer = document.getElementById('profile-details');
+            if (customer.profileCompleted) {
+                profileContainer.innerHTML = `
+                    <p><strong>${translations[currentLanguage]['full_name']}:</strong> ${customer.profile.name}</p>
+                    <p><strong>${translations[currentLanguage]['phone_number']}:</strong> ${currentUserId}</p>
+                    <p><strong>${translations[currentLanguage]['email']}:</strong> ${customer.profile.email}</p>
+                    <p><strong>${translations[currentLanguage]['age']}:</strong> ${customer.profile.age}</p>
+                    <p><strong>${translations[currentLanguage]['gender']}:</strong> ${customer.profile.gender}</p>
+                    <p><strong>${translations[currentLanguage]['select_language']}:</strong> ${customer.profile.language}</p>
+                `;
+            } else {
+                profileContainer.innerHTML = `<p class="text-gray-400">${translations[currentLanguage]['profile_details_missing']}</p>`;
+            }
+
+            // Render Orders
+            const ordersContainer = document.getElementById('my-orders-section');
+            ordersContainer.innerHTML = `<h4 class="text-2xl font-semibold gold-text mb-4">${translations[currentLanguage]['my_orders']}</h4>`;
+            if (customer.orders && customer.orders.length > 0) {
+                customer.orders.forEach(order => {
+                    const orderDiv = document.createElement('div');
+                    orderDiv.className = 'bg-gray-800 p-4 rounded-md mb-4';
+                    
+                    let orderDetailsHtml = `
+                        <p class="font-bold gold-text">${translations[currentLanguage]['order_number']} #${order.id}</p>
+                        <p class="text-gray-300">${translations[currentLanguage]['total']}: ₹${order.totalAmount}</p>
+                        <p class="text-gray-300">Status: ${order.status}</p>
+                        <p class="text-gray-300">Placed On: ${new Date(order.orderDate).toLocaleDateString()}</p>
+                        <p class="text-gray-300">Expected Delivery: ${new Date(order.deliveryDate).toLocaleDateString()}</p>
+                    `;
+                    
+                    const timeElapsed = new Date().getTime() - order.orderDate;
+                    const twentyFourHours = 24 * 60 * 60 * 1000;
+                    
+                    if (order.status === 'Pending' && timeElapsed <= twentyFourHours) {
+                        orderDetailsHtml += `<button onclick="cancelOrder('${order.id}')" class="text-red-500 mt-2 hover:underline">${translations[currentLanguage]['cancel_order']}</button>`;
+                    } else if (order.status === 'Delivered' && !order.review) {
+                         orderDetailsHtml += `
+                            <h5 class="text-lg font-semibold mt-4">${translations[currentLanguage]['rate_review']}</h5>
+                            <form class="review-form" data-order-id="${order.id}">
+                                <div class="flex items-center space-x-2 mt-2">
+                                    <label class="text-sm text-gray-400">Rating:</label>
+                                    <select name="rating" class="p-1 bg-gray-700 rounded text-white">
+                                        <option value="5">5 Stars</option>
+                                        <option value="4">4 Stars</option>
+                                        <option value="3">3 Stars</option>
+                                        <option value="2">2 Stars</option>
+                                        <option value="1">1 Star</option>
+                                    </select>
+                                </div>
+                                <textarea name="reviewText" placeholder="${translations[currentLanguage]['your_review']}..." class="w-full p-2 bg-gray-700 text-white rounded mt-2"></textarea>
+                                <button type="submit" class="premium-button px-4 py-2 rounded mt-2">${translations[currentLanguage]['submit_review']}</button>
+                            </form>
+                        `;
+                    } else if (order.review) {
+                        orderDetailsHtml += `
+                            <h5 class="text-lg font-semibold mt-4">${translations[currentLanguage]['your_review']}</h5>
+                            <p class="text-sm">Rating: ${order.review.rating} ⭐</p>
+                            <p class="text-sm text-gray-300">Review: ${order.review.text}</p>
+                        `;
+                    }
+                    orderDiv.innerHTML = orderDetailsHtml;
+                    ordersContainer.appendChild(orderDiv);
+                });
+            } else {
+                ordersContainer.innerHTML += `<p class="text-gray-400">${translations[currentLanguage]['no_orders']}</p>`;
+            }
+
+            // Render Suggestions
+            const suggestionsContainer = document.getElementById('my-suggestions-section');
+            suggestionsContainer.innerHTML = `<h4 class="text-2xl font-semibold gold-text mb-4">${translations[currentLanguage]['my_suggestions']}</h4>`;
+            
+            const mySuggestions = suggestions.filter(sug => sug.phone === currentUserId);
+            if (mySuggestions.length === 0) {
+                suggestionsContainer.innerHTML += `<p class="text-gray-400">${translations[currentLanguage]['no_suggestions']}</p>`;
+            } else {
+                 mySuggestions.forEach(sug => {
+                    const sugDiv = document.createElement('div');
+                    sugDiv.className = 'bg-gray-800 p-4 rounded-md mb-4';
+                    sugDiv.innerHTML = `
+                        <p class="font-semibold gold-text">${translations[currentLanguage]['from']} ${sug.name} (${sug.phone})</p>
+                        <p class="text-gray-300">${translations[currentLanguage]['suggestion']} ${sug.text}</p>
+                        ${sug.reply ? `<div class="bg-gray-700 p-2 mt-2 rounded">
+                            <p class="text-sm font-semibold gold-text">${translations[currentLanguage]['admin_reply']}</p>
+                            <p class="text-sm">${sug.reply}</p>
+                        </div>` : `<p class="text-gray-500 text-sm mt-2">${translations[currentLanguage]['awaiting_reply']}</p>`}
+                    `;
+                    suggestionsContainer.appendChild(sugDiv);
+                });
+            }
+
+            document.querySelectorAll('.review-form').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const orderId = this.dataset.orderId;
+                    const rating = parseInt(this.querySelector('select[name="rating"]').value);
+                    const reviewText = this.querySelector('textarea[name="reviewText"]').value;
+                    submitReview(orderId, rating, reviewText);
+                });
+            });
+        }
+        
+        function cancelOrder(orderId) {
+            const customerOrders = customers[currentUserId].orders;
+            const order = customerOrders.find(o => o.id === orderId);
+            if (order) {
+                const timeElapsed = new Date().getTime() - order.orderDate;
+                const twentyFourHours = 24 * 60 * 60 * 1000;
+                if (timeElapsed <= twentyFourHours) {
+                    order.status = 'Cancelled';
+                    alert(`${translations[currentLanguage]['order_number']} ${orderId} ${translations[currentLanguage]['order_cancelled']}`);
+                    renderCustomerDashboard();
+                    saveData();
+                } else {
+                    alert(translations[currentLanguage]['cancel_window_passed']);
+                }
+            }
+        }
+        
+        function submitReview(orderId, rating, reviewText) {
+            const customerOrders = customers[currentUserId].orders;
+            const order = customerOrders.find(o => o.id === orderId);
+            if (!order) return;
+            
+            order.review = { rating, text: reviewText };
+            alert(translations[currentLanguage]['review_thanks']);
+            renderCustomerDashboard();
+            saveData();
+        }
+
+        function openLoginSelection() {
+            document.getElementById('login-selection-modal').classList.remove('hidden');
+        }
+
+        function closeLoginSelection() {
+            document.getElementById('login-selection-modal').classList.add('hidden');
+        }
+
+        function openCustomerLogin() {
+            loginType = 'customer';
+            document.getElementById('login-title').textContent = translations[currentLanguage]['customer_login'];
+            document.getElementById('password-field').classList.add('hidden');
+            document.getElementById('otp-field').classList.remove('hidden');
+            closeLoginSelection();
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+
+        function openAdminLogin() {
+            loginType = 'admin';
+            document.getElementById('login-title').textContent = translations[currentLanguage]['admin_login'];
+            document.getElementById('password-field').classList.remove('hidden');
+            document.getElementById('otp-field').classList.add('hidden');
+            closeLoginSelection();
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+
+        function login() {
+            const phoneNumber = document.getElementById('phone-number').value;
+            if (!/^[6-9]\d{9}$/.test(phoneNumber)) {
+                alert(translations[currentLanguage]['invalid_phone']);
+                return;
+            }
+            if (loginType === 'admin') {
+                const password = document.getElementById('password-field').value;
+                if (phoneNumber === adminPhone && password === adminPassword) {
+                    alert('Admin login successful!');
+                    document.getElementById('admin-panel').classList.remove('hidden');
+                    document.getElementById('main-content').classList.add('hidden');
+                    document.getElementById('customer-dashboard').classList.add('hidden');
+                    document.getElementById('login-modal').classList.add('hidden');
+                    renderAdminDashboard();
+                } else {
+                    alert(translations[currentLanguage]['invalid_admin']);
+                }
+            } else if (loginType === 'customer') {
+                const otp = document.getElementById('otp-field').value;
+                if (otp === dummyOTP) {
+                    currentUserId = phoneNumber;
+                    localStorage.setItem('currentUserId', currentUserId);
+                    if (!customers[currentUserId]) {
+                        customers[currentUserId] = { profileCompleted: false, profile: {}, orders: [] };
+                        saveData();
+                    }
+                    alert('Customer login successful!');
+                    document.getElementById('main-content').classList.add('hidden');
+                    document.getElementById('customer-dashboard').classList.remove('hidden');
+                    document.getElementById('admin-panel').classList.add('hidden');
+                    closeLogin();
+                    updateLoginState();
+                    if (!customers[currentUserId].profileCompleted) {
+                        openProfileModal();
+                    } else {
+                        renderCustomerDashboard();
+                    }
+                } else {
+                    alert(translations[currentLanguage]['invalid_otp']);
+                }
+            }
+        }
+        
+        function closeLogin() {
+            document.getElementById('login-modal').classList.add('hidden');
+        }
+
+        function openProfileModal() {
+            document.getElementById('profile-modal').classList.remove('hidden');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profile-modal').classList.add('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+        
+        function verifyUpi() {
+            const upiId = document.getElementById('upi-id').value;
+            const upiName = upiDatabase[upiId];
+            const upiNameDisplay = document.getElementById('upi-name');
+            if (upiName) {
+                upiNameDisplay.textContent = `${translations[currentLanguage]['upi_verified']} ${upiName}`;
+                upiNameDisplay.classList.remove('text-red-500');
+                upiNameDisplay.classList.add('gold-text');
+            } else {
+                upiNameDisplay.textContent = translations[currentLanguage]['invalid_upi'];
+                upiNameDisplay.classList.remove('gold-text');
+                upiNameDisplay.classList.add('text-red-500');
+            }
+        }
+
+        function renderAdminDashboard() {
+            // Render Product Management
+            const productManagementContainer = document.getElementById('admin-product-management');
+            productManagementContainer.innerHTML = '';
+            for (const [productId, product] of Object.entries(allProducts)) {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'bg-gray-800 p-4 rounded-md mb-4';
+                productDiv.innerHTML = `
+                    <h5 class="font-semibold gold-text">${product.name}</h5>
+                    <img src="${product.image}" class="w-24 h-24 object-cover my-2">
+                    <div class="mt-2">
+                        <label class="text-sm text-gray-400">Price:</label>
+                        <input type="number" id="price-${productId}" value="${product.price}" class="w-24 p-1 bg-gray-700 rounded text-white" />
+                    </div>
+                    <div class="mt-2">
+                        <label class="text-sm text-gray-400">Stock:</label>
+                        <input type="number" id="stock-${productId}" value="${product.stock}" class="w-24 p-1 bg-gray-700 rounded text-white" />
+                    </div>
+                    <div class="mt-2">
+                        <label class="text-sm text-gray-400">Change Image:</label>
+                        <input type="file" id="image-file-${productId}" class="w-full p-1 bg-gray-700 text-white rounded mt-1" />
+                        <input type="hidden" id="image-url-${productId}" value="${product.image}" />
+                    </div>
+                    <button onclick="updateProduct('${productId}')" class="premium-button px-4 py-2 rounded mt-2">Update</button>
+                `;
+                productManagementContainer.appendChild(productDiv);
+            }
+
+            // Render All Orders
+            const allOrdersContainer = document.getElementById('admin-all-orders');
+            allOrdersContainer.innerHTML = '';
+            let totalSales = 0;
+            let totalOrders = 0;
+            const allCustomerOrders = [];
+            for (const customerId in customers) {
+                const customer = customers[customerId];
+                if (customer.orders) {
+                    customer.orders.forEach(order => {
+                        totalOrders++;
+                        totalSales += order.totalAmount;
+                        allCustomerOrders.push({
+                            customerId,
+                            ...order
+                        });
+                    });
+                }
+            }
+
+            allCustomerOrders.sort((a, b) => b.orderDate - a.orderDate);
+
+            if (allCustomerOrders.length === 0) {
+                allOrdersContainer.innerHTML = `<p class="text-gray-400">No orders to display.</p>`;
+            } else {
+                allCustomerOrders.forEach(order => {
+                    const orderDiv = document.createElement('div');
+                    orderDiv.className = 'bg-gray-800 p-4 rounded-md mb-4';
+                    let orderHtml = `
+                        <p class="font-bold gold-text">Order ID: #${order.id}</p>
+                        <p class="text-sm text-gray-300">Customer: ${customers[order.customerId].profile.name || 'N/A'}</p>
+                        <p class="text-sm text-gray-300">Phone: ${order.customerId}</p>
+                        <p class="text-sm text-gray-300">Total: ₹${order.totalAmount}</p>
+                        <p class="text-sm text-gray-300">Status: ${order.status}</p>
+                        <p class="text-sm text-gray-300">Order Date: ${new Date(order.orderDate).toLocaleDateString()}</p>
+                        <ul class="list-disc list-inside text-sm text-gray-400 ml-4">
+                            ${order.items.map(item => `<li>${item.name}</li>`).join('')}
+                        </ul>
+                    `;
+                    if (order.status === 'Pending') {
+                        orderHtml += `
+                            <div class="mt-2 space-x-2">
+                                <button onclick="approveOrder('${order.customerId}', '${order.id}')" class="bg-green-500 text-white px-4 py-2 rounded text-sm">Approve</button>
+                                <button onclick="rejectOrder('${order.customerId}', '${order.id}')" class="bg-red-500 text-white px-4 py-2 rounded text-sm">Reject</button>
+                            </div>
+                        `;
+                    } else if (order.status === 'Approved') {
+                        orderHtml += `
+                            <div class="mt-2 space-x-2">
+                                <button onclick="deliverOrder('${order.customerId}', '${order.id}')" class="bg-blue-500 text-white px-4 py-2 rounded text-sm">Mark as Delivered</button>
+                            </div>
+                        `;
+                    }
+                    orderDiv.innerHTML = orderHtml;
+                    allOrdersContainer.appendChild(orderDiv);
+                });
+            }
+
+            document.getElementById('admin-sales-count').textContent = `₹${totalSales}`;
+            document.getElementById('admin-orders-count').textContent = totalOrders;
+
+            // Render Suggestions
+            const suggestionsContainer = document.getElementById('admin-suggestions');
+            suggestionsContainer.innerHTML = '';
+            if (suggestions.length === 0) {
+                suggestionsContainer.innerHTML = `<p class="text-gray-400">${translations[currentLanguage]['no_suggestions']}</p>`;
+            } else {
+                suggestions.forEach(sug => {
+                    const sugDiv = document.createElement('div');
+                    sugDiv.className = 'bg-gray-800 p-4 rounded-md mb-4';
+                    sugDiv.innerHTML = `
+                        <p class="font-semibold gold-text">${translations[currentLanguage]['from']} ${sug.name} (${sug.phone})</p>
+                        <p class="text-gray-300">${translations[currentLanguage]['suggestion']} ${sug.text}</p>
+                        ${sug.reply ? `<p class="mt-2 text-sm text-gray-400">${translations[currentLanguage]['admin_reply']} ${sug.reply}</p>` : `
+                            <div class="mt-2 flex">
+                                <input type="text" id="reply-${sug.id}" placeholder="${translations[currentLanguage]['send_reply']}" class="w-full p-2 bg-gray-700 text-white rounded mr-2" />
+                                <button onclick="replyToSuggestion('${sug.id}')" class="premium-button px-4 py-2 rounded text-sm">${translations[currentLanguage]['send_reply']}</button>
+                            </div>
+                        `}
+                    `;
+                    suggestionsContainer.appendChild(sugDiv);
+                });
+            }
+        }
+        
+        function updateProduct(productId) {
+            const newPrice = document.getElementById(`price-${productId}`).value;
+            const newStock = document.getElementById(`stock-${productId}`).value;
+            const fileInput = document.getElementById(`image-file-${productId}`);
+            let newImage = document.getElementById(`image-url-${productId}`).value;
+
+            if (fileInput.files.length > 0) {
+                newImage = URL.createObjectURL(fileInput.files[0]);
+            }
+            
+            allProducts[productId].price = parseFloat(newPrice);
+            allProducts[productId].stock = parseInt(newStock);
+            allProducts[productId].image = newImage;
+            
+            renderProducts(allProducts);
+            alert('Product updated successfully!');
+            saveData();
+        }
+        
+        function approveOrder(customerId, orderId) {
+            const customer = customers[customerId];
+            const order = customer.orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = 'Approved';
+                alert(`Order ${orderId} has been approved.`);
+                renderAdminDashboard();
+                saveData();
+            }
+        }
+        
+        function rejectOrder(customerId, orderId) {
+            const customer = customers[customerId];
+            const order = customer.orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = 'Rejected';
+                alert(`Order ${orderId} has been rejected.`);
+                renderAdminDashboard();
+                saveData();
+            }
+        }
+
+        function deliverOrder(customerId, orderId) {
+            const customer = customers[customerId];
+            const order = customer.orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = 'Delivered';
+                alert(`Order ${orderId} has been marked as delivered.`);
+                renderAdminDashboard();
+                saveData();
+            }
+        }
+        
+        function replyToSuggestion(suggestionId) {
+            const replyText = document.getElementById(`reply-${suggestionId}`).value;
+            const suggestion = suggestions.find(sug => sug.id === suggestionId);
+            if (suggestion && replyText) {
+                suggestion.reply = replyText;
+                alert('Reply sent successfully!');
+                renderAdminDashboard();
+                saveData();
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('customers', JSON.stringify(customers));
+            localStorage.setItem('suggestions', JSON.stringify(suggestions));
+            localStorage.setItem('currentUserId', currentUserId);
+        }
+
+        function updateLoginState() {
+            const mainLoginBtn = document.getElementById('mainLoginBtn');
+            const loggedInOptions = document.getElementById('logged-in-options');
+            if (currentUserId) {
+                mainLoginBtn.classList.add('hidden');
+                loggedInOptions.classList.remove('hidden');
+            } else {
+                mainLoginBtn.classList.remove('hidden');
+                loggedInOptions.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('mainLoginBtn').addEventListener('click', openLoginSelection);
+        document.getElementById('addAccountBtn').addEventListener('click', () => {
+            currentUserId = null;
+            localStorage.removeItem('currentUserId');
+            updateLoginState();
+            document.getElementById('main-content').classList.remove('hidden');
+            document.getElementById('customer-dashboard').classList.add('hidden');
+            document.getElementById('admin-panel').classList.add('hidden');
+            openLoginSelection();
+        });
+        document.getElementById('dashboardBtn').addEventListener('click', () => {
+            document.getElementById('main-content').classList.add('hidden');
+            document.getElementById('customer-dashboard').classList.remove('hidden');
+            renderCustomerDashboard();
+        });
+        document.getElementById('backBtn').addEventListener('click', () => {
+            document.getElementById('customer-dashboard').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+        });
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            currentUserId = null;
+            localStorage.removeItem('currentUserId');
+            updateLoginState();
+            document.getElementById('customer-dashboard').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+            document.getElementById('admin-panel').classList.add('hidden');
+            alert('Logged out successfully!');
+        });
+        document.getElementById('checkoutBtn').addEventListener('click', checkout);
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            placeOrder();
+        });
+        
+        document.getElementById('payment-method').addEventListener('change', function() {
+            const upiDetails = document.getElementById('upi-details');
+            if (this.value === 'UPI') {
+                upiDetails.classList.remove('hidden');
+            } else {
+                upiDetails.classList.add('hidden');
+            }
+        });
+
+
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('profile-name').value;
+            const email = document.getElementById('profile-email').value;
+            const age = document.getElementById('profile-age').value;
+            const gender = document.getElementById('profile-gender').value;
+            const language = document.getElementById('profile-language').value;
+
+            customers[currentUserId].profile = { name, email, age, gender, language };
+            customers[currentUserId].profileCompleted = true;
+            alert(translations[currentLanguage]['profile_saved']);
+            closeProfileModal();
+            setLanguage(language);
+            renderCustomerDashboard();
+            saveData();
+        });
+
+        document.getElementById('suggestion-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('suggestion-name').value;
+            const text = document.getElementById('suggestion-text').value;
+            if (name && text) {
+                const newSuggestion = { id: 'sug-' + (suggestions.length + 1), name: name, text: text, phone: currentUserId, reply: null };
+                suggestions.push(newSuggestion);
+                alert(translations[currentLanguage]['suggestion_submitted']);
+                document.getElementById('suggestion-name').value = '';
+                document.getElementById('suggestion-text').value = '';
+                renderCustomerDashboard();
+                renderAdminDashboard();
+                saveData();
+            } else {
+                alert(translations[currentLanguage]['fill_suggestion']);
+            }
+        });
+        
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const query = this.value.toLowerCase();
+            const filteredProducts = {};
+            for (const key in allProducts) {
+                if (allProducts[key].name.toLowerCase().includes(query)) {
+                    filteredProducts[key] = allProducts[key];
+                }
+            }
+            renderProducts(filteredProducts);
+        });
+
+        document.querySelector('a[href="#cart"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('cart-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('profile-btn').addEventListener('click', () => {
+            document.getElementById('my-profile-section').classList.remove('hidden');
+            document.getElementById('my-orders-section').classList.add('hidden');
+            document.getElementById('my-suggestions-section').classList.add('hidden');
+        });
+
+        document.getElementById('orders-btn').addEventListener('click', () => {
+            document.getElementById('my-profile-section').classList.add('hidden');
+            document.getElementById('my-orders-section').classList.remove('hidden');
+            document.getElementById('my-suggestions-section').classList.add('hidden');
+        });
+
+        document.getElementById('suggestions-btn').addEventListener('click', () => {
+            document.getElementById('my-profile-section').classList.add('hidden');
+            document.getElementById('my-orders-section').classList.add('hidden');
+            document.getElementById('my-suggestions-section').classList.remove('hidden');
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts(allProducts);
+            updateLoginState();
+            if (currentUserId && customers[currentUserId] && customers[currentUserId].profile.language) {
+                setLanguage(customers[currentUserId].profile.language);
+            }
+            if (currentUserId) {
+                renderCustomerDashboard();
+            }
+        });
+    </script>
+</body>
+</html>
