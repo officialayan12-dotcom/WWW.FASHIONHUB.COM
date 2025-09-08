@@ -1,1661 +1,1165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion Hub - Premium Clothing and Fashion Items</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Playfair Display', serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
-            color: #f0f0f0;
-            min-height: 100vh;
-        }
-        .hero-bg {
-            background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
-            background-blend-mode: overlay;
-            background-color: rgba(0,0,0,0.5);
-        }
-        .product-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,215,0,0.3);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-        }
-        .product-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(255,215,0,0.2);
-            border-color: #ffd700;
-        }
-        .gold-text {
-            color: #ffd700;
-        }
-        .premium-button {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #1a1a1a;
-            transition: all 0.3s ease;
-        }
-        .premium-button:hover {
-            background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
-            transform: scale(1.05);
-        }
-        .cart-icon {
-            position: relative;
-        }
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ffd700;
-            color: #1a1a1a;
-            border-radius: 50%;
-            padding: 0.2rem 0.5rem;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        .star-rating {
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-        }
-        .star {
-            font-size: 1.2rem;
-            color: #ffd700;
-        }
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out;
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .premium-shadow {
-            box-shadow: 0 10px 30px rgba(255,215,0,0.1);
-        }
-        .search-bar {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,215,0,0.3);
-        }
-        .active-tab {
-            background-color: rgba(255, 215, 0, 0.2);
-            color: #ffd700;
-        }
-        .notification-card {
-            background: rgba(255,215,0,0.1);
-            border: 1px solid rgba(255,215,0,0.3);
-            color: #ffd700;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fashion Hub — Multi-language E-Commerce</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Playfair Display', serif; background: linear-gradient(135deg,#1a1a1a 0%,#333 100%); color:#f0f0f0; min-height:100vh; }
+    .gold-text { color:#ffd700; }
+    .premium-button { background: linear-gradient(135deg,#ffd700 0%,#ffed4e 100%); color:#1a1a1a; transition: all .25s; }
+    .premium-button:hover { transform: scale(1.02); }
+    .product-card { background: rgba(255,255,255,0.03); border:1px solid rgba(255,215,0,0.08); backdrop-filter: blur(6px); }
+    .eye-btn { position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer; color:#ffd700; user-select:none; }
+    .modal-tab-button { background: rgba(255,215,0,0.06); color:#ffd700; padding:.5rem 1rem; border-radius:.5rem; }
+    .modal-tab-button.active { background:#ffd700; color:#1a1a1a; }
+    .small-btn { background:#2d2d2d; padding:.4rem .6rem; border-radius:.4rem; color:#fff; }
+    .badge { background:#111; padding:.2rem .4rem; border-radius:.4rem; border:1px solid rgba(255,255,255,0.05); }
+    table { width:100%; border-collapse: collapse; }
+    th, td { padding:.6rem; border-bottom:1px solid rgba(255,255,255,0.04); text-align:left; }
+  </style>
 </head>
 <body class="text-gray-100">
-    <header class="bg-gradient-to-r from-gray-900 to-black shadow-lg sticky top-0 z-10 premium-shadow">
-        <div class="container mx-auto px-4 py-6">
-            <div class="text-center">
-                <h1 class="text-4xl font-bold gold-text mb-2">Fashion Hub</h1>
-                <p class="text-sm text-gray-400" id="powered-by">Powered by Memon Ayan and Mansuri Riyan</p>
-            </div>
-            <nav class="flex flex-wrap justify-center space-x-2 md:space-x-8 mt-4 text-center">
-                <a href="#mens" class="text-gray-300 hover:gold-text transition duration-300">Men's Collection</a>
-                <a href="#womens" class="text-gray-300 hover:gold-text transition duration-300">Women's Collection</a>
-                <a href="#return-policy" class="text-gray-300 hover:gold-text transition duration-300">Return Policy</a>
-                <a href="#contact" class="text-gray-300 hover:gold-text transition duration-300">Contact</a>
-                <a href="#" class="cart-icon text-gray-300 hover:gold-text transition duration-300">
-                    <span>Cart</span>
-                    <span id="cart-count" class="cart-count hidden">0</span>
-                </a>
-            </nav>
-            <div class="flex flex-col md:flex-row items-center justify-center mt-4 space-y-4 md:space-y-0 md:space-x-4">
-                <input type="text" id="searchInput" placeholder="Search for products..." class="search-bar w-full md:w-1/3 p-2 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none">
-                <button id="mainLoginBtn" class="premium-button px-4 py-2 rounded font-semibold w-full md:w-auto">Login</button>
-                <div id="logged-in-options" class="hidden flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                    <button id="dashboardBtn" class="premium-button px-4 py-2 rounded font-semibold w-full md:w-auto">My Dashboard</button>
-                    <button id="addAccountBtn" class="bg-gray-600 text-white px-4 py-2 rounded font-semibold w-full md:w-auto hover:bg-gray-700">Add Account</button>
-                </div>
-            </div>
+
+  <header class="bg-gradient-to-r from-gray-900 to-black shadow-lg sticky top-0 z-30 p-4">
+    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <h1 class="text-3xl font-bold gold-text">Fashion Hub</h1>
+        <p id="powered-by" class="text-sm text-gray-300">Powered by Meman Ayan</p>
+      </div>
+
+      <nav class="flex items-center gap-4">
+        <a href="#products" class="text-gray-300 hover:underline" data-key="nav_products">Products</a>
+        <a href="#return-policy" class="text-gray-300 hover:underline" data-key="nav_return">Return Policy</a>
+        <a href="#contact" class="text-gray-300 hover:underline" data-key="nav_contact">Contact</a>
+        <button id="mainLoginBtn" class="premium-button px-4 py-2 rounded font-semibold" onclick="openLoginModal()" data-key="btn_login">Login</button>
+
+        <div id="logged-in-options" class="hidden flex items-center gap-2">
+          <button id="profileNavBtn" class="premium-button px-3 py-2 rounded" onclick="showCustomerProfile()" data-key="btn_profile">My Profile</button>
+          <button id="dashboardBtn" class="bg-gray-700 text-white px-3 py-2 rounded hidden" onclick="showAdminPanel()" data-key="btn_dashboard">My Dashboard</button>
+          <button id="logoutBtnTop" class="bg-red-600 text-white px-3 py-2 rounded hidden" onclick="logoutUser()" data-key="btn_logout">Logout</button>
         </div>
-    </header>
-    
-    <div id="main-content">
-        <section class="hero-bg text-white text-center py-24 fade-in-up">
-            <div class="container mx-auto px-4">
-                <h2 class="text-5xl font-bold mb-4 gold-text">Welcome to Fashion Hub</h2>
-                <p class="text-xl mb-8 max-w-2xl mx-auto">Discover the pinnacle of luxury in clothing, shoes, watches, and perfumes. Elevate your style with our premium collection.</p>
-                <a href="#products" class="premium-button px-8 py-4 rounded-lg font-bold shadow-lg">Shop Luxuriously</a>
-            </div>
-        </section>
 
-        <section id="products" class="py-20 bg-gradient-to-b from-gray-900 to-black">
-            <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold text-center mb-16 gold-text">Our Premium Collection</h2>
-
-                <div id="mens" class="mb-20 fade-in-up">
-                    <h3 class="text-3xl font-semibold mb-10 text-center gold-text">Men's Collection</h3>
-                    <div id="mens-products">
-                        <div id="mens-lower" class="mb-10">
-                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Lower Class (Affordable)</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="mens-lower-products"></div>
-                        </div>
-                        <div id="mens-middle" class="mb-10">
-                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Middle Class (Mid-Range)</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="mens-middle-products"></div>
-                        </div>
-                        <div id="mens-higher">
-                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Higher Class (Premium)</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="mens-higher-products"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="womens" class="mb-20 fade-in-up">
-                    <h3 class="text-3xl font-semibold mb-10 text-center gold-text">Women's Collection</h3>
-                    <div id="womens-products">
-                        <div id="womens-lower" class="mb-10">
-                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Lower Class (Affordable)</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="womens-lower-products"></div>
-                        </div>
-                        <div id="womens-middle" class="mb-10">
-                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Middle Class (Mid-Range)</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="womens-middle-products"></div>
-                        </div>
-                        <div id="womens-higher">
-                            <h4 class="text-2xl font-bold text-center mb-6 text-gray-300">Higher Class (Premium)</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="womens-higher-products"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-800 p-8 rounded-lg mb-16 fade-in-up">
-                    <h3 class="text-2xl font-semibold mb-4 gold-text text-center" id="share-suggestion">Share Your Suggestion</h3>
-                    <form id="suggestion-form" class="max-w-md mx-auto">
-                        <input type="text" id="suggestion-name" placeholder="Your Name" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
-                        <textarea id="suggestion-text" placeholder="Your suggestion here..." class="w-full p-4 bg-gray-700 text-white rounded mb-4"></textarea>
-                        <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full">Submit Suggestion</button>
-                    </form>
-                </div>
-
-                <div id="return-policy" class="bg-gray-800 p-8 rounded-lg mb-16 fade-in-up">
-                    <h3 class="text-3xl font-semibold mb-6 gold-text text-center">Return Policy</h3>
-                    <p class="text-gray-300 mb-6 text-center">We offer a 7-day return policy and 24-hour cancellation. To return an item, please provide a valid reason and photo proof.</p>
-                    <form class="max-w-md mx-auto" id="return-form">
-                        <input type="text" id="return-order-id" placeholder="Order Number" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
-                        <textarea id="return-reason" placeholder="Reason for Return" class="w-full p-3 mb-4 bg-gray-700 text-white rounded"></textarea>
-                        <input type="file" id="return-file" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
-                        <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full">Submit Return Request</button>
-                    </form>
-                </div>
-
-                <div class="bg-black py-12 text-center mb-16">
-                    <h3 class="text-2xl font-semibold gold-text mb-6" id="payment-methods">Payment Methods</h3>
-                    <p class="text-gray-300 mb-4">Choose from various secure payment options:</p>
-                    <div class="flex flex-wrap justify-center space-x-2 sm:space-x-8">
-                        <span class="gold-text">Credit Card</span>
-                        <span class="gold-text">Debit Card</span>
-                        <span class="gold-text">UPI</span>
-                        <span class="gold-text">Net Banking</span>
-                        <span class="gold-text">Cash on Delivery</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div id="contact" class="bg-gray-900 py-12">
-            <div class="container mx-auto px-4 text-center">
-                <h3 class="text-2xl font-semibold gold-text mb-6">Contact Us</h3>
-                <p class="mb-1 text-gray-300">Phone: <span class="gold-text">9265247070</span></p>
-                <p class="mb-6 text-gray-300">Email: <a href="mailto:officialayan12@gmail.com" class="gold-text hover:underline">officialayan12@gmail.com</a></p>
-                <form class="max-w-md mx-auto">
-                    <input type="text" placeholder="Your Name" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
-                    <input type="email" placeholder="Your Email" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" />
-                    <textarea placeholder="Your Message" class="w-full p-3 mb-4 bg-gray-700 text-white rounded"></textarea>
-                    <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full">Send Message</button>
-                </form>
-            </div>
-        </div>
+        <select id="langSelect" class="bg-gray-800 text-white rounded p-2" onchange="setLanguage(this.value)">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी</option>
+          <option value="gu">ગુજરાતી</option>
+        </select>
+      </nav>
     </div>
-    <section id="admin-panel" class="py-20 bg-gray-800 text-white hidden">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-8">
-                <h3 class="text-4xl font-semibold mb-4 sm:mb-0 gold-text" id="admin-panel-title">Admin Panel</h3>
-                <button id="adminBackBtn" class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700">Back to Main</button>
-            </div>
-            <div class="bg-gray-700 p-8 rounded-lg shadow-lg">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-8">
-                    <div>
-                        <p class="text-sm text-gray-400">Total Sales</p>
-                        <p class="text-3xl font-bold gold-text" id="admin-sales-count">₹0</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-400">Total Margin</p>
-                        <p class="text-3xl font-bold gold-text" id="admin-margin-count">₹0</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-400">Total Orders</p>
-                        <p class="text-3xl font-bold gold-text" id="admin-orders-count">0</p>
-                    </div>
-                </div>
-                <h4 class="text-2xl font-semibold gold-text mt-8 mb-4">Admin Notifications</h4>
-                <div id="admin-notifications" class="space-y-4 mb-8"></div>
-                <h4 class="text-2xl font-semibold gold-text mt-8 mb-4">Manage Products</h4>
-                <div id="admin-product-management"></div>
-                <h4 class="text-2xl font-semibold gold-text mt-8 mb-4">All Orders</h4>
-                <div id="admin-all-orders"></div>
-                <h4 class="text-2xl font-semibold gold-text mt-8 mb-4">Return Requests</h4>
-                <div id="admin-return-requests"></div>
-                <h4 class="text-2xl font-semibold gold-text mt-8 mb-4">Customer Suggestions</h4>
-                <div id="admin-suggestions"></div>
-            </div>
-        </div>
-    </section>
-    <div id="edit-product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40 flex items-center justify-center">
-        <div class="bg-gray-800 p-8 rounded-lg max-w-xl w-full mx-4">
-            <h3 class="text-xl font-bold mb-6 gold-text text-center">Edit Product</h3>
-            <form id="edit-product-form">
-                <input type="hidden" id="edit-product-id">
-                <input type="text" id="edit-product-name" placeholder="Product Name" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <input type="number" id="edit-product-price" placeholder="Price" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <input type="number" id="edit-product-stock" placeholder="Stock" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <input type="text" id="edit-product-image" placeholder="Image URL" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full">Save Changes</button>
-            </form>
-            <button onclick="closeEditProductModal()" class="mt-4 text-gray-300 w-full">Cancel</button>
-        </div>
-    </div>
-    <section id="customer-dashboard" class="py-20 bg-gray-800 text-white hidden">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-8">
-                <h3 class="text-4xl font-semibold gold-text mb-4 sm:mb-0" id="my-dashboard-title">My Dashboard</h3>
-                <button id="backBtn" class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700">Back</button>
-            </div>
-            <div id="dashboard-nav" class="flex flex-wrap justify-center space-x-2 md:space-x-4 mb-8">
-                <button id="profile-btn" class="px-6 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 active-tab">My Profile</button>
-                <button id="orders-btn" class="px-6 py-2 rounded-lg bg-gray-700 hover:bg-gray-600">My Orders</button>
-                <button id="suggestions-btn" class="px-6 py-2 rounded-lg bg-gray-700 hover:bg-gray-600">My Suggestions</button>
-                <button id="logoutBtn" class="px-6 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white">Logout</button>
-            </div>
-            <div id="my-profile-section" class="bg-gray-700 p-8 rounded-lg shadow-lg mb-8">
-                <h4 class="text-2xl font-semibold gold-text mb-4">My Profile</h4>
-                <div id="profile-details">
-                    <p class="text-gray-400">Please complete your profile.</p>
-                </div>
-                <button onclick="openProfileModal()" class="premium-button px-4 py-2 mt-4 rounded-lg" id="editProfileBtn">Edit Profile</button>
-            </div>
-            <div id="my-orders-section" class="bg-gray-700 p-8 rounded-lg shadow-lg mb-8 hidden">
-                <h4 class="text-2xl font-semibold gold-text mb-4">My Orders</h4>
-                <p>You have no pending orders.</p>
-            </div>
-            <div id="my-suggestions-section" class="bg-gray-700 p-8 rounded-lg shadow-lg hidden">
-                <h4 class="text-2xl font-semibold gold-text mb-4">My Suggestions</h4>
-                <p>You have not submitted any suggestions yet.</p>
-            </div>
-        </div>
+  </header>
+
+  <main id="main-content" class="py-6">
+    <section class="text-white text-center py-12">
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 gold-text" data-key="hero_title">Welcome to Fashion Hub</h2>
+        <p class="text-lg mb-6 max-w-2xl mx-auto text-gray-300" data-key="hero_sub">Discover luxury clothing, shoes and fragrances from our premium collection.</p>
+        <a href="#products" class="premium-button px-6 py-3 rounded-lg font-bold" data-key="hero_cta">Shop Premium</a>
+      </div>
     </section>
 
-    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-20 flex items-center justify-center">
-        <div class="bg-gray-800 p-6 rounded-lg max-w-md w-full mx-4">
-            <h3 class="text-xl font-bold mb-4 gold-text text-center">Your Cart</h3>
-            <ul id="cart-items" class="mb-4"></ul>
-            <p id="cart-total" class="mt-4 font-bold text-xl gold-text text-center">Total: ₹0</p>
-            <div class="flex justify-between mt-4">
-                <button onclick="closeCart()" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition">Close</button>
-                <button onclick="checkout()" id="checkoutBtn" class="premium-button px-4 py-2 rounded">Checkout</button>
-            </div>
+    <section id="products" class="py-8">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-2xl font-bold gold-text" data-key="products_title">Our Premium Collection</h3>
+          <div class="flex gap-2">
+            <button class="small-btn" onclick="openCart()">Cart (<span id="cart-count" class="hidden">0</span>)</button>
+          </div>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="products-grid"></div>
+      </div>
+    </section>
+
+    <section class="py-8 bg-gray-900">
+      <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-800 p-6 rounded">
+          <h4 class="text-xl font-semibold gold-text" data-key="suggest_title">Share Your Suggestion</h4>
+          <form id="suggestion-form" class="mt-4">
+            <input id="suggestion-name" placeholder="Your name" class="w-full p-2 mb-3 bg-gray-700 rounded" />
+            <textarea id="suggestion-text" placeholder="Your suggestion..." class="w-full p-2 mb-3 bg-gray-700 rounded"></textarea>
+            <button class="premium-button px-4 py-2 rounded" data-key="suggest_submit">Submit Suggestion</button>
+          </form>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded">
+          <h4 class="text-xl font-semibold gold-text" data-key="return_title">Return Policy</h4>
+          <p class="text-gray-300 mt-2" data-key="return_text">We offer a 7-day return policy and 24-hour cancellation. Provide reason and photos for returns.</p>
+
+          <form id="return-form" class="mt-4">
+            <input id="return-order-number" placeholder="Order number" class="w-full p-2 mb-3 bg-gray-700 rounded" required />
+            <textarea id="return-reason" placeholder="Reason for return" class="w-full p-2 mb-3 bg-gray-700 rounded" required></textarea>
+            <input type="file" id="return-photo" class="mb-3"/>
+            <button class="premium-button px-4 py-2 rounded" data-key="return_submit">Submit Return Request</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-10">
+      <div class="container mx-auto px-4 text-center">
+        <h4 class="text-2xl font-semibold gold-text mb-4" data-key="contact_title">Contact Us</h4>
+        <p class="text-gray-300">Phone: <span id="contact-phone" class="gold-text">9265247070</span></p>
+        <p class="text-gray-300">Email: <a href="mailto:officialayan12@gmail.com" class="gold-text">officialayan12@gmail.com</a></p>
+      </div>
+    </section>
+  </main>
+
+  <section id="customer-dashboard" class="hidden py-8">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex items-center gap-4 md:col-span-3 mb-4">
+        <button onclick="showHomePage()" class="premium-button px-4 py-2 rounded font-semibold">Back to Home</button>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded">
+        <h4 class="text-xl font-semibold gold-text" data-key="profile_title">My Profile</h4>
+        <div class="mt-4">
+          <p><strong data-key="label_name">Name:</strong> <span id="profile-display-name"></span></p>
+          <p><strong data-key="label_email">Email:</strong> <span id="profile-display-email"></span></p>
+          <p><strong data-key="label_age">Age:</strong> <span id="profile-display-age"></span></p>
+          <p><strong data-key="label_gender">Gender:</strong> <span id="profile-display-gender"></span></p>
+          <p><strong data-key="label_language">Language:</strong> <span id="profile-display-language"></span></p>
+          <div class="mt-4">
+            <button class="premium-button px-3 py-2 rounded" onclick="openProfileModal()" data-key="btn_edit_profile">Edit Profile</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="md:col-span-2 bg-gray-800 p-6 rounded">
+        <h4 class="text-xl font-semibold gold-text" data-key="my_orders">My Orders</h4>
+        <div id="customer-orders-list" class="mt-4 overflow-auto max-h-96"></div>
+      </div>
     </div>
 
-    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-30 flex items-center justify-center">
-        <div class="bg-gray-800 p-8 rounded-lg max-w-sm w-full mx-4">
-            <h3 class="text-xl font-bold mb-6 gold-text text-center" id="login-title">Login</h3>
-            <input type="tel" id="phone-number" placeholder="Phone Number" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" pattern="[0-9]{10}" required/>
-            <input type="password" id="password-field" placeholder="Password" class="w-full p-3 mb-4 bg-gray-700 text-white rounded hidden" />
-            <input type="number" id="otp-field" placeholder="OTP" class="w-full p-3 mb-4 bg-gray-700 text-white rounded hidden" />
-            <button onclick="handleLogin()" id="login-button" class="premium-button px-6 py-3 rounded-lg w-full">Login</button>
-            <button onclick="closeLogin()" class="mt-4 text-gray-300 w-full">Close</button>
-        </div>
+    <div class="container mx-auto px-4 mt-6">
+      <div class="bg-gray-800 p-6 rounded">
+        <h4 class="text-xl font-semibold gold-text" data-key="my_suggestions">My Suggestions</h4>
+        <div id="my-suggestions-list" class="mt-3"></div>
+      </div>
     </div>
+  </section>
 
-    <div id="profile-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-30 flex items-center justify-center">
-        <div class="bg-gray-800 p-8 rounded-lg max-w-lg w-full mx-4">
-            <h3 class="text-xl font-bold mb-6 gold-text text-center">Complete Your Profile</h3>
-            <form id="profile-form">
-                <input type="text" id="profile-name" placeholder="Full Name" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <input type="email" id="profile-email" placeholder="Email" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <input type="number" id="profile-age" placeholder="Age" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <select id="profile-gender" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required>
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-                <select id="profile-language" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required>
-                    <option value="en">English</option>
-                    <option value="hi">Hindi</option>
-                    <option value="gu">Gujarati</option>
-                </select>
-                <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full">Save Profile</button>
+  <section id="admin-panel" class="hidden py-8">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center gap-4 mb-4">
+        <button onclick="showHomePage()" class="premium-button px-4 py-2 rounded font-semibold">Back to Home</button>
+      </div>
+
+      <h2 class="text-2xl font-bold gold-text mb-4">Admin Dashboard</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div class="bg-gray-800 p-4 rounded">
+          <p class="text-sm text-gray-300">Total Sales</p>
+          <p id="admin-total-sales" class="text-xl font-bold gold-text">₹0</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded">
+          <p class="text-sm text-gray-300">Total Orders</p>
+          <p id="admin-total-orders" class="text-xl font-bold gold-text">0</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded">
+          <p class="text-sm text-gray-300">Margin (after delivery)</p>
+          <p id="admin-margin" class="text-xl font-bold gold-text">₹0</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded">
+          <p class="text-sm text-gray-300">Delivery Charge</p>
+          <input id="admin-delivery-charge" type="number" class="w-full p-2 bg-gray-700 rounded mt-2" />
+          <button class="premium-button w-full mt-2 py-2 rounded" onclick="saveDeliveryCharge()">Save</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-gray-800 p-4 rounded">
+          <h4 class="text-lg font-semibold gold-text">Orders</h4>
+          <div id="admin-orders-list" class="mt-3 overflow-auto max-h-96"></div>
+        </div>
+
+        <div class="bg-gray-800 p-4 rounded">
+          <h4 class="text-lg font-semibold gold-text">Products</h4>
+          <div class="mt-3">
+            <form id="admin-add-product" class="grid grid-cols-1 gap-2">
+              <input id="admin-prod-id" placeholder="Product ID (unique)" class="p-2 bg-gray-700 rounded" required />
+              <input id="admin-prod-name" placeholder="Product name" class="p-2 bg-gray-700 rounded" required />
+              <input id="admin-prod-price" placeholder="Price" type="number" class="p-2 bg-gray-700 rounded" required />
+              <input id="admin-prod-stock" placeholder="Stock count" type="number" class="p-2 bg-gray-700 rounded" required />
+              <input id="admin-prod-image" placeholder="Image URL" class="p-2 bg-gray-700 rounded" />
+              <div class="flex gap-2">
+                <button class="premium-button px-3 py-2 rounded" type="button" onclick="adminAddOrUpdateProduct()">Add / Update Product</button>
+                <button class="bg-red-600 px-3 py-2 rounded" type="button" onclick="adminDeleteProduct()">Delete Product</button>
+              </div>
             </form>
-            <button onclick="closeProfileModal()" class="mt-4 text-gray-300 w-full">Close</button>
-        </div>
-    </div>
+          </div>
 
-    <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-30 flex items-center justify-center">
-        <div class="bg-gray-800 p-8 rounded-lg max-w-lg w-full mx-4">
-            <h3 class="text-xl font-bold mb-6 gold-text text-center">Enter Shipping Details</h3>
-            <form id="checkout-form">
-                <input type="text" id="checkout-address" placeholder="Address" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <input type="text" id="checkout-city" placeholder="City" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <input type="text" id="checkout-state" placeholder="State" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <input type="text" id="checkout-pincode" placeholder="Pincode" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required />
-                <select id="payment-method" class="w-full p-3 mb-4 bg-gray-700 text-white rounded" required>
-                    <option value="">Select Payment Method</option>
-                    <option value="UPI">UPI</option>
-                    <option value="COD">Cash on Delivery</option>
-                </select>
-                <div id="upi-details" class="hidden">
-                    <input type="text" id="upi-id" placeholder="Enter UPI ID" class="w-full p-3 mb-2 bg-gray-700 text-white rounded mt-4" />
-                    <button type="button" onclick="verifyUpi()" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition">Verify UPI</button>
-                    <p id="upi-name" class="text-sm gold-text mt-2"></p>
-                </div>
-                <div id="checkout-summary" class="mt-6 text-gray-300">
-                    <p class="flex justify-between"><span>Subtotal:</span><span id="subtotal">₹0</span></p>
-                    <p class="flex justify-between border-t border-gray-600 pt-2 mt-2"><span>Delivery Charge:</span><span id="delivery-charge">₹0</span></p>
-                    <p class="flex justify-between text-xl font-bold mt-2 gold-text"><span>Grand Total:</span><span id="grand-total">₹0</span></p>
-                </div>
-                <button type="submit" class="premium-button px-6 py-3 rounded-lg w-full mt-4">Place Order</button>
-            </form>
-            <button onclick="closeCheckoutModal()" class="mt-4 text-gray-300 w-full">Close</button>
+          <div class="mt-4">
+            <h5 class="text-sm text-gray-300">Stock Notifications (stock ≤ threshold)</h5>
+            <div id="stock-notifications" class="mt-2"></div>
+          </div>
         </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div class="bg-gray-800 p-4 rounded">
+          <h4 class="text-lg font-semibold gold-text">Returns</h4>
+          <div id="admin-returns-list" class="mt-3 overflow-auto max-h-64"></div>
+        </div>
+
+        <div class="bg-gray-800 p-4 rounded">
+          <h4 class="text-lg font-semibold gold-text">Suggestions</h4>
+          <div id="admin-suggestions-list" class="mt-3 overflow-auto max-h-64"></div>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden z-40 flex items-center justify-center">
+    <div class="bg-gray-800 rounded-lg p-6 max-w-lg w-full mx-4">
+      <h3 class="text-xl font-bold gold-text" data-key="cart_title">Your Cart</h3>
+      <ul id="cart-items" class="mt-4"></ul>
+      <p id="cart-total" class="mt-4 font-bold text-lg gold-text">Total: ₹0</p>
+      <div class="flex gap-2 mt-4">
+        <button onclick="closeCart()" class="bg-gray-700 text-white px-3 py-2 rounded" data-key="btn_close">Close</button>
+        <button onclick="checkout()" id="checkoutBtn" class="premium-button px-3 py-2 rounded" data-key="btn_checkout">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 flex items-center justify-center">
+    <div class="bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4 relative">
+      <h3 class="text-xl font-bold gold-text text-center" data-key="auth_title">Login / Sign Up</h3>
+
+      <div class="flex justify-center gap-2 mt-4">
+        <button id="login-tab" class="modal-tab-button active" onclick="showLoginTab()" data-key="tab_login">Login</button>
+        <button id="signup-tab" class="modal-tab-button" onclick="showSignupTab()" data-key="tab_signup">Sign Up</button>
+      </div>
+
+      <div id="login-form-container" class="mt-4">
+        <input id="login-phone-number" placeholder="Phone number" class="w-full p-2 mb-3 bg-gray-700 rounded" />
+        <div class="relative mb-3">
+          <input id="login-password-field" type="password" placeholder="Password" class="w-full p-2 bg-gray-700 rounded" />
+          <span class="eye-btn" onclick="togglePassword('login-password-field')">👁</span>
+        </div>
+        <button class="premium-button w-full py-2 rounded" onclick="loginUser()" data-key="btn_login">Login</button>
+        <button class="w-full mt-2 text-sm text-gray-300" onclick="showForgotPassword()" data-key="link_forgot">Forgot password?</button>
+      </div>
+
+      <div id="signup-form-container" class="hidden mt-4">
+        <input id="signup-phone-number" placeholder="Phone number" class="w-full p-2 mb-3 bg-gray-700 rounded" />
+        <div class="relative mb-3">
+          <input id="signup-password-field" type="password" placeholder="New password" class="w-full p-2 bg-gray-700 rounded" />
+          <span class="eye-btn" onclick="togglePassword('signup-password-field')">👁</span>
+        </div>
+        <div class="relative mb-3">
+          <input id="signup-confirm-password" type="password" placeholder="Confirm password" class="w-full p-2 bg-gray-700 rounded" />
+          <span class="eye-btn" onclick="togglePassword('signup-confirm-password')">👁</span>
+        </div>
+        <input id="signup-age" type="number" placeholder="Age" class="w-full p-2 mb-3 bg-gray-700 rounded" />
+        <button class="premium-button w-full py-2 rounded" onclick="signupUser()" data-key="btn_signup">Create account</button>
+      </div>
+
+      <div id="forgot-password-container" class="hidden mt-4">
+        <input id="forgot-phone-number" placeholder="Your phone number" class="w-full p-2 mb-3 bg-gray-700 rounded" />
+        <input id="forgot-age" placeholder="Your age" type="number" class="w-full p-2 mb-3 bg-gray-700 rounded" />
+        <p id="age-hint" class="text-sm text-gray-400 mb-3 hidden" data-key="age_hint">Enter the age saved in your profile.</p>
+        <button class="premium-button w-full py-2 rounded" onclick="forgotPassword()" data-key="btn_verify">Verify</button>
+
+        <div id="reset-password-section" class="hidden mt-4">
+          <div class="relative mb-3">
+            <input id="new-password" type="password" placeholder="Enter new password" class="w-full p-2 bg-gray-700 rounded" />
+            <span class="eye-btn" onclick="togglePassword('new-password')">👁</span>
+          </div>
+          <div class="relative mb-3">
+            <input id="confirm-new-password" type="password" placeholder="Confirm new password" class="w-full p-2 bg-gray-700 rounded" />
+            <span class="eye-btn" onclick="togglePassword('confirm-new-password')">👁</span>
+          </div>
+          <button class="premium-button w-full py-2 rounded" onclick="resetPassword()" data-key="btn_set_new">Set new password</button>
+        </div>
+      </div>
+
+      <button class="mt-4 w-full text-gray-300" onclick="closeLoginModal()" data-key="btn_close">Close</button>
+    </div>
+  </div>
+
+  <div id="profile-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 flex items-center justify-center">
+    <div class="bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
+      <h3 class="text-lg font-bold gold-text" data-key="profile_title">Edit Profile</h3>
+      <form id="profile-form" class="mt-3">
+        <input id="profile-name" placeholder="Full name" class="w-full p-2 mb-2 bg-gray-700 rounded" required />
+        <input id="profile-email" placeholder="Email" type="email" class="w-full p-2 mb-2 bg-gray-700 rounded" required />
+        <input id="profile-age" placeholder="Age" type="number" class="w-full p-2 mb-2 bg-gray-700 rounded" required />
+        <select id="profile-gender" class="w-full p-2 mb-2 bg-gray-700 rounded" required>
+          <option value="">Select gender</option><option>Male</option><option>Female</option><option>Other</option>
+        </select>
+        <select id="profile-language" class="w-full p-2 mb-2 bg-gray-700 rounded" required>
+          <option value="en">English</option><option value="hi">हिन्दी</option><option value="gu">ગુજરાતી</option>
+        </select>
+        <button class="premium-button w-full py-2 rounded" type="submit" data-key="profile_save">Save profile</button>
+      </form>
+      <button class="mt-3 w-full text-gray-300" onclick="closeProfileModal()" data-key="btn_close">Close</button>
+    </div>
+  </div>
+
+  <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 flex items-center justify-center">
+    <div class="bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
+      <h3 class="text-lg font-bold gold-text" data-key="checkout_title">Enter shipping details</h3>
+      <form id="checkout-form" class="mt-3">
+        <input id="checkout-address" placeholder="Address" class="w-full p-2 mb-2 bg-gray-700 rounded" required />
+        <input id="checkout-city" placeholder="City" class="w-full p-2 mb-2 bg-gray-700 rounded" required />
+        <input id="checkout-state" placeholder="State" class="w-full p-2 mb-2 bg-gray-700 rounded" required />
+        <input id="checkout-pincode" placeholder="Pincode" class="w-full p-2 mb-2 bg-gray-700 rounded" required />
+        <select id="payment-method" class="w-full p-2 mb-2 bg-gray-700 rounded" required>
+          <option value="">Select payment method</option>
+          <option value="UPI">UPI</option><option value="COD">Cash on Delivery</option>
+        </select>
+
+        <div id="upi-details" class="hidden">
+          <input id="upi-id" placeholder="Enter UPI ID" class="w-full p-2 mb-2 bg-gray-700 rounded" />
+          <button type="button" onclick="verifyUpi()" class="bg-gray-700 text-white px-3 py-2 rounded">Verify UPI</button>
+          <p id="upi-name" class="mt-2 text-sm gold-text"></p>
+        </div>
+
+        <button class="premium-button w-full py-2 rounded mt-3" type="submit" data-key="checkout_place">Place order</button>
+      </form>
+      <button class="mt-3 w-full text-gray-300" onclick="closeCheckoutModal()" data-key="btn_close">Close</button>
+    </div>
+  </div>
+
+  <footer class="bg-gray-900 text-white py-6 mt-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; <span id="year"></span> Fashion Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ---------------------------
+    // TRANSLATIONS (kept and extended)
+    // ---------------------------
+    const translations = {
+      en: {
+        nav_products: "Products", nav_return: "Return Policy", nav_contact: "Contact",
+        btn_login: "Login", btn_signup: "Create account", btn_dashboard: "My Dashboard",
+        btn_profile: "Profile", btn_logout: "Logout", hero_title: "Welcome to Fashion Hub",
+        hero_sub: "Discover luxury clothing, shoes and fragrances from our premium collection.",
+        hero_cta: "Shop Premium", products_title: "Our Premium Collection",
+        suggest_title: "Share Your Suggestion", suggest_submit: "Submit Suggestion",
+        return_title: "Return Policy", return_text: "We offer a 7-day return policy and 24-hour cancellation. Provide reason and photos for returns.",
+        return_submit: "Submit Return Request", contact_title: "Contact Us",
+        cart_title: "Your Cart", btn_close: "Close", btn_checkout: "Checkout",
+        auth_title: "Login / Sign Up", tab_login: "Login", tab_signup: "Sign Up",
+        link_forgot: "Forgot password?", age_hint: "Enter the age saved in your profile.",
+        btn_verify: "Verify", btn_set_new: "Set new password", profile_title: "My Profile",
+        profile_save: "Save profile", checkout_title: "Enter shipping details",
+        checkout_place: "Place order", suggest_submitted: "Suggestion submitted.",
+        return_submitted: "Return request submitted. We'll contact you soon.",
+        in_stock: "In stock", out_of_stock: "Out of stock", add_to_cart: "Add to cart",
+        view_orders: "View orders", expected_delivery: "Expected delivery", tracking_status: "Status",
+        approve: "Approve", reject: "Reject", set_delivery: "Set delivery",
+        total_sales: "Total Sales", total_orders: "Total Orders", margin: "Margin",
+        delivery_charge_label: "Delivery Charge", change_delivery_charge: "Change delivery charge",
+        add_product: "Add product", edit_product: "Edit", delete_product: "Delete",
+        stock_notification: "Low stock", reply: "Reply", order_approved: "Order approved",
+        order_rejected: "Order rejected", product_added: "Product added/updated", product_deleted: "Product deleted"
+      },
+      hi: {
+        nav_products: "Products", nav_return: "Return Policy", nav_contact: "Contact",
+        btn_login: "लॉगिन", btn_signup: "एकाउंट बनाएं", btn_dashboard: "मेरा डैशबोर्ड",
+        btn_profile: "प्रोफ़ाइल", btn_logout: "लोग आउट", hero_title: "Fashion Hub में आपका स्वागत है",
+        hero_sub: "हमारे प्रीमियम कलेक्शन से कपड़े, जूते और इत्र की लक्ज़री खोजें।",
+        hero_cta: "शॉप प्रीमियम", products_title: "हमारा प्रीमियम कलेक्शन",
+        suggest_title: "अपनी सुझाव साझा करें", suggest_submit: "सुझाव भेजें",
+        return_title: "वापसी नीति", return_text: "हम 7-दिन की रिटर्न पॉलिसी और 24 घंटे की कैंसलेशन पेश करते हैं।",
+        return_submit: "रिटर्न अनुरोध भेजें", contact_title: "संपर्क करें",
+        cart_title: "आपका कार्ट", btn_close: "बंद करें", btn_checkout: "चेकआउट",
+        auth_title: "लॉगिन / साइन अप", tab_login: "लॉगिन", tab_signup: "साइन अप",
+        link_forgot: "पासवर्ड भूल गए?", age_hint: "अपने प्रोफ़ाइल में सहेजी गई उम्र दर्ज करें।",
+        btn_verify: "सत्यापित करें", btn_set_new: "नया पासवर्ड सेट करें", profile_title: "मेरा प्रोफ़ाइल",
+        profile_save: "प्रोफ़ाइल सहेजें", checkout_title: "शिपिंग विवरण दर्ज करें",
+        checkout_place: "ऑर्डर दें", suggest_submitted: "सुझाव भेज दिया गया।",
+        return_submitted: "रिटर्न अनुरोध भेज दिया गया। हम जल्द संपर्क करेंगे।",
+        in_stock: "स्टॉक में है", out_of_stock: "स्टॉक समाप्त", add_to_cart: "कार्ट में डालें",
+        view_orders: "ऑर्डर्स देखें", expected_delivery: "अपेक्षित डिलीवरी", tracking_status: "स्थिति",
+        approve: "मंजूर करें", reject: "अस्वीकार करें", set_delivery: "डिलीवरी सेट करें",
+        total_sales: "कुल बिक्री", total_orders: "कुल ऑर्डर्स", margin: "मुनाफ़ा",
+        delivery_charge_label: "डिलीवरी चार्ज", change_delivery_charge: "डिलीवरी चार्ज बदलें",
+        add_product: "प्रोडक्ट जोड़ें", edit_product: "संपादित", delete_product: "हटाएं",
+        stock_notification: "कम स्टॉक", reply: "जवाब दें", order_approved: "ऑर्डर मंजूर हुआ",
+        order_rejected: "ऑर्डर अस्वीकार", product_added: "प्रोडक्ट जोड़ा/अपडेट किया", product_deleted: "प्रोडक्ट हटाया"
+      },
+      gu: {
+        nav_products: "Products", nav_return: "Return Policy", nav_contact: "Contact",
+        btn_login: "લોગિન", btn_signup: "એકાઉન્ટ બનાવો", btn_dashboard: "મારું ડેશબોર્ડ",
+        btn_profile: "પ્રોફાઇલ", btn_logout: "લોગઆઉટ", hero_title: "ફેશન હબમાં તમારું સ્વાગત છે",
+        hero_sub: "અમારા પ્રીમિયમ કલેક્શનમાંથી કપડાં,जूતાં અને પરફ્યુમ શોધો.",
+        hero_cta: "પ્રીમિયમ ખરીદો", products_title: "અમારું પ્રીમિયમ કલેક્શન",
+        suggest_title: "તમારું સૂચન શેર કરો", suggest_submit: "સૂચન સબમિટ કરો",
+        return_title: "રિટર્ન પોલિસી", return_text: "અમે 7 દિવસની રિટર્ન પોલિસી અને 24 કલાકનું કેન્સલેશન ઓફર કરીએ છીએ.",
+        return_submit: "રિટર્ન રિક્વેસ્ટ સબમિટ કરો", contact_title: "સંપર્ક કરો",
+        cart_title: "તમારું કાર્ટ", btn_close: "બંધ કરો", btn_checkout: "ચેકઆઉટ",
+        auth_title: "લોગિન / સાઇનઅપ", tab_login: "લોગિન", tab_signup: "સાઇનઅપ",
+        link_forgot: "પાસવર્ડ ભૂલી ગયા છો?", age_hint: "તમારી પ્રોફાઇલમાં સેવ કરેલી ઉંમર દાખલ કરો.",
+        btn_verify: "વેરિફાઈ કરો", btn_set_new: "નવો પાસવર્ડ સેટ કરો", profile_title: "મારી પ્રોફાઇલ",
+        profile_save: "પ્રોફાઇલ સાચવો", checkout_title: "શિપિંગ વિગતો દાખલ કરો",
+        checkout_place: "ઓર્ડર આપો", suggest_submitted: "સૂચન સબમિટ થઈ ગયું.",
+        return_submitted: "રિટર્ન રિક્વેસ્ટ સબમિટ થઈ ગઈ. અમે જલ્દી સંપર્ક કરીશું.",
+        in_stock: "સ્ટોક માં છે", out_of_stock: "આઉટ ઓફ સ્ટોક", add_to_cart: "કાર્ટમાં ઉમેરો",
+        view_orders: "ઓર્ડર્સ જુઓ", expected_delivery: "અંદાજિત ડિલિવરી", tracking_status: "સ્થિતિ",
+        approve: "મંજૂર કરો", reject: "નકારી દો", set_delivery: "ડિલિવરી સેટ કરો",
+        total_sales: "કુલ વેચાણ", total_orders: "કુલ ઓર્ડર્સ", margin: "માર્જિન",
+        delivery_charge_label: "ડિલિવરી ચાર્જ", change_delivery_charge: "ડિલિવરી ચાર્જ બદલો",
+        add_product: "પ્રોડક્ટ ઉમેરો", edit_product: "સંપાદિત", delete_product: "ડિલીટ",
+        stock_notification: "ઓલડ સ્ટોક", reply: "જવાબ આપો", order_approved: "ઓર્ડર મંજૂર",
+        order_rejected: "ઓર્ડર નકારી",
+        product_added: "પ્રોડક્ટ ઉમેરાઈ/અપડેટ", product_deleted: "પ્રોડક્ટ ડિલીટ"
+      }
+    };
+
+    // ---------------------------
+    // HELPER: apply translations
+    // ---------------------------
+    function applyTranslations(lang) {
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      // placeholders
+      const placeholders = {
+        login_phone: { en: "Phone number", hi: "फोन नंबर", gu: "ફોન નંબર" },
+        login_password: { en: "Password", hi: "पासवर्ड", gu: "પાસવર્ડ" },
+        signup_phone: { en: "Phone number", hi: "फोन नंबर", gu: "ફોન નંબર" },
+        signup_password: { en: "New password", hi: "नया पासवर्ड", gu: "નવો પાસવર્ડ" },
+        signup_confirm: { en: "Confirm password", hi: "पासवर्ड कन्फर्म करें", gu: "પાસવર્ડ કન્ફર્મ કરો" },
+        signup_age: { en: "Age", hi: "उम्र", gu: "ઉંમર" },
+        forgot_phone: { en: "Your phone number", hi: "आपका फोन नंबर", gu: "તમારો ફોન નંબર" },
+        forgot_age: { en: "Your age", hi: "आपकी उम्र", gu: "તમારી ઉંમર" },
+        new_pw: { en: "Enter new password", hi: "नया पासवर्ड दर्ज करें", gu: "નવો પાસવર્ડ દાખલ કરો" },
+        confirm_new_pw: { en: "Confirm new password", hi: "नया पासवर्ड कन्फर्म करें", gu: "પાસવર્ડ કન્ફર્મ કરો" },
+        profile_name: { en: "Full name", hi: "पूरा नाम", gu: "પૂરૂં નામ" }
+      };
+      document.getElementById('login-phone-number').placeholder = placeholders.login_phone[lang];
+      document.getElementById('login-password-field').placeholder = placeholders.login_password[lang];
+      document.getElementById('signup-phone-number').placeholder = placeholders.signup_phone[lang];
+      document.getElementById('signup-password-field').placeholder = placeholders.signup_password[lang];
+      document.getElementById('signup-confirm-password').placeholder = placeholders.signup_confirm[lang];
+      document.getElementById('signup-age').placeholder = placeholders.signup_age[lang];
+      document.getElementById('forgot-phone-number').placeholder = placeholders.forgot_phone[lang];
+      document.getElementById('forgot-age').placeholder = placeholders.forgot_age[lang];
+      document.getElementById('new-password').placeholder = placeholders.new_pw[lang];
+      document.getElementById('confirm-new-password').placeholder = placeholders.confirm_new_pw[lang];
+      document.getElementById('profile-name').placeholder = placeholders.profile_name[lang];
+
+      // update some dynamic contact or year
+      document.getElementById('contact-phone').textContent = (lang === 'hi' ? 'फोन: 9265247070' : (lang === 'gu' ? 'ફોન: 9265247070' : 'Phone: 9265247070'));
+      document.getElementById('year').textContent = new Date().getFullYear();
+    }
+
+    function setLanguage(lang) {
+      localStorage.setItem('siteLang', lang);
+      document.getElementById('langSelect').value = lang;
+      applyTranslations(lang);
+      // re-render product labels, admin lists to update in_stock/out_of_stock words
+      renderProducts();
+      renderAdminPanel(); // safe call; will no-op if admin hidden
+      renderCustomerOrdersList();
+    }
+
+    // init language
+    const savedLang = localStorage.getItem('siteLang') || 'en';
+    document.getElementById('langSelect').value = savedLang;
+    applyTranslations(savedLang);
+
+    // ---------------------------
+    // CORE DATA & CONFIG
+    // ---------------------------
+    let cart = [];
+    let customers = JSON.parse(localStorage.getItem('customers')) || {};
+    let suggestions = JSON.parse(localStorage.getItem('suggestions')) || [];
+    let returnRequests = JSON.parse(localStorage.getItem('returnRequests')) || [];
+    let globalOrders = JSON.parse(localStorage.getItem('globalOrders')) || []; // admin-level orders collection
+    let currentUserId = localStorage.getItem('currentUserId') || null;
+    let tempForgotPhone = null;
+
+    const adminPhone = '9265247070';
+    const adminPassword = 'AK GAMING 1M';
+
+    // delivery charge (admin editable)
+    let deliveryCharge = Number(localStorage.getItem('deliveryCharge') || 50);
+    document.getElementById('admin-delivery-charge').value = deliveryCharge;
+
+    let allProducts = JSON.parse(localStorage.getItem('allProducts')) || {
+      'men-basic-tshirt': { name: "Men's Basic T-Shirt", price: 599, stock: 10, image: 'https://images.unsplash.com/photo-1621323862287-c1d48c9a6231?q=80&w=1887&auto=format&fit=crop' },
+      'women-designer-dress': { name: "Women's Designer Dress", price: 6999, stock: 2, image: 'https://images.unsplash.com/photo-1627051996963-8a9d0a649b5c?q=80&w=1887&auto=format&fit=crop' },
+      'men-leather-jacket': { name: "Men's Leather Jacket", price: 4999, stock: 3, image: 'https://images.unsplash.com/photo-1616016149206-89d4432c66d6?q=80&w=1935&auto=format&fit=crop' }
+    };
+
+    // ---------------------------
+    // RENDER PRODUCTS (customer visible)
+    // ---------------------------
+    function renderProducts() {
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = '';
+      const lang = localStorage.getItem('siteLang') || 'en';
+      for (const id in allProducts) {
+        const p = allProducts[id];
+        const node = document.createElement('div');
+        node.className = 'product-card p-4 rounded shadow-sm';
+        const stockText = p.stock > 0 ? (translations[lang].in_stock || 'In stock') : (translations[lang].out_of_stock || 'Out of stock');
+        const addBtn = p.stock > 0 ? `<button class="premium-button px-3 py-2 rounded w-full" onclick="addToCart('${id}')">${translations[lang].add_to_cart || 'Add to cart'}</button>` : `<button class="bg-gray-700 text-gray-400 px-3 py-2 rounded w-full" disabled>${translations[lang].out_of_stock || 'Out of stock'}</button>`;
+        node.innerHTML = `
+          <img src="${p.image}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-3">
+          <h4 class="font-semibold text-lg gold-text">${p.name}</h4>
+          <p class="text-gray-300 mt-1">₹${p.price}</p>
+          <p class="text-sm ${p.stock>0?'text-green-400':'text-red-400'}">${stockText}</p>
+          <div class="mt-3">${addBtn}</div>
+          <div class="mt-2"><button class="small-btn" onclick="openProductDetails('${id}')">Details</button></div>
+        `;
+        grid.appendChild(node);
+      }
+    }
+
+    function openProductDetails(id) {
+      const p = allProducts[id];
+      alert(`${p.name}\nPrice: ₹${p.price}\nStock: ${p.stock}`);
+    }
+
+    // ---------------------------
+    // CART LOGIC
+    // ---------------------------
+    function addToCart(productId) {
+      const p = allProducts[productId];
+      if (!p || p.stock <= 0) { alert('Product out of stock'); return; }
+      const ex = cart.find(i => i.id === productId);
+      if (ex) ex.qty++; else cart.push({ id: productId, name: p.name, price: p.price, qty: 1 });
+      updateCartCount();
+      alert(p.name + ' added to cart');
+    }
+
+    function updateCartCount() {
+      const total = cart.reduce((s,i)=>s+i.qty,0);
+      const el = document.getElementById('cart-count');
+      if (!el) return;
+      if (total>0) { el.textContent = total; el.classList.remove('hidden'); } else { el.classList.add('hidden'); }
+    }
+
+    function openCart() {
+      renderCart();
+      document.getElementById('cart-modal').classList.remove('hidden');
+    }
+    function closeCart() { document.getElementById('cart-modal').classList.add('hidden'); }
+
+    function renderCart() {
+      const list = document.getElementById('cart-items');
+      list.innerHTML = '';
+      let total = 0;
+      if (cart.length === 0) {
+        list.innerHTML = `<li class="text-gray-400">Your cart is empty.</li>`;
+      } else {
+        cart.forEach(item => {
+          const li = document.createElement('li');
+          li.className = 'flex justify-between items-center py-2 border-b border-gray-700';
+          li.innerHTML = `<div><span class="gold-text">${item.name}</span> <span class="text-gray-300"> (₹${item.price} x ${item.qty})</span></div>
+                          <div><strong>₹${item.price*item.qty}</strong> <button class="ml-3 text-red-400" onclick="removeFromCart('${item.id}')">Remove</button></div>`;
+          list.appendChild(li);
+          total += item.price*item.qty;
+        });
+      }
+      document.getElementById('cart-total').textContent = `Total: ₹${total}`;
+    }
+
+    function removeFromCart(id) {
+      const idx = cart.findIndex(i=>i.id===id);
+      if (idx>-1) {
+        if (cart[idx].qty>1) cart[idx].qty--; else cart.splice(idx,1);
+      }
+      renderCart();
+      updateCartCount();
+    }
+
+    // ---------------------------
+    // AUTH (login/signup/forgot)
+    // ---------------------------
+    function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); showLoginTab(); }
+    function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
+
+    function showLoginTab(){
+      document.getElementById('login-form-container').classList.remove('hidden');
+      document.getElementById('signup-form-container').classList.add('hidden');
+      document.getElementById('forgot-password-container').classList.add('hidden');
+      document.getElementById('login-tab').classList.add('active');
+      document.getElementById('signup-tab').classList.remove('active');
+    }
+    function showSignupTab(){
+      document.getElementById('login-form-container').classList.add('hidden');
+      document.getElementById('signup-form-container').classList.remove('hidden');
+      document.getElementById('forgot-password-container').classList.add('hidden');
+      document.getElementById('login-tab').classList.remove('active');
+      document.getElementById('signup-tab').classList.add('active');
+    }
+    function showForgotPassword(){
+      document.getElementById('login-form-container').classList.add('hidden');
+      document.getElementById('signup-form-container').classList.add('hidden');
+      document.getElementById('forgot-password-container').classList.remove('hidden');
+    }
+
+    function togglePassword(id){
+      const f = document.getElementById(id);
+      if (!f) return;
+      f.type = f.type === 'password' ? 'text' : 'password';
+    }
+
+    function signupUser(){
+      const phone = document.getElementById('signup-phone-number').value.trim();
+      const pass = document.getElementById('signup-password-field').value;
+      const conf = document.getElementById('signup-confirm-password').value;
+      const age = document.getElementById('signup-age').value.trim();
+
+      if (!phone || !pass || !conf) { alert('Fill all fields'); return; }
+      if (customers[phone]) { alert('Account already exists'); return; }
+      if (pass !== conf) { alert('Passwords do not match'); return; }
+
+      customers[phone] = { password: pass, profile: { name:'', email:'', age: age, gender:'', language: localStorage.getItem('siteLang')||'en' }, orders: [], suggestions: [] };
+      localStorage.setItem('customers', JSON.stringify(customers));
+      alert('Account created. You can now login.');
+      showLoginTab();
+      document.getElementById('login-phone-number').value = phone;
+    }
+
+    function loginUser(){
+      const phone = document.getElementById('login-phone-number').value.trim();
+      const pass = document.getElementById('login-password-field').value;
+
+      // admin login
+      if (phone === adminPhone && pass === adminPassword) {
+        currentUserId = 'admin';
+        localStorage.setItem('currentUserId', 'admin');
+        alert('Logged in as admin');
+        updateLoginState();
+        closeLoginModal();
+        showAdminPanel();
+        return;
+      }
+
+      const user = customers[phone];
+      if (user && user.password === pass) {
+        currentUserId = phone;
+        localStorage.setItem('currentUserId', phone);
+        alert('Login successful');
+        updateLoginState();
+        closeLoginModal();
+        showCustomerProfile();
+      } else alert('Wrong phone or password');
+    }
+
+    // Forgot password: age verify then allow reset
+    function forgotPassword(){
+      const phone = document.getElementById('forgot-phone-number').value.trim();
+      const age = document.getElementById('forgot-age').value.trim();
+      const ageHint = document.getElementById('age-hint');
+      const cust = customers[phone];
+      if (!cust) { alert('No account with this phone'); return; }
+
+      if ((cust.profile && cust.profile.age) == age) {
+        tempForgotPhone = phone;
+        ageHint.classList.add('hidden');
+        document.getElementById('reset-password-section').classList.remove('hidden');
+      } else {
+        alert('Age is incorrect. Enter correct age.');
+        ageHint.classList.remove('hidden');
+      }
+    }
+
+    function resetPassword() {
+      const newPw = document.getElementById('new-password').value;
+      const conf = document.getElementById('confirm-new-password').value;
+      if (!tempForgotPhone || !customers[tempForgotPhone]) { alert('Try again'); return; }
+      if (newPw !== conf) { alert('Passwords do not match'); return; }
+      customers[tempForgotPhone].password = newPw;
+      localStorage.setItem('customers', JSON.stringify(customers));
+      alert('New password set. Please login.');
+      document.getElementById('reset-password-section').classList.add('hidden');
+      document.getElementById('forgot-password-container').classList.add('hidden');
+      showLoginTab();
+    }
+
+    // ---------------------------
+    // PROFILE (customer)
+    // ---------------------------
+    function openProfileModal(){
+      if (!currentUserId || currentUserId === 'admin') { alert('Please login as customer'); return; }
+      const p = customers[currentUserId].profile;
+      document.getElementById('profile-name').value = p.name || '';
+      document.getElementById('profile-email').value = p.email || '';
+      document.getElementById('profile-age').value = p.age || '';
+      document.getElementById('profile-gender').value = p.gender || '';
+      document.getElementById('profile-language').value = p.language || (localStorage.getItem('siteLang')||'en');
+      document.getElementById('profile-modal').classList.remove('hidden');
+    }
+    function closeProfileModal(){ document.getElementById('profile-modal').classList.add('hidden'); }
+
+    document.getElementById('profile-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      if (!currentUserId || currentUserId === 'admin') { alert('Invalid'); return; }
+      const name = document.getElementById('profile-name').value.trim();
+      const email = document.getElementById('profile-email').value.trim();
+      const age = document.getElementById('profile-age').value.trim();
+      const gender = document.getElementById('profile-gender').value;
+      const language = document.getElementById('profile-language').value;
+      customers[currentUserId].profile = { name, email, age, gender, language };
+      localStorage.setItem('customers', JSON.stringify(customers));
+      alert('Profile updated');
+      closeProfileModal();
+      setLanguage(language);
+      renderCustomerProfile();
+    });
+
+    function renderCustomerProfile(){
+      if (!currentUserId || currentUserId === 'admin') return;
+      const p = customers[currentUserId].profile || {};
+      document.getElementById('profile-display-name').textContent = p.name || '-';
+      document.getElementById('profile-display-email').textContent = p.email || '-';
+      document.getElementById('profile-display-age').textContent = p.age || '-';
+      document.getElementById('profile-display-gender').textContent = p.gender || '-';
+      document.getElementById('profile-display-language').textContent = p.language || (localStorage.getItem('siteLang')||'en');
+    }
+
+    // ---------------------------
+    // ORDERS / CHECKOUT
+    // ---------------------------
+    document.getElementById('checkout-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      if (!currentUserId || currentUserId === 'admin') { alert('Please login as customer'); openLoginModal(); return; }
+      if (cart.length === 0) { alert('Cart empty'); return; }
+      const address = document.getElementById('checkout-address').value.trim();
+      const city = document.getElementById('checkout-city').value.trim();
+      const state = document.getElementById('checkout-state').value.trim();
+      const pincode = document.getElementById('checkout-pincode').value.trim();
+      const paymentMethod = document.getElementById('payment-method').value;
+      const total = cart.reduce((s,i)=>s + i.price*i.qty,0);
+      const orderId = Date.now().toString();
+      const expectedDeliveryDate = new Date(Date.now() + 7*24*60*60*1000).toLocaleDateString(); // default +7 days
+      const order = { id: orderId, date: new Date().toLocaleDateString(), items: cart.slice(), total, address: `${address}, ${city}, ${state}, ${pincode}`, paymentMethod, status: 'Pending', expectedDelivery: expectedDeliveryDate, customerId: currentUserId };
+      // push to customer's orders
+      if (!customers[currentUserId].orders) customers[currentUserId].orders = [];
+      customers[currentUserId].orders.push(order);
+      // push to global admin orders
+      globalOrders.push(order);
+
+      // reduce stock
+      cart.forEach(it => { if (allProducts[it.id]) allProducts[it.id].stock -= it.qty; });
+
+      // persist
+      localStorage.setItem('customers', JSON.stringify(customers));
+      localStorage.setItem('globalOrders', JSON.stringify(globalOrders));
+      localStorage.setItem('allProducts', JSON.stringify(allProducts));
+
+      cart = []; updateCartCount(); renderProducts(); closeCheckoutModal();
+      alert('Order placed! Total: ₹' + total);
+      // refresh UI
+      renderCustomerOrdersList();
+      renderAdminPanel();
+    });
+
+    function checkout(){
+      if (!currentUserId || currentUserId === 'admin') { openLoginModal(); return; }
+      document.getElementById('checkout-modal').classList.remove('hidden');
+      closeCart();
+    }
+    function closeCheckoutModal(){ document.getElementById('checkout-modal').classList.add('hidden'); }
+
+    // ---------------------------
+    // CUSTOMER ORDERS RENDER
+    // ---------------------------
+    function renderCustomerOrdersList(){
+      const container = document.getElementById('customer-orders-list');
+      container.innerHTML = '';
+      if (!currentUserId || currentUserId === 'admin') return;
+      const orders = customers[currentUserId].orders || [];
+      if (orders.length === 0) { container.innerHTML = '<p class="text-gray-400">No orders yet.</p>'; return; }
+      orders.slice().reverse().forEach(o => {
+        const div = document.createElement('div');
+        div.className = 'bg-gray-900 p-3 rounded mb-3';
+        div.innerHTML = `<div class="flex justify-between items-center">
+          <div><strong>Order #${o.id}</strong><div class="text-sm text-gray-400">${o.date}</div></div>
+          <div class="text-right"><div class="gold-text">₹${o.total}</div><div class="text-sm">${o.status}</div></div>
+        </div>
+        <div class="mt-2"><button class="small-btn" onclick="showOrderDetails('${o.id}','customer')">View details</button></div>`;
+        container.appendChild(div);
+      });
+    }
+
+    function showOrderDetails(orderId, viewFor){
+      // find order from globalOrders or customer's orders
+      let order = globalOrders.find(o=>o.id===orderId);
+      if (!order && currentUserId && customers[currentUserId].orders) order = customers[currentUserId].orders.find(o=>o.id===orderId);
+      if (!order) { alert('Order not found'); return; }
+      // build details
+      let itemsHtml = '<ul>';
+      order.items.forEach(it => itemsHtml += `<li>${it.name} x${it.qty} — ₹${it.price*it.qty}</li>`);
+      itemsHtml += '</ul>';
+      const tracking = `<p><strong>${translations[localStorage.getItem('siteLang')||'en'].expected_delivery || 'Expected delivery'}:</strong> ${order.expectedDelivery}</p>
+                        <p><strong>${translations[localStorage.getItem('siteLang')||'en'].tracking_status || 'Status'}:</strong> ${order.status}</p>`;
+      const extra = viewFor === 'admin' ? `<div class="mt-2">
+        <label>Change status:</label>
+        <select id="admin-change-status" class="p-1 bg-gray-700 rounded">
+          <option>Pending</option><option>Approved</option><option>Rejected</option><option>Shipped</option><option>Delivered</option>
+        </select>
+        <input id="admin-expected-date" type="date" class="p-1 bg-gray-700 rounded ml-2" />
+        <button class="premium-button px-3 py-1 rounded ml-2" onclick="adminUpdateOrder('${o.id}')">Save</button>
+      </div>` : '';
+      alert(`Order #${order.id}\nDate: ${order.date}\nTotal: ₹${order.total}\n\nItems:\n${order.items.map(i=>`${i.name} x${i.qty} — ₹${i.price*i.qty}`).join('\n')}\n\nExpected: ${order.expectedDelivery}\nStatus: ${order.status}`);
+    }
+
+    // ---------------------------
+    // ADMIN: full panel rendering and actions
+    // ---------------------------
+    function showAdminPanel(){
+      if (currentUserId !== 'admin') { alert('Admin login required'); return; }
+      document.getElementById('main-content').classList.add('hidden');
+      document.getElementById('customer-dashboard').classList.add('hidden');
+      document.getElementById('admin-panel').classList.remove('hidden');
+      renderAdminPanel();
+    }
+
+    function renderAdminPanel(){
+      if (currentUserId !== 'admin') return;
+      // summary
+      const totalOrders = globalOrders.length;
+      const totalSales = globalOrders.reduce((s,o)=>s + (o.total || 0), 0);
+      // margin = sales - (deliveryCharge * orders)
+      const marginVal = totalSales - (deliveryCharge * totalOrders);
+      document.getElementById('admin-total-orders').textContent = totalOrders;
+      document.getElementById('admin-total-sales').textContent = `₹${totalSales}`;
+      document.getElementById('admin-margin').textContent = `₹${marginVal}`;
+      document.getElementById('admin-delivery-charge').value = deliveryCharge;
+
+      // orders list
+      const ol = document.getElementById('admin-orders-list');
+      ol.innerHTML = '';
+      if (globalOrders.length === 0) ol.innerHTML = '<p class="text-gray-400">No orders yet.</p>';
+      globalOrders.slice().reverse().forEach(o => {
+        const cust = customers[o.customerId] ? (customers[o.customerId].profile.name || o.customerId) : o.customerId;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'bg-gray-900 p-3 rounded mb-3';
+        wrapper.innerHTML = `
+          <div class="flex justify-between items-center">
+            <div><strong>Order #${o.id}</strong><div class="text-sm text-gray-400">${o.date} — ${cust}</div></div>
+            <div class="text-right"><div class="gold-text">₹${o.total}</div><div class="text-sm">${o.status}</div></div>
+          </div>
+          <div class="mt-2 text-sm text-gray-300">${o.items.map(i=>`${i.name} x${i.qty}`).join('; ')}</div>
+          <div class="mt-2 flex gap-2">
+            <button class="small-btn" onclick="adminOpenOrder('${o.id}')">Open</button>
+            <button class="premium-button" onclick="adminApproveOrder('${o.id}')">${translations[savedLang].approve || 'Approve'}</button>
+            <button class="bg-red-600 px-3 py-1 rounded" onclick="adminRejectOrder('${o.id}')">${translations[savedLang].reject || 'Reject'}</button>
+          </div>
+        `;
+        ol.appendChild(wrapper);
+      });
+
+      // products
+      const pn = document.getElementById('stock-notifications');
+      pn.innerHTML = '';
+      const lowList = Object.keys(allProducts).filter(k=>allProducts[k].stock <= 2); // threshold = 2
+      if (lowList.length === 0) pn.innerHTML = '<div class="text-gray-400">All good</div>';
+      lowList.forEach(k => {
+        const p = allProducts[k];
+        const d = document.createElement('div');
+        d.className = 'p-2 mb-2 bg-gray-900 rounded';
+        d.innerHTML = `<div><strong>${p.name}</strong> — ${p.stock} left <button class="small-btn ml-2" onclick="adminEditProductFill('${k}')">Edit</button></div>`;
+        pn.appendChild(d);
+      });
+
+      // returns
+      const rr = document.getElementById('admin-returns-list');
+      rr.innerHTML = '';
+      if (returnRequests.length === 0) rr.innerHTML = '<div class="text-gray-400">No return requests</div>';
+      returnRequests.slice().reverse().forEach(r => {
+        const d = document.createElement('div');
+        d.className = 'p-2 mb-2 bg-gray-900 rounded';
+        d.innerHTML = `<div><strong>Return #${r.id}</strong> — Order ${r.orderId} — ${r.status || 'Pending'}</div>
+          <div class="text-sm text-gray-300">${r.reason}</div>
+          <div class="mt-2"><button class="premium-button" onclick="adminApproveReturn('${r.id}')">Approve</button>
+          <button class="bg-red-600 px-3 py-1 rounded" onclick="adminRejectReturn('${r.id}')">Reject</button></div>`;
+        rr.appendChild(d);
+      });
+
+      // suggestions
+      const sl = document.getElementById('admin-suggestions-list');
+      sl.innerHTML = '';
+      if (suggestions.length === 0) sl.innerHTML = '<div class="text-gray-400">No suggestions</div>';
+      suggestions.slice().reverse().forEach((s, idx) => {
+        const d = document.createElement('div'); d.className = 'p-2 mb-2 bg-gray-900 rounded';
+        d.innerHTML = `<div><strong>${s.name}</strong> — ${s.date}</div><div class="text-sm text-gray-300">${s.text}</div>
+          <div class="mt-2"><input id="reply-${idx}" placeholder="Write reply..." class="p-2 bg-gray-700 rounded w-full" />
+          <button class="premium-button mt-2 w-full" onclick="adminReplySuggestion(${idx})">Reply</button></div>`;
+        sl.appendChild(d);
+      });
+    }
+
+    function adminOpenOrder(id){
+      const o = globalOrders.find(x=>x.id===id);
+      if (!o) return alert('Order not found');
+      const cust = customers[o.customerId] ? (customers[o.customerId].profile.name || o.customerId) : o.customerId;
+      const items = o.items.map(i=>`${i.name} x${i.qty} — ₹${i.price*i.qty}`).join('\n');
+      const newStatus = prompt('Change status (Pending / Approved / Rejected / Shipped / Delivered):', o.status);
+      if (newStatus) {
+        o.status = newStatus;
+        const newDate = prompt('Expected delivery date (yyyy-mm-dd):', o.expectedDelivery ? new Date(o.expectedDelivery).toISOString().slice(0,10) : '');
+        if (newDate) o.expectedDelivery = new Date(newDate).toLocaleDateString();
+        saveAllState();
+        renderAdminPanel();
+        renderCustomerOrdersList();
+        alert('Order updated');
+      }
+    }
+
+    function adminApproveOrder(id){
+      const o = globalOrders.find(x=>x.id===id);
+      if (!o) return alert('Order not found');
+      o.status = 'Approved';
+      saveAllState();
+      renderAdminPanel();
+      renderCustomerOrdersList();
+      alert('Order approved');
+    }
+    function adminRejectOrder(id){
+      const o = globalOrders.find(x=>x.id===id);
+      if (!o) return alert('Order not found');
+      o.status = 'Rejected';
+      saveAllState();
+      renderAdminPanel();
+      renderCustomerOrdersList();
+      alert('Order rejected');
+    }
+
+    function adminUpdateOrder(id){
+      const newStatus = document.getElementById('admin-change-status').value;
+      const newDate = document.getElementById('admin-expected-date').value;
+      const o = globalOrders.find(x=>x.id===id);
+      if (!o) return alert('Order not found');
+      o.status = newStatus;
+      if (newDate) o.expectedDelivery = new Date(newDate).toLocaleDateString();
+      saveAllState();
+      renderAdminPanel();
+      renderCustomerOrdersList();
+      alert('Saved');
+    }
+
+    function adminApproveReturn(id){
+      const r = returnRequests.find(x=>x.id===id);
+      if (!r) return;
+      r.status = 'Approved';
+      saveAllState();
+      renderAdminPanel();
+      alert('Return approved');
+    }
+    function adminRejectReturn(id){
+      const r = returnRequests.find(x=>x.id===id);
+      if (!r) return;
+      r.status = 'Rejected';
+      saveAllState();
+      renderAdminPanel();
+      alert('Return rejected');
+    }
+
+    function adminReplySuggestion(idx){
+      const reply = document.getElementById('reply-'+idx).value.trim();
+      if (!reply) return alert('Enter reply');
+      // attach reply to suggestion record
+      const realIdx = suggestions.length - 1 - idx; // reversed view mapping
+      suggestions[realIdx].reply = reply;
+      localStorage.setItem('suggestions', JSON.stringify(suggestions));
+      renderAdminPanel();
+      alert('Replied');
+    }
+
+    // ---------------------------
+    // ADMIN: product management
+    // ---------------------------
+    function adminAddOrUpdateProduct(){
+      const id = document.getElementById('admin-prod-id').value.trim();
+      const name = document.getElementById('admin-prod-name').value.trim();
+      const price = Number(document.getElementById('admin-prod-price').value);
+      const stock = Number(document.getElementById('admin-prod-stock').value);
+      const image = document.getElementById('admin-prod-image').value.trim() || 'https://via.placeholder.com/400x400?text=Product';
+
+      if (!id || !name || !price) return alert('Fill product id, name, price');
+      allProducts[id] = { name, price, stock, image };
+      localStorage.setItem('allProducts', JSON.stringify(allProducts));
+      renderProducts();
+      renderAdminPanel();
+      alert(translations[savedLang].product_added || 'Product added/updated');
+    }
+
+    function adminDeleteProduct(){
+      const id = document.getElementById('admin-prod-id').value.trim();
+      if (!id || !allProducts[id]) return alert('Product id invalid');
+      delete allProducts[id];
+      localStorage.setItem('allProducts', JSON.stringify(allProducts));
+      renderProducts();
+      renderAdminPanel();
+      alert(translations[savedLang].product_deleted || 'Product deleted');
+    }
+
+    function adminEditProductFill(id){
+      if (!allProducts[id]) return;
+      const p = allProducts[id];
+      document.getElementById('admin-prod-id').value = id;
+      document.getElementById('admin-prod-name').value = p.name;
+      document.getElementById('admin-prod-price').value = p.price;
+      document.getElementById('admin-prod-stock').value = p.stock;
+      document.getElementById('admin-prod-image').value = p.image;
+    }
+
+    function saveDeliveryCharge(){
+      const v = Number(document.getElementById('admin-delivery-charge').value || 0);
+      deliveryCharge = v;
+      localStorage.setItem('deliveryCharge', v);
+      renderAdminPanel();
+      alert('Delivery charge saved');
+    }
+
+    // ---------------------------
+    // SUGGESTIONS & RETURNS (customer)
+    // ---------------------------
+    document.getElementById('suggestion-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('suggestion-name').value.trim();
+      const text = document.getElementById('suggestion-text').value.trim();
+      if (!name || !text) { alert('Fill both fields'); return; }
+      const newS = { name, text, date: new Date().toLocaleDateString(), reply: null };
+      suggestions.push(newS);
+      localStorage.setItem('suggestions', JSON.stringify(suggestions));
+      alert(translations[localStorage.getItem('siteLang')||'en'].suggest_submitted || 'Suggestion submitted.');
+      this.reset();
+    });
+
+    document.getElementById('return-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      if (!currentUserId || currentUserId === 'admin') { alert('Please login'); return; }
+      const orderId = document.getElementById('return-order-number').value.trim();
+      const reason = document.getElementById('return-reason').value.trim();
+      if (!orderId || !reason) { alert('Fill fields'); return; }
+      const req = { id: Date.now().toString(), customerId: currentUserId, orderId, reason, status: 'Pending' };
+      returnRequests.push(req);
+      localStorage.setItem('returnRequests', JSON.stringify(returnRequests));
+      alert(translations[localStorage.getItem('siteLang')||'en'].return_submitted || 'Return request submitted.');
+      this.reset();
+      renderAdminPanel();
+    });
+
+    // ---------------------------
+    // UTILS: save to localStorage
+    // ---------------------------
+    function saveAllState(){
+      localStorage.setItem('customers', JSON.stringify(customers));
+      localStorage.setItem('globalOrders', JSON.stringify(globalOrders));
+      localStorage.setItem('allProducts', JSON.stringify(allProducts));
+      localStorage.setItem('suggestions', JSON.stringify(suggestions));
+      localStorage.setItem('returnRequests', JSON.stringify(returnRequests));
+    }
+
+    // ---------------------------
+    // NAV: show customer profile view
+    // ---------------------------
+    function showCustomerProfile(){
+      if (!currentUserId || currentUserId === 'admin') { openLoginModal(); return; }
+      document.getElementById('main-content').classList.add('hidden');
+      document.getElementById('admin-panel').classList.add('hidden');
+      document.getElementById('customer-dashboard').classList.remove('hidden');
+      renderCustomerProfile();
+      renderCustomerOrdersList();
+      renderMySuggestions();
+    }
     
-    <footer class="bg-gray-900 text-white py-8 premium-shadow">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2023 Fashion Hub. All rights reserved.</p>
-            <p>Powered by Memon Ayan and Mansuri Riyan.</p>
-        </div>
-    </footer>
-
-    <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let customers = JSON.parse(localStorage.getItem('customers')) || {};
-        let suggestions = JSON.parse(localStorage.getItem('suggestions')) || [];
-        let returns = JSON.parse(localStorage.getItem('returns')) || [];
-        let currentUserId = localStorage.getItem('currentUserId') || null;
-        let loginType = null;
-        let currentLanguage = 'en';
-        
-        const dummyOTP = '1234';
-        const adminNumber = '9265247070';
-        const adminPassword = 'AK GAMING 1M'; // WARNING: Storing in plain text for demo. Not secure!
-        const deliveryCharge = 50;
-        
-        const allProducts = {
-            'men-basic-tshirt': { name: 'Men\'s Basic T-Shirt', price: 599, stock: 10, category: 'men', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1621323862287-c1d48c9a6231?q=80&w=1887&auto=format&fit=crop', reviews: [] },
-            'men-casual-shorts': { name: 'Men\'s Casual Shorts', price: 799, stock: 5, category: 'men', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1620799140188-3b2a2bff0e87?q=80&w=1887&auto=format&fit=crop', reviews: [] },
-            'men-simple-hoodie': { name: 'Men\'s Simple Hoodie', price: 999, stock: 0, category: 'men', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1596752002360-192b1a1c97a9?q=80&w=1887&auto=format&fit=crop', reviews: [] },
-            'men-stylish-jeans': { name: 'Men\'s Stylish Jeans', price: 1599, stock: 8, category: 'men', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1594967399435-081035546b41?q=80&w=1964&auto=format&fit=crop', reviews: [] },
-            'men-polo-shirt': { name: 'Men\'s Premium Polo Shirt', price: 1299, stock: 20, category: 'men', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1593032464139-f9c15d48a313?q=80&w=1887&auto=format&fit=crop', reviews: [] },
-            'men-comfort-chinos': { name: 'Men\'s Comfort Chinos', price: 1899, stock: 12, category: 'men', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1610444588506-65c27599059e?q=80&w=1887&auto=format&fit=crop', reviews: [] },
-            'men-leather-jacket': { name: 'Men\'s Luxury Leather Jacket', price: 4999, stock: 3, category: 'men', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1616016149206-89d4432c66d6?q=80&w=1935&auto=format&fit=crop', reviews: [] },
-            'men-designer-suit': { name: 'Men\'s Designer Formal Suit', price: 8999, stock: 1, category: 'men', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1627051996963-8a9d0a649b5c?q=80&w=1887&auto=format&fit=crop', reviews: [] },
-            'men-cashmere-sweater': { name: 'Men\'s Premium Cashmere Sweater', price: 3499, stock: 7, category: 'men', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1607530666993-f3661138ae9e?q=80&w=1964&auto=format&fit=crop', reviews: [] },
-            'women-basic-tshirt': { name: 'Women\'s Basic T-Shirt', price: 699, stock: 14, category: 'women', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1548035174-8b63e8a609d0?q=80&w=1974&auto=format&fit=crop', reviews: [] },
-            'women-cotton-shorts': { name: 'Women\'s Cotton Shorts', price: 899, stock: 9, category: 'women', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1519782877020-00806441b223?q=80&w=1887&auto=format&fit=crop', reviews: [] },
-            'women-striped-tank-top': { name: 'Women\'s Striped Tank Top', price: 599, stock: 18, category: 'women', priceTier: 'lower', image: 'https://images.unsplash.com/photo-1593922370776-52c6f376997d?q=80&w=1887&auto=format&fit=crop', reviews: [] },
-            'women-summer-dress': { name: 'Women\'s Summer Dress', price: 1299, stock: 6, category: 'women', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1519409540096-724e580e224e?q=80&w=1887&auto=format&fit=crop', reviews: [] },
-            'women-stylish-top': { name: 'Women\'s Stylish Top', price: 799, stock: 11, category: 'women', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1549721759-96860f38b251?q=80&w=1965&auto=format&fit=crop', reviews: [] },
-            'women-formal-trousers': { name: 'Women\'s Formal Trousers', price: 1499, stock: 4, category: 'women', priceTier: 'middle', image: 'https://images.unsplash.com/photo-1594917573030-9b36d07d6118?q=80&w=1887&auto=format&fit=crop', reviews: [] },
-            'women-handbag': { name: 'Women\'s Designer Handbag', price: 3999, stock: 2, category: 'women', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1554564243-d8c9a3d4f5b2?q=80&w=1964&auto=format&fit=crop', reviews: [] },
-            'women-silk-gown': { name: 'Women\'s Silk Evening Gown', price: 4999, stock: 3, category: 'women', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1620023023062-8e1042b36b0d?q=80&w=1964&auto=format&fit=crop', reviews: [] },
-            'women-cashmere-sweater': { name: 'Women\'s Premium Cashmere Sweater', price: 3499, stock: 8, category: 'women', priceTier: 'higher', image: 'https://images.unsplash.com/photo-1595166687915-0b04a9d702e5?q=80&w=1887&auto=format&fit=crop', reviews: [] }
-        };
-
-        const upiDatabase = {
-            'test@ybl': 'Ayan Memon',
-            'riyan.mansuri@okicici': 'Riyan Mansuri',
-            'john.doe@paytm': 'John Doe',
-            'jane.smith@googlepay': 'Jane Smith',
-            'prakash.singh@icici': 'Prakash Singh',
-            'sarita.kumar@sbi': 'Sarita Kumar',
-            'amit.patel@axl': 'Amit Patel',
-        };
-
-        const translations = {
-            'en': {
-                'title': 'Fashion Hub - Premium Clothing and Fashion Items',
-                'powered_by': 'Powered by Memon Ayan and Mansuri Riyan',
-                'mens_collection': 'Men\'s Collection',
-                'womens_collection': 'Women\'s Collection',
-                'lower_class': 'Lower Class (Affordable)',
-                'middle_class': 'Middle Class (Mid-Range)',
-                'higher_class': 'Higher Class (Premium)',
-                'return_policy': 'Return Policy',
-                'contact': 'Contact',
-                'cart': 'Cart',
-                'login': 'Login',
-                'search_placeholder': 'Search for products...',
-                'welcome_message': 'Welcome to Fashion Hub',
-                'hero_subtext': 'Discover the pinnacle of luxury in clothing, shoes, watches, and perfumes. Elevate your style with our premium collection.',
-                'shop_button': 'Shop Luxuriously',
-                'our_collection': 'Our Premium Collection',
-                'share_suggestion': 'Share Your Suggestion',
-                'your_name': 'Your Name',
-                'your_suggestion': 'Your suggestion here...',
-                'submit_suggestion': 'Submit Suggestion',
-                'return_policy_text': 'We offer a 7-day return policy and 24-hour cancellation. To return an item, please provide a valid reason and photo proof.',
-                'order_number': 'Order Number',
-                'reason_for_return': 'Reason for Return',
-                'submit_return': 'Submit Return Request',
-                'payment_methods': 'Payment Methods',
-                'choose_payment': 'Choose from various secure payment options:',
-                'credit_card': 'Credit Card',
-                'debit_card': 'Debit Card',
-                'upi': 'UPI',
-                'net_banking': 'Net Banking',
-                'cash_on_delivery': 'Cash on Delivery',
-                'your_cart': 'Your Cart',
-                'total': 'Total:',
-                'close': 'Close',
-                'checkout': 'Checkout',
-                'phone_number': 'Phone Number',
-                'password_placeholder': 'Password',
-                'otp_placeholder': 'OTP',
-                'complete_profile': 'Complete Your Profile',
-                'full_name': 'Full Name',
-                'email': 'Email',
-                'age': 'Age',
-                'gender': 'Gender',
-                'select_gender': 'Select Gender',
-                'select_language': 'Select Language',
-                'save_profile': 'Save Profile',
-                'enter_shipping': 'Enter Shipping Details',
-                'address': 'Address',
-                'city': 'City',
-                'state': 'State',
-                'pincode': 'Pincode',
-                'select_payment_method': 'Select Payment Method',
-                'place_order': 'Place Order',
-                'contact_us': 'Contact Us',
-                'no_reviews': 'No reviews yet',
-                'add_to_cart': 'Add to Cart',
-                'my_dashboard': 'My Dashboard',
-                'my_profile': 'My Profile',
-                'my_orders': 'My Orders',
-                'my_suggestions': 'My Suggestions',
-                'profile_details_missing': 'Please complete your profile.',
-                'no_orders': 'You have no pending orders.',
-                'order_placed': 'Order placed successfully!',
-                'cancel_order': 'Cancel Order',
-                'rate_review': 'Rate & Review',
-                'submit_review': 'Submit Review',
-                'your_review': 'Your Review',
-                'admin_panel': 'Admin Panel',
-                'total_sales': 'Total Sales',
-                'total_margin': 'Total Margin',
-                'total_orders': 'Total Orders',
-                'manage_products': 'Manage Products',
-                'all_orders': 'All Orders',
-                'return_requests': 'Return Requests',
-                'customer_reviews': 'Customer Reviews',
-                'customer_suggestions': 'Customer Suggestions',
-                'no_suggestions': 'No new suggestions.',
-                'from': 'From:',
-                'suggestion': 'Suggestion:',
-                'admin_reply': 'Admin Reply:',
-                'awaiting_reply': 'Awaiting admin reply...',
-                'stock': 'Stock:',
-                'out_of_stock': 'This item is currently out of stock!',
-                'login_to_order': 'Please log in to place an order.',
-                'complete_profile_first': 'Please complete your profile before placing an order.',
-                'fill_details': 'Please fill in all the details.',
-                'invalid_admin': 'Invalid Admin credentials.',
-                'invalid_otp': 'Invalid OTP.',
-                'profile_saved': 'Profile saved successfully!',
-                'suggestion_submitted': 'Suggestion submitted successfully!',
-                'fill_suggestion': 'Please enter your name and a suggestion.',
-                'order_cancelled': 'Order has been cancelled.',
-                'cannot_cancel': 'This order cannot be cancelled as it is already being processed or delivered.',
-                'cancel_window_passed': 'The 24-hour cancellation window has passed for this order.',
-                'review_thanks': 'Thank you for your review!',
-                'send_reply': 'Send Reply',
-                'verify_upi': 'Verify UPI',
-                'upi_verified': 'UPI Verified. Account Name:',
-                'invalid_upi': 'Invalid UPI ID.',
-                'invalid_phone': 'Invalid Indian mobile number. Please enter a 10-digit number starting with 6, 7, 8, or 9.',
-                'back': 'Back',
-                'logout': 'Logout',
-                'back_to_main': 'Back to Main',
-                'edit_profile': 'Edit Profile',
-                'subtotal': 'Subtotal:',
-                'delivery_charge': 'Delivery Charge:',
-                'grand_total': 'Grand Total:',
-                'product_saved': 'Product saved successfully!',
-                'return_submitted': 'Return request submitted successfully!',
-                'return_approve': 'Approve Return',
-                'return_decline': 'Decline Return',
-                'cart_empty': 'Your cart is empty. Please add items to place an order.'
-            },
-            'hi': {
-                'title': 'फैशन हब - प्रीमियम कपड़े और फैशन आइटम',
-                'powered_by': 'मेमन अयान और मंसूरी रियान द्वारा संचालित',
-                'mens_collection': 'पुरुषों का संग्रह',
-                'womens_collection': 'महिलाओं का संग्रह',
-                'lower_class': 'लोअर क्लास (सुलभ)',
-                'middle_class': 'मिडल क्लास (मध्यम-रेंज)',
-                'higher_class': 'हायर क्लास (प्रीमियम)',
-                'return_policy': 'वापसी नीति',
-                'contact': 'संपर्क',
-                'cart': 'कार्ट',
-                'login': 'लॉगिन',
-                'search_placeholder': 'उत्पादों की खोज करें...',
-                'welcome_message': 'फैशन हब में आपका स्वागत है',
-                'hero_subtext': 'कपड़ों, जूतों, घड़ियों और परफ्यूम में लक्जरी की पराकाष्ठा खोजें। हमारे प्रीमियम संग्रह के साथ अपनी शैली को ऊंचा करें।',
-                'shop_button': 'लक्जरी की खरीदारी करें',
-                'our_collection': 'हमारा प्रीमियम संग्रह',
-                'share_suggestion': 'अपना सुझाव साझा करें',
-                'your_name': 'आपका नाम',
-                'your_suggestion': 'आपका सुझाव यहाँ...',
-                'submit_suggestion': 'सुझाव सबमिट करें',
-                'return_policy_text': 'हम 7-दिन की वापसी नीति और 24-घंटे की रद्दीकरण सुविधा प्रदान करते हैं। किसी आइटम को वापस करने के लिए, कृपया एक वैध कारण और फोटो प्रूफ प्रदान करें।',
-                'order_number': 'ऑर्डर नंबर',
-                'reason_for_return': 'वापसी का कारण',
-                'submit_return': 'वापसी अनुरोध सबमिट करें',
-                'payment_methods': 'भुगतान के तरीके',
-                'choose_payment': 'विभिन्न सुरक्षित भुगतान विकल्पों में से चुनें:',
-                'credit_card': 'क्रेडिट कार्ड',
-                'debit_card': 'डेबिट कार्ड',
-                'upi': 'यूपीआई',
-                'net_banking': 'नेट बैंकिंग',
-                'cash_on_delivery': 'कैश ऑन डिलीवरी',
-                'your_cart': 'आपका कार्ट',
-                'total': 'कुल:',
-                'close': 'बंद करें',
-                'checkout': 'चेकआउट',
-                'phone_number': 'फ़ोन नंबर',
-                'password_placeholder': 'पासवर्ड',
-                'otp_placeholder': 'ओटीपी',
-                'complete_profile': 'अपनी प्रोफाइल पूरी करें',
-                'full_name': 'पूरा नाम',
-                'email': 'ईमेल',
-                'age': 'आयु',
-                'gender': 'लिंग',
-                'select_gender': 'लिंग चुनें',
-                'select_language': 'भाषा चुनें',
-                'save_profile': 'प्रोफाइल सहेजें',
-                'enter_shipping': 'शिपिंग विवरण दर्ज करें',
-                'address': 'पता',
-                'city': 'शहर',
-                'state': 'राज्य',
-                'pincode': 'पिनकोड',
-                'select_payment_method': 'भुगतान विधि चुनें',
-                'place_order': 'ऑर्डर दें',
-                'contact_us': 'हमसे संपर्क करें',
-                'no_reviews': 'अभी तक कोई समीक्षा नहीं',
-                'add_to_cart': 'कार्ट में जोड़ें',
-                'my_dashboard': 'मेरा डैशबोर्ड',
-                'my_profile': 'मेरी प्रोफाइल',
-                'my_orders': 'मेरे ऑर्डर',
-                'my_suggestions': 'मेरे सुझाव',
-                'profile_details_missing': 'कृपया अपनी प्रोफाइल पूरी करें।',
-                'no_orders': 'आपके कोई लंबित ऑर्डर नहीं हैं।',
-                'order_placed': 'ऑर्डर सफलतापूर्वक दिया गया!',
-                'cancel_order': 'ऑर्डर रद्द करें',
-                'rate_review': 'रेट और समीक्षा',
-                'submit_review': 'समीक्षा सबमिट करें',
-                'your_review': 'आपकी समीक्षा',
-                'admin_panel': 'एडमिन पैनल',
-                'total_sales': 'कुल बिक्री',
-                'total_margin': 'कुल मार्जिन',
-                'total_orders': 'कुल ऑर्डर',
-                'manage_products': 'उत्पादों का प्रबंधन करें',
-                'all_orders': 'सभी ऑर्डर',
-                'return_requests': 'वापसी अनुरोध',
-                'customer_reviews': 'ग्राहक समीक्षाएँ',
-                'customer_suggestions': 'ग्राहक सुझाव',
-                'no_suggestions': 'कोई नया सुझाव नहीं।',
-                'from': 'से:',
-                'suggestion': 'सुझाव:',
-                'admin_reply': 'एडमिन का जवाब:',
-                'awaiting_reply': 'एडमिन के जवाब का इंतजार...',
-                'stock': 'स्टॉक:',
-                'out_of_stock': 'यह आइटम वर्तमान में स्टॉक में नहीं है!',
-                'login_to_order': 'ऑर्डर देने के लिए कृपया लॉगिन करें।',
-                'complete_profile_first': 'ऑर्डर देने से पहले कृपया अपनी प्रोफाइल पूरी करें।',
-                'fill_details': 'कृपया सभी विवरण भरें।',
-                'invalid_admin': 'अमान्य एडमिन क्रेडेंशियल।',
-                'invalid_otp': 'अमान्य ओटीपी।',
-                'profile_saved': 'प्रोफाइल सफलतापूर्वक सहेजी गई!',
-                'suggestion_submitted': 'सुझाव सफलतापूर्वक सबमिट किया गया!',
-                'fill_suggestion': 'कृपया अपना नाम और एक सुझाव दर्ज करें।',
-                'order_cancelled': 'ऑर्डर रद्द कर दिया गया है।',
-                'cannot_cancel': 'यह ऑर्डर रद्द नहीं किया जा सकता क्योंकि यह पहले से ही प्रक्रिया में है या डिलीवर किया जा रहा है।',
-                'cancel_window_passed': 'इस ऑर्डर के लिए 24 घंटे की रद्दीकरण विंडो बीत चुकी है।',
-                'review_thanks': 'आपकी समीक्षा के लिए धन्यवाद!',
-                'send_reply': 'जवाब भेजें',
-                'verify_upi': 'यूपीआई सत्यापित करें',
-                'upi_verified': 'यूपीआई सत्यापित। खाता नाम:',
-                'invalid_upi': 'अमान्य यूपीआई आईडी।',
-                'invalid_phone': 'अमान्य भारतीय मोबाइल नंबर। कृपया 10 अंकों का नंबर दर्ज करें जो 6, 7, 8, या 9 से शुरू होता हो।',
-                'back': 'वापस',
-                'logout': 'लॉगआउट',
-                'back_to_main': 'मुख्य पर वापस',
-                'edit_profile': 'प्रोफाइल संपादित करें',
-                'subtotal': 'उप-योग:',
-                'delivery_charge': 'डिलीवरी शुल्क:',
-                'grand_total': 'कुल योग:',
-                'product_saved': 'उत्पाद सफलतापूर्वक सहेजा गया!',
-                'return_submitted': 'वापसी अनुरोध सफलतापूर्वक सबमिट किया गया!',
-                'return_approve': 'वापसी स्वीकार करें',
-                'return_decline': 'वाપસી अस्वीકાર करें',
-                'cart_empty': 'आपका कार्ट खाली है। कृपया ऑर्डर देने के लिए आइटम जोड़ें।'
-            },
-            'gu': {
-                'title': 'ફેશન હબ - પ્રીમિયમ કપડાં અને ફેશન વસ્તુઓ',
-                'powered_by': 'મેમન અયાન અને મંસુરી રિયાન દ્વારા સંચાલિત',
-                'mens_collection': 'પુરુષોનો સંગ્રહ',
-                'womens_collection': 'મહિલાઓનો સંગ્રહ',
-                'lower_class': 'લોઅર ક્લાસ (સુલભ)',
-                'middle_class': 'મિડલ ક્લાસ (મધ્યમ-રેન્જ)',
-                'higher_class': 'હાયર ક્લાસ (પ્રીમિયમ)',
-                'return_policy': 'રિટર્ન પોલિસી',
-                'contact': 'સંપર્ક',
-                'cart': 'કાર્ટ',
-                'login': 'લોગિન',
-                'search_placeholder': 'ઉત્પાદનો શોધો...',
-                'welcome_message': 'ફેશન હબમાં તમારું સ્વાગત છે',
-                'hero_subtext': 'કપડાં, જૂતા, ઘડિયાળ અને પરફ્યુમમાં લક્ઝરીની પરાકાષ્ઠા શોધો. અમારા પ્રીમિયમ સંગ્રહ સાથે તમારી શૈલીને ઉન્નત કરો.',
-                'shop_button': 'લક્ઝરી ખરીદો',
-                'our_collection': 'અમારો પ્રીમિયમ સંગ્રહ',
-                'share_suggestion': 'તમારો સૂચન શેર કરો',
-                'your_name': 'તમારું નામ',
-                'your_suggestion': 'તમારું સૂચન અહીં...',
-                'submit_suggestion': 'સૂચન સબમિટ કરો',
-                'return_policy_text': 'અમે 7-દિવસની રિટર્ન પોલિસી અને 24-કલાકની રદ્દીકરણ સુવિધા પ્રદાન કરીએ છીએ. કોઈ વસ્તુ પાછી આપવા માટે, કૃપા કરીને એક માન્ય કારણ અને ફોટો પ્રૂફ આપો.',
-                'order_number': 'ઓર્ડર નંબર',
-                'reason_for_return': 'રિટર્નનું કારણ',
-                'submit_return': 'રિટર્ન રિક્વેસ્ટ સબમિટ કરો',
-                'payment_methods': 'ચુકવણી પદ્ધતિઓ',
-                'choose_payment': 'વિવિધ સુરક્ષિત ચુકવણી વિકલ્પોમાંથી પસંદ કરો:',
-                'credit_card': 'ક્રેડિટ કાર્ડ',
-                'debit_card': 'ડેબિટ કાર્ડ',
-                'upi': 'યુપીઆઈ',
-                'net_banking': 'નેટ બેન્કિંગ',
-                'cash_on_delivery': 'કેશ ઓન ડિલિવરી',
-                'your_cart': 'તમારું કાર્ટ',
-                'total': 'કુલ:',
-                'close': 'બંધ કરો',
-                'checkout': 'ચેકઆઉટ',
-                'phone_number': 'ફોન નંબર',
-                'password_placeholder': 'પાસવર્ડ',
-                'otp_placeholder': 'ઓટીપી',
-                'complete_profile': 'તમારી પ્રોફાઇલ પૂર્ણ કરો',
-                'full_name': 'પૂરું નામ',
-                'email': 'ઇમેઇલ',
-                'age': 'ઉંમર',
-                'gender': 'લિંગ',
-                'select_gender': 'લિંગ પસંદ કરો',
-                'select_language': 'ભાષા પસંદ કરો',
-                'save_profile': 'પ્રોફાઇલ સાચવો',
-                'enter_shipping': 'શિપિંગ વિગતો દાખલ કરો',
-                'address': 'સરનામું',
-                'city': 'શહેર',
-                'state': 'રાજ્ય',
-                'pincode': 'પિનકોડ',
-                'select_payment_method': 'ચુકવણી પદ્ધતિ પસંદ કરો',
-                'place_order': 'ઓર્ડર આપો',
-                'contact_us': 'અમારો સંપર્ક કરો',
-                'no_reviews': 'હજુ સુધી કોઈ સમીક્ષા નથી',
-                'add_to_cart': 'કાર્ટમાં ઉમેરો',
-                'my_dashboard': 'મારું ડેશબોર્ડ',
-                'my_profile': 'મારી પ્રોફાઇલ',
-                'my_orders': 'મારા ઓર્ડર',
-                'my_suggestions': 'મારા સૂચનો',
-                'profile_details_missing': 'કૃપા કરીને તમારી પ્રોફાઇલ પૂર્ણ કરો.',
-                'no_orders': 'તમારી પાસે કોઈ બાકી ઓર્ડર નથી.',
-                'order_placed': 'ઓર્ડર સફળતાપૂર્વક અપાયો!',
-                'cancel_order': 'ઓર્ડર રદ કરો',
-                'rate_review': 'રેટ અને સમીક્ષા',
-                'submit_review': 'સમીક્ષા સબમિટ કરો',
-                'your_review': 'તમારી સમીક્ષા',
-                'admin_panel': 'એડમિન પેનલ',
-                'total_sales': 'કુલ વેચાણ',
-                'total_margin': 'કુલ માર્જિન',
-                'total_orders': 'કુલ ઓર્ડર',
-                'manage_products': 'ઉત્પાદનોનું વ્યવસ્થાપન કરો',
-                'all_orders': 'બધા ઓર્ડર',
-                'return_requests': 'રિટર્ન રિક્વેસ્ટ',
-                'customer_reviews': 'ગ્રાહક સમીક્ષાઓ',
-                'customer_suggestions': 'ગ્રાહક સૂચનો',
-                'no_suggestions': 'કોઈ નવો સૂચન નથી.',
-                'from': 'થી:',
-                'suggestion': 'સૂચન:',
-                'admin_reply': 'એડમિનનો જવાબ:',
-                'awaiting_reply': 'એડમિનના જવાબની રાહ જોઈ રહ્યા છીએ...',
-                'stock': 'સ્ટોક:',
-                'out_of_stock': 'આ વસ્તુ હાલમાં સ્ટોકમાં નથી!',
-                'login_to_order': 'ઓર્ડર આપવા માટે કૃપા કરીને લોગિન કરો.',
-                'complete_profile_first': 'ઓર્ડર આપતા પહેલા કૃપા કરીને તમારી પ્રોફાઇલ પૂર્ણ કરો.',
-                'fill_details': 'કૃપા કરીને બધી વિગતો ભરો.',
-                'invalid_admin': 'અમાન્ય એડમિન ઓળખપત્ર.',
-                'invalid_otp': 'અમાન્ય ઓટીપી.',
-                'profile_saved': 'પ્રોફાઇલ સફળતાપૂર્વક સાચવવામાં આવી!',
-                'suggestion_submitted': 'સૂચન સફળતાપૂર્વક સબમિટ કરાયું!',
-                'fill_suggestion': 'કૃપા કરીને તમારું નામ અને એક સૂચન દાખલ કરો.',
-                'order_cancelled': 'ઓર્ડર રદ કરવામાં આવ્યો છે.',
-                'cannot_cancel': 'આ ઓર્ડર રદ કરી શકાતો નથી કારણ કે તે પહેલાથી જ પ્રક્રિયામાં છે અથવા ડિલિવર થઈ રહ્યો છે.',
-                'cancel_window_passed': 'આ ઓર્ડર માટે 24 કલાકની રદ્દીકરણ વિંડો પસાર થઈ ગઈ છે.',
-                'review_thanks': 'તમારી સમીક્ષા માટે આભાર!',
-                'send_reply': 'જવાબ મોકલો',
-                'verify_upi': 'યુપીઆઈ ચકાસો',
-                'upi_verified': 'યુપીઆઈ ચકાસાયેલ. ખાતાનું નામ:',
-                'invalid_upi': 'અમાન્ય યુપીઆઈ આઈડી.',
-                'invalid_phone': 'અમાન્ય ભારતીય મોબાઇલ નંબર. કૃપા કરીને 10 અંકોનો નંબર દાખલ કરો જે 6, 7, 8, અથવા 9 થી શરૂ થાય છે.',
-                'back': 'પાછળ',
-                'logout': 'લોગઆઉટ',
-                'back_to_main': 'મુખ્ય પર પાછળ',
-                'edit_profile': 'પ્રોફાઇલ સંપાદિત કરો',
-                'subtotal': 'ઉપ-યોગ:',
-                'delivery_charge': 'ડિલિવરી ફી:',
-                'grand_total': 'કુલ સરવાળો:',
-                'product_saved': 'ઉત્પાદન સફળતાપૂર્વક સાચવવામાં આવ્યું!',
-                'return_submitted': 'રિટર્ન રિક્વેસ્ટ સફળતાપૂર્વક સબમિટ કરવામાં આવી!',
-                'return_approve': 'રિટર્ન સ્વીકારો',
-                'return_decline': 'રિટર્ન નકારો',
-                'cart_empty': 'તમારું કાર્ટ ખાલી છે. કૃપા કરીને ઓર્ડર આપવા માટે આઈટમ ઉમેરો.'
-            }
-        };
-
-        const renderProducts = (products) => {
-            const mensLowerContainer = document.getElementById('mens-lower-products');
-            const mensMiddleContainer = document.getElementById('mens-middle-products');
-            const mensHigherContainer = document.getElementById('mens-higher-products');
-            const womensLowerContainer = document.getElementById('womens-lower-products');
-            const womensMiddleContainer = document.getElementById('womens-middle-products');
-            const womensHigherContainer = document.getElementById('womens-higher-products');
-            
-            mensLowerContainer.innerHTML = '';
-            mensMiddleContainer.innerHTML = '';
-            mensHigherContainer.innerHTML = '';
-            womensLowerContainer.innerHTML = '';
-            womensMiddleContainer.innerHTML = '';
-            womensHigherContainer.innerHTML = '';
-
-            Object.entries(products).forEach(([id, product]) => {
-                const productElement = createProductCard(id, product);
-                if (product.category === 'men') {
-                    if (product.priceTier === 'lower') mensLowerContainer.appendChild(productElement);
-                    else if (product.priceTier === 'middle') mensMiddleContainer.appendChild(productElement);
-                    else if (product.priceTier === 'higher') mensHigherContainer.appendChild(productElement);
-                } else if (product.category === 'women') {
-                    if (product.priceTier === 'lower') womensLowerContainer.appendChild(productElement);
-                    else if (product.priceTier === 'middle') womensMiddleContainer.appendChild(productElement);
-                    else if (product.priceTier === 'higher') womensHigherContainer.appendChild(productElement);
-                }
-            });
-        };
-        
-        const createProductCard = (id, product) => {
-            const card = document.createElement('div');
-            card.className = 'product-card rounded-lg overflow-hidden shadow-lg p-4 flex flex-col items-center text-center fade-in-up';
-            card.innerHTML = `
-                <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded mb-4">
-                <h4 class="text-xl font-semibold mb-2 gold-text">${product.name}</h4>
-                <p class="text-gray-300 mb-2">₹${product.price.toLocaleString()}</p>
-                <div class="star-rating mb-2">
-                    ${renderStars(product.reviews)}
-                </div>
-                <p class="text-gray-400 text-sm mb-4">${getTranslation('stock')} ${product.stock > 0 ? product.stock : getTranslation('out_of_stock')}</p>
-                <button onclick="addToCart('${id}')" class="premium-button px-4 py-2 rounded font-semibold w-full mt-auto" ${product.stock === 0 ? 'disabled' : ''}>
-                    ${product.stock > 0 ? getTranslation('add_to_cart') : getTranslation('out_of_stock')}
-                </button>
-            `;
-            return card;
-        };
-
-        const renderStars = (reviews) => {
-            if (!reviews || reviews.length === 0) {
-                return `<p class="text-gray-500 text-sm">${getTranslation('no_reviews')}</p>`;
-            }
-            const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-            const avgRating = totalRating / reviews.length;
-            let starsHtml = '';
-            for (let i = 1; i <= 5; i++) {
-                if (i <= Math.round(avgRating)) {
-                    starsHtml += `<span class="star">★</span>`;
-                } else {
-                    starsHtml += `<span class="star text-gray-500">★</span>`;
-                }
-            }
-            return starsHtml;
-        };
-
-        const addToCart = (productId) => {
-            const product = allProducts[productId];
-            if (product.stock > 0) {
-                const existingItem = cart.find(item => item.id === productId);
-                if (existingItem) {
-                    existingItem.quantity++;
-                } else {
-                    cart.push({ id: productId, name: product.name, price: product.price, quantity: 1 });
-                }
-                product.stock--;
-                localStorage.setItem('cart', JSON.stringify(cart));
-                localStorage.setItem('allProducts', JSON.stringify(allProducts));
-                updateCartCount();
-                renderProducts(allProducts);
-            } else {
-                alert(getTranslation('out_of_stock'));
-            }
-        };
-
-        const updateCartCount = () => {
-            const cartCountElement = document.getElementById('cart-count');
-            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-            if (totalItems > 0) {
-                cartCountElement.textContent = totalItems;
-                cartCountElement.classList.remove('hidden');
-            } else {
-                cartCountElement.classList.add('hidden');
-            }
-        };
-
-        const renderCart = () => {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartTotalElement = document.getElementById('cart-total');
-            cartItemsContainer.innerHTML = '';
-            let total = 0;
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `<li class="text-gray-400 text-center">${getTranslation('cart_empty')}</li>`;
-                document.getElementById('checkoutBtn').disabled = true;
-            } else {
-                document.getElementById('checkoutBtn').disabled = false;
-                cart.forEach(item => {
-                    const listItem = document.createElement('li');
-                    listItem.className = 'flex justify-between items-center mb-2 text-gray-300';
-                    listItem.innerHTML = `
-                        <span>${item.name} (${item.quantity})</span>
-                        <span class="font-bold">₹${(item.price * item.quantity).toLocaleString()}</span>
-                    `;
-                    cartItemsContainer.appendChild(listItem);
-                    total += item.price * item.quantity;
-                });
-            }
-            cartTotalElement.textContent = `${getTranslation('total')} ₹${total.toLocaleString()}`;
-        };
-
-        const openCart = () => {
-            renderCart();
-            document.getElementById('cart-modal').classList.remove('hidden');
-        };
-
-        const closeCart = () => {
-            document.getElementById('cart-modal').classList.add('hidden');
-        };
-
-        const openLogin = () => {
-            document.getElementById('login-modal').classList.remove('hidden');
-            document.getElementById('phone-number').focus();
-            document.getElementById('phone-number').value = '';
-            document.getElementById('password-field').value = '';
-            document.getElementById('otp-field').value = '';
-            document.getElementById('password-field').classList.add('hidden');
-            document.getElementById('otp-field').classList.add('hidden');
-        };
-
-        const closeLogin = () => {
-            document.getElementById('login-modal').classList.add('hidden');
-            document.getElementById('phone-number').value = '';
-            document.getElementById('password-field').value = '';
-            document.getElementById('otp-field').value = '';
-            document.getElementById('password-field').classList.add('hidden');
-            document.getElementById('otp-field').classList.add('hidden');
-            document.getElementById('login-button').textContent = getTranslation('login');
-        };
-
-        const handleLogin = () => {
-            const phoneNumber = document.getElementById('phone-number').value;
-            const passwordField = document.getElementById('password-field');
-            const otpField = document.getElementById('otp-field');
-            const loginButton = document.getElementById('login-button');
-
-            if (phoneNumber === adminNumber) {
-                if (passwordField.classList.contains('hidden')) {
-                    passwordField.classList.remove('hidden');
-                    document.getElementById('login-title').textContent = 'Admin Login';
-                    loginButton.textContent = 'Submit';
-                } else {
-                    const password = passwordField.value;
-                    if (password === adminPassword) {
-                        currentUserId = 'admin';
-                        localStorage.setItem('currentUserId', currentUserId);
-                        loginType = 'admin';
-                        updateLoginState();
-                        closeLogin();
-                        showAdminPanel();
-                    } else {
-                        alert(getTranslation('invalid_admin'));
-                    }
-                }
-            } else {
-                if (otpField.classList.contains('hidden')) {
-                    if (phoneNumber.length === 10 && /^[6-9]\d{9}$/.test(phoneNumber)) {
-                        otpField.classList.remove('hidden');
-                        loginButton.textContent = 'Verify OTP';
-                        alert(`An OTP has been sent to ${phoneNumber}. Use the dummy OTP ${dummyOTP}`);
-                    } else {
-                        alert(getTranslation('invalid_phone'));
-                    }
-                } else {
-                    const otp = otpField.value;
-                    if (otp === dummyOTP) {
-                        currentUserId = phoneNumber;
-                        localStorage.setItem('currentUserId', currentUserId);
-                        loginType = 'customer';
-                        if (!customers[currentUserId]) {
-                            customers[currentUserId] = {
-                                profile: { name: '', email: '', age: '', gender: '', language: 'en', phone: phoneNumber },
-                                orders: [],
-                                suggestions: [],
-                                returns: []
-                            };
-                            localStorage.setItem('customers', JSON.stringify(customers));
-                            openProfileModal();
-                        } else {
-                            updateLoginState();
-                            closeLogin();
-                            showCustomerDashboard();
-                            alert(`${getTranslation('welcome_message')} ${customers[currentUserId].profile.name || ''}!`);
-                        }
-                    } else {
-                        alert(getTranslation('invalid_otp'));
-                    }
-                }
-            }
-        };
-
-        const logout = () => {
-            currentUserId = null;
-            loginType = null;
-            localStorage.removeItem('currentUserId');
-            updateLoginState();
-            hideAllPanels();
-            document.getElementById('main-content').classList.remove('hidden');
-        };
-
-        const updateLoginState = () => {
-            const mainLoginBtn = document.getElementById('mainLoginBtn');
-            const loggedInOptions = document.getElementById('logged-in-options');
-
-            if (currentUserId) {
-                mainLoginBtn.classList.add('hidden');
-                loggedInOptions.classList.remove('hidden');
-            } else {
-                mainLoginBtn.classList.remove('hidden');
-                loggedInOptions.classList.add('hidden');
-            }
-        };
-
-        const showAdminPanel = () => {
-            hideAllPanels();
-            document.getElementById('admin-panel').classList.remove('hidden');
-            renderAdminDashboard();
-        };
-        
-        const showCustomerDashboard = () => {
-            hideAllPanels();
-            document.getElementById('customer-dashboard').classList.remove('hidden');
-            renderCustomerDashboard();
-            setActiveTab('profile-btn');
-        };
-
-        const hideAllPanels = () => {
-            document.getElementById('main-content').classList.add('hidden');
-            document.getElementById('admin-panel').classList.add('hidden');
-            document.getElementById('customer-dashboard').classList.add('hidden');
-            document.getElementById('edit-product-modal').classList.add('hidden');
-        };
-
-        const openProfileModal = () => {
-            const customer = customers[currentUserId];
-            if (customer && customer.profile) {
-                document.getElementById('profile-name').value = customer.profile.name;
-                document.getElementById('profile-email').value = customer.profile.email;
-                document.getElementById('profile-age').value = customer.profile.age;
-                document.getElementById('profile-gender').value = customer.profile.gender;
-                document.getElementById('profile-language').value = customer.profile.language || 'en';
-            }
-            document.getElementById('profile-modal').classList.remove('hidden');
-        };
-
-        const closeProfileModal = () => {
-            document.getElementById('profile-modal').classList.add('hidden');
-        };
-
-        const saveProfile = (e) => {
-            e.preventDefault();
-            if (currentUserId) {
-                const name = document.getElementById('profile-name').value;
-                const email = document.getElementById('profile-email').value;
-                const age = document.getElementById('profile-age').value;
-                const gender = document.getElementById('profile-gender').value;
-                const language = document.getElementById('profile-language').value;
-                
-                customers[currentUserId].profile = { name, email, age, gender, language, phone: currentUserId };
-                localStorage.setItem('customers', JSON.stringify(customers));
-                setLanguage(language);
-                alert(getTranslation('profile_saved'));
-                closeProfileModal();
-                if (loginType === 'customer') {
-                    showCustomerDashboard();
-                } else {
-                    updateLoginState();
-                    hideAllPanels();
-                    document.getElementById('main-content').classList.remove('hidden');
-                }
-            }
-        };
-
-        const checkout = () => {
-            if (!currentUserId || loginType !== 'customer') {
-                alert(getTranslation('login_to_order'));
-                closeCart();
-                openLogin();
-                return;
-            }
-            if (cart.length === 0) {
-                alert(getTranslation('cart_empty'));
-                closeCart();
-                return;
-            }
-            const customer = customers[currentUserId];
-            if (!customer.profile.name || !customer.profile.email) {
-                alert(getTranslation('complete_profile_first'));
-                closeCart();
-                openProfileModal();
-                return;
-            }
-            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString()}`;
-            document.getElementById('delivery-charge').textContent = `₹${deliveryCharge}`;
-            document.getElementById('grand-total').textContent = `₹${(subtotal + deliveryCharge).toLocaleString()}`;
-
-            document.getElementById('cart-modal').classList.add('hidden');
-            document.getElementById('checkout-modal').classList.remove('hidden');
-        };
-
-        const closeCheckoutModal = () => {
-            document.getElementById('checkout-modal').classList.add('hidden');
-        };
-
-        const placeOrder = (e) => {
-            e.preventDefault();
-            if (cart.length === 0) {
-                alert(getTranslation('cart_empty'));
-                closeCheckoutModal();
-                return;
-            }
-
-            const address = document.getElementById('checkout-address').value;
-            const city = document.getElementById('checkout-city').value;
-            const state = document.getElementById('checkout-state').value;
-            const pincode = document.getElementById('checkout-pincode').value;
-            const paymentMethod = document.getElementById('payment-method').value;
-
-            if (!address || !city || !state || !pincode || !paymentMethod) {
-                alert(getTranslation('fill_details'));
-                return;
-            }
-
-            const customer = customers[currentUserId];
-            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            const order = {
-                id: `ORD-${Date.now()}`,
-                items: JSON.parse(JSON.stringify(cart)), // Deep copy cart
-                subtotal: subtotal,
-                total: subtotal + deliveryCharge,
-                deliveryCharge: deliveryCharge,
-                address: { address, city, state, pincode },
-                paymentMethod: paymentMethod,
-                status: 'Pending',
-                date: new Date().toISOString(),
-                cancellableUntil: Date.now() + 24 * 60 * 60 * 1000
-            };
-            customer.orders.push(order);
-            localStorage.setItem('customers', JSON.stringify(customers));
-            cart = [];
-            localStorage.removeItem('cart');
-            updateCartCount();
-            alert(getTranslation('order_placed'));
-            closeCheckoutModal();
-            renderCustomerDashboard();
-            document.getElementById('orders-btn').click(); // Automatically switch to orders tab
-        };
-
-        const getTranslation = (key) => {
-            return translations[currentLanguage][key] || translations['en'][key];
-        };
-
-        const setLanguage = (lang) => {
-            currentLanguage = lang;
-            document.documentElement.lang = lang;
-            document.title = getTranslation('title');
-            document.getElementById('powered-by').textContent = getTranslation('powered_by');
-            document.getElementById('mainLoginBtn').textContent = getTranslation('login');
-            document.getElementById('dashboardBtn').textContent = getTranslation('my_dashboard');
-            document.getElementById('searchInput').placeholder = getTranslation('search_placeholder');
-            document.querySelector('.hero-bg h2').textContent = getTranslation('welcome_message');
-            document.querySelector('.hero-bg p').textContent = getTranslation('hero_subtext');
-            document.querySelector('.hero-bg a').textContent = getTranslation('shop_button');
-            document.getElementById('products h2').textContent = getTranslation('our_collection');
-            document.getElementById('mens h3').textContent = getTranslation('mens_collection');
-            document.getElementById('womens h3').textContent = getTranslation('womens_collection');
-            document.getElementById('share-suggestion').textContent = getTranslation('share_suggestion');
-            document.getElementById('suggestion-name').placeholder = getTranslation('your_name');
-            document.getElementById('suggestion-text').placeholder = getTranslation('your_suggestion');
-            document.querySelector('#suggestion-form button').textContent = getTranslation('submit_suggestion');
-            document.getElementById('return-policy h3').textContent = getTranslation('return_policy');
-            document.querySelector('#return-policy p').textContent = getTranslation('return_policy_text');
-            document.getElementById('payment-methods').textContent = getTranslation('payment_methods');
-            document.querySelector('#payment-methods + p').textContent = getTranslation('choose_payment');
-            document.getElementById('contact h3').textContent = getTranslation('contact_us');
-            document.getElementById('login-title').textContent = getTranslation('login');
-            document.getElementById('phone-number').placeholder = getTranslation('phone_number');
-            document.getElementById('password-field').placeholder = getTranslation('password_placeholder');
-            document.getElementById('otp-field').placeholder = getTranslation('otp_placeholder');
-            document.querySelector('#login-button').textContent = getTranslation('login');
-            document.querySelector('#login-modal button:last-of-type').textContent = getTranslation('close');
-            document.getElementById('my-dashboard-title').textContent = getTranslation('my_dashboard');
-            document.getElementById('profile-btn').textContent = getTranslation('my_profile');
-            document.getElementById('orders-btn').textContent = getTranslation('my_orders');
-            document.getElementById('suggestions-btn').textContent = getTranslation('my_suggestions');
-            document.getElementById('logoutBtn').textContent = getTranslation('logout');
-            document.getElementById('my-profile-section h4').textContent = getTranslation('my_profile');
-            document.getElementById('profile-details p').textContent = getTranslation('profile_details_missing');
-            document.getElementById('my-orders-section h4').textContent = getTranslation('my_orders');
-            document.getElementById('my-suggestions-section h4').textContent = getTranslation('my_suggestions');
-            document.getElementById('profile-modal h3').textContent = getTranslation('complete_profile');
-            document.getElementById('profile-name').placeholder = getTranslation('full_name');
-            document.getElementById('profile-email').placeholder = getTranslation('email');
-            document.getElementById('profile-age').placeholder = getTranslation('age');
-            document.getElementById('profile-gender').querySelector('option[value=""]').textContent = getTranslation('select_gender');
-            document.getElementById('profile-language').querySelector('option[value="en"]').textContent = 'English';
-            document.getElementById('profile-language').querySelector('option[value="hi"]').textContent = 'Hindi';
-            document.getElementById('profile-language').querySelector('option[value="gu"]').textContent = 'Gujarati';
-            document.querySelector('#profile-modal button[type="submit"]').textContent = getTranslation('save_profile');
-            document.querySelector('#profile-modal button:last-of-type').textContent = getTranslation('close');
-            document.getElementById('checkout-modal h3').textContent = getTranslation('enter_shipping');
-            document.getElementById('checkout-address').placeholder = getTranslation('address');
-            document.getElementById('checkout-city').placeholder = getTranslation('city');
-            document.getElementById('checkout-state').placeholder = getTranslation('state');
-            document.getElementById('checkout-pincode').placeholder = getTranslation('pincode');
-            document.getElementById('payment-method').querySelector('option[value=""]').textContent = getTranslation('select_payment_method');
-            document.querySelector('#checkout-form button[type="submit"]').textContent = getTranslation('place_order');
-            document.querySelector('#checkout-modal button:last-of-type').textContent = getTranslation('close');
-            document.getElementById('adminBackBtn').textContent = getTranslation('back_to_main');
-            document.getElementById('backBtn').textContent = getTranslation('back');
-            document.getElementById('addAccountBtn').textContent = 'Add Account'; // This button's text is universal
-            document.getElementById('editProfileBtn').textContent = getTranslation('edit_profile');
-            document.getElementById('admin-panel-title').textContent = getTranslation('admin_panel');
-            
-            renderProducts(allProducts);
-            if (loginType === 'customer') {
-                renderCustomerDashboard();
-            } else if (loginType === 'admin') {
-                renderAdminDashboard();
-            }
-        };
-
-        const renderCustomerDashboard = () => {
-            if (!currentUserId || !customers[currentUserId]) return;
-            const customer = customers[currentUserId];
-            const profileDetails = document.getElementById('profile-details');
-            const myOrdersSection = document.getElementById('my-orders-section');
-            const mySuggestionsSection = document.getElementById('my-suggestions-section');
-
-            // Render Profile
-            if (customer.profile.name) {
-                profileDetails.innerHTML = `
-                    <p class="mb-2"><span class="font-semibold">Name:</span> ${customer.profile.name}</p>
-                    <p class="mb-2"><span class="font-semibold">Email:</span> ${customer.profile.email}</p>
-                    <p class="mb-2"><span class="font-semibold">Age:</span> ${customer.profile.age}</p>
-                    <p class="mb-2"><span class="font-semibold">Gender:</span> ${customer.profile.gender}</p>
-                    <p class="mb-2"><span class="font-semibold">Phone:</span> ${customer.profile.phone}</p>
-                `;
-            } else {
-                profileDetails.innerHTML = `<p class="text-gray-400">${getTranslation('profile_details_missing')}</p>`;
-            }
-
-            // Render Orders
-            const ordersHtml = customer.orders.length > 0
-                ? customer.orders.map(order => `
-                    <div class="bg-gray-800 p-4 rounded-lg mb-4">
-                        <p class="font-semibold">${getTranslation('order_number')}: ${order.id}</p>
-                        <p>Date: ${new Date(order.date).toLocaleDateString()}</p>
-                        <p>Total: ₹${order.total.toLocaleString()} (incl. Delivery: ₹${deliveryCharge})</p>
-                        <p>Status: ${order.status}</p>
-                        <ul class="list-disc list-inside mt-2">
-                            ${order.items.map(item => `<li>${item.name} (${item.quantity}) - ₹${(item.price * item.quantity).toLocaleString()}</li>`).join('')}
-                        </ul>
-                        ${order.status === 'Pending' && Date.now() < new Date(order.cancellableUntil).getTime()
-                            ? `<button onclick="cancelOrder('${order.id}')" class="bg-red-600 text-white px-3 py-1 rounded-lg mt-2">${getTranslation('cancel_order')}</button>`
-                            : ''
-                        }
-                    </div>
-                `).join('')
-                : `<p>${getTranslation('no_orders')}</p>`;
-            myOrdersSection.innerHTML = `<h4 class="text-2xl font-semibold gold-text mb-4">${getTranslation('my_orders')}</h4>${ordersHtml}`;
-
-            // Render Suggestions
-            const suggestionsHtml = customer.suggestions.length > 0
-                ? customer.suggestions.map(s => `
-                    <div class="bg-gray-800 p-4 rounded-lg mb-4">
-                        <p class="font-semibold">${getTranslation('suggestion')}:</p>
-                        <p class="text-gray-300 mb-2">${s.text}</p>
-                        <p class="text-sm text-gray-400">${getTranslation('admin_reply')}</p>
-                        <p class="bg-gray-900 p-2 rounded">${s.adminReply || getTranslation('awaiting_reply')}</p>
-                    </div>
-                `).join('')
-                : `<p>${getTranslation('no_suggestions')}</p>`;
-            mySuggestionsSection.innerHTML = `<h4 class="text-2xl font-semibold gold-text mb-4">${getTranslation('my_suggestions')}</h4>${suggestionsHtml}`;
-        };
-
-        const renderAdminDashboard = () => {
-            let totalSales = 0;
-            let totalOrders = 0;
-            let totalMargin = 0;
-            const adminProductManagement = document.getElementById('admin-product-management');
-            const adminAllOrders = document.getElementById('admin-all-orders');
-            const adminSuggestions = document.getElementById('admin-suggestions');
-            const adminReturns = document.getElementById('admin-return-requests');
-            const adminNotifications = document.getElementById('admin-notifications');
-            
-            adminProductManagement.innerHTML = '';
-            adminAllOrders.innerHTML = '';
-            adminSuggestions.innerHTML = '';
-            adminReturns.innerHTML = '';
-            adminNotifications.innerHTML = '';
-
-            // Render Notifications
-            let notificationsHtml = '';
-            Object.entries(allProducts).forEach(([id, product]) => {
-                if (product.stock === 0) {
-                    notificationsHtml += `<div class="notification-card p-4 rounded-lg"><p class="font-bold">Out of Stock Alert:</p><p>${product.name} is out of stock!</p></div>`;
-                }
-            });
-            adminNotifications.innerHTML = notificationsHtml || '<p class="text-gray-400">No new notifications.</p>';
-
-
-            // Render all products for admin
-            let productManagementHtml = '';
-            Object.entries(allProducts).forEach(([id, product]) => {
-                productManagementHtml += `
-                    <div class="bg-gray-800 p-4 rounded-lg mb-4 flex items-center justify-between">
-                        <div>
-                            <p class="font-semibold">${product.name}</p>
-                            <p class="text-sm text-gray-400">Price: ₹${product.price} | Stock: ${product.stock}</p>
-                        </div>
-                        <button onclick="editProduct('${id}')" class="bg-yellow-600 text-white px-3 py-1 rounded-lg hover:bg-yellow-700">Edit</button>
-                    </div>
-                `;
-            });
-            adminProductManagement.innerHTML = productManagementHtml || '<p>No products to manage.</p>';
-
-
-            // Render all orders for admin
-            let allOrdersHtml = '';
-            Object.values(customers).forEach(customer => {
-                customer.orders.forEach(order => {
-                    totalOrders++;
-                    totalSales += order.total;
-                    let itemsCost = order.items.reduce((sum, item) => sum + (allProducts[item.id].price * item.quantity), 0);
-                    totalMargin += (order.total - itemsCost);
-                    allOrdersHtml += `
-                        <div class="bg-gray-800 p-4 rounded-lg mb-4">
-                            <p class="font-semibold">Order ID: ${order.id}</p>
-                            <p>Customer: ${customer.profile.name || 'N/A'}</p>
-                            <p>Phone: ${customer.profile.phone || 'N/A'}</p>
-                            <p>Total: ₹${order.total.toLocaleString()}</p>
-                            <p>Status: ${order.status}</p>
-                            <p>Address: ${order.address.address}, ${order.address.city}, ${order.address.state}, ${order.address.pincode}</p>
-                            <div class="mt-2">
-                                ${order.status === 'Pending' ? `
-                                <button onclick="approveOrder('${customer.profile.phone}', '${order.id}')" class="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700">Approve</button>
-                                <button onclick="declineOrder('${customer.profile.phone}', '${order.id}')" class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700">Decline</button>
-                                ` : ''}
-                            </div>
-                        </div>
-                    `;
-                });
-            });
-            adminAllOrders.innerHTML = allOrdersHtml || '<p>No orders to show.</p>';
-            document.getElementById('admin-sales-count').textContent = `₹${totalSales.toLocaleString()}`;
-            document.getElementById('admin-orders-count').textContent = totalOrders;
-            document.getElementById('admin-margin-count').textContent = `₹${totalMargin.toLocaleString()}`;
-
-
-            // Render all suggestions for admin
-            let allSuggestionsHtml = suggestions.length > 0
-                ? suggestions.map((s, index) => `
-                    <div class="bg-gray-800 p-4 rounded-lg mb-4">
-                        <p class="font-semibold">${getTranslation('from')}: ${s.name}</p>
-                        <p>${getTranslation('suggestion')}: ${s.text}</p>
-                        <p class="text-sm text-gray-400">Date: ${new Date(s.date).toLocaleString()}</p>
-                        <div class="mt-4">
-                            <textarea id="reply-${index}" placeholder="${getTranslation('send_reply')}..." class="w-full p-2 bg-gray-700 text-white rounded mb-2">${s.adminReply || ''}</textarea>
-                            <button onclick="replyToSuggestion(${index})" class="premium-button px-4 py-2 rounded-lg">${getTranslation('send_reply')}</button>
-                        </div>
-                    </div>
-                `).join('')
-                : `<p>${getTranslation('no_suggestions')}</p>`;
-            adminSuggestions.innerHTML = allSuggestionsHtml;
-
-            // Render return requests for admin
-            let allReturnsHtml = returns.length > 0
-                ? returns.map((r, index) => `
-                    <div class="bg-gray-800 p-4 rounded-lg mb-4">
-                        <p class="font-semibold">Order ID: ${r.orderId}</p>
-                        <p>Reason: ${r.reason}</p>
-                        <p>Customer Phone: ${r.customerPhone}</p>
-                        <p class="text-sm text-gray-400">Date: ${new Date(r.date).toLocaleString()}</p>
-                        <div class="flex space-x-2 mt-4">
-                            <button onclick="approveReturn(${index})" class="bg-green-600 text-white px-3 py-1 rounded-lg">${getTranslation('return_approve')}</button>
-                            <button onclick="declineReturn(${index})" class="bg-red-600 text-white px-3 py-1 rounded-lg">${getTranslation('return_decline')}</button>
-                        </div>
-                    </div>
-                `).join('')
-                : `<p>No return requests.</p>`;
-            adminReturns.innerHTML = allReturnsHtml;
-        };
-        
-        const approveOrder = (customerPhone, orderId) => {
-            const customer = customers[customerPhone];
-            const order = customer.orders.find(o => o.id === orderId);
-            if (order) {
-                order.status = 'Approved';
-                localStorage.setItem('customers', JSON.stringify(customers));
-                renderAdminDashboard();
-                alert(`Order ${orderId} has been approved.`);
-            }
-        };
-
-        const declineOrder = (customerPhone, orderId) => {
-            const customer = customers[customerPhone];
-            const order = customer.orders.find(o => o.id === orderId);
-            if (order) {
-                order.status = 'Declined';
-                localStorage.setItem('customers', JSON.stringify(customers));
-                renderAdminDashboard();
-                alert(`Order ${orderId} has been declined.`);
-            }
-        };
-
-        const editProduct = (productId) => {
-            const product = allProducts[productId];
-            document.getElementById('edit-product-id').value = productId;
-            document.getElementById('edit-product-name').value = product.name;
-            document.getElementById('edit-product-price').value = product.price;
-            document.getElementById('edit-product-stock').value = product.stock;
-            document.getElementById('edit-product-image').value = product.image;
-            document.getElementById('edit-product-modal').classList.remove('hidden');
-        };
-
-        const closeEditProductModal = () => {
-            document.getElementById('edit-product-modal').classList.add('hidden');
-        };
-
-        const saveProductChanges = (e) => {
-            e.preventDefault();
-            const productId = document.getElementById('edit-product-id').value;
-            const product = allProducts[productId];
-            product.name = document.getElementById('edit-product-name').value;
-            product.price = parseFloat(document.getElementById('edit-product-price').value);
-            product.stock = parseInt(document.getElementById('edit-product-stock').value);
-            product.image = document.getElementById('edit-product-image').value;
-            localStorage.setItem('allProducts', JSON.stringify(allProducts));
-            alert(getTranslation('product_saved'));
-            closeEditProductModal();
-            renderAdminDashboard();
-            renderProducts(allProducts);
-        };
-
-        const replyToSuggestion = (index) => {
-            const replyText = document.getElementById(`reply-${index}`).value;
-            suggestions[index].adminReply = replyText;
-            localStorage.setItem('suggestions', JSON.stringify(suggestions));
-            alert(getTranslation('send_reply'));
-            renderAdminDashboard();
-        };
-
-        const approveReturn = (index) => {
-            returns[index].status = 'Approved';
-            localStorage.setItem('returns', JSON.stringify(returns));
-            alert('Return request approved.');
-            renderAdminDashboard();
-        };
-
-        const declineReturn = (index) => {
-            returns[index].status = 'Declined';
-            localStorage.setItem('returns', JSON.stringify(returns));
-            alert('Return request declined.');
-            renderAdminDashboard();
-        };
-
-        const submitReturn = (e) => {
-            e.preventDefault();
-            const orderId = document.getElementById('return-order-id').value;
-            const reason = document.getElementById('return-reason').value;
-
-            if (!orderId || !reason) {
-                alert('Please provide an order number and reason.');
-                return;
-            }
-            
-            const newReturn = { orderId, reason, customerPhone: currentUserId, status: 'Pending', date: new Date().toISOString() };
-            returns.push(newReturn);
-            localStorage.setItem('returns', JSON.stringify(returns));
-            document.getElementById('return-form').reset();
-            alert(getTranslation('return_submitted'));
-        };
-
-        const cancelOrder = (orderId) => {
-            const customer = customers[currentUserId];
-            const order = customer.orders.find(o => o.id === orderId);
-            if (order) {
-                if (Date.now() < new Date(order.cancellableUntil).getTime()) {
-                    order.status = 'Cancelled';
-                    localStorage.setItem('customers', JSON.stringify(customers));
-                    alert(getTranslation('order_cancelled'));
-                    renderCustomerDashboard();
-                } else {
-                    alert(getTranslation('cancel_window_passed'));
-                }
-            }
-        };
-
-        const submitSuggestion = (e) => {
-            e.preventDefault();
-            const name = document.getElementById('suggestion-name').value;
-            const text = document.getElementById('suggestion-text').value;
-
-            if (name && text) {
-                const newSuggestion = { name, text, date: new Date().toISOString() };
-                suggestions.push(newSuggestion);
-                localStorage.setItem('suggestions', JSON.stringify(suggestions));
-                document.getElementById('suggestion-form').reset();
-                alert(getTranslation('suggestion_submitted'));
-            } else {
-                alert(getTranslation('fill_suggestion'));
-            }
-        };
-
-        const verifyUpi = () => {
-            const upiId = document.getElementById('upi-id').value.toLowerCase();
-            const upiName = upiDatabase[upiId];
-            const upiNameElement = document.getElementById('upi-name');
-            if (upiName) {
-                upiNameElement.textContent = `${getTranslation('upi_verified')} ${upiName}`;
-                upiNameElement.style.color = '#ffd700'; // Gold color for success
-            } else {
-                upiNameElement.textContent = getTranslation('invalid_upi');
-                upiNameElement.style.color = 'red'; // Red color for error
-            }
-        };
-
-        const filterProducts = (query) => {
-            const normalizedQuery = query.toLowerCase();
-            const filteredProducts = Object.fromEntries(
-                Object.entries(allProducts).filter(([id, product]) => 
-                    product.name.toLowerCase().includes(normalizedQuery) ||
-                    product.category.toLowerCase().includes(normalizedQuery) ||
-                    product.priceTier.toLowerCase().includes(normalizedQuery)
-                )
-            );
-            renderProducts(filteredProducts);
-        };
-
-        const setActiveTab = (tabId) => {
-            document.querySelectorAll('#dashboard-nav button').forEach(btn => {
-                btn.classList.remove('active-tab');
-            });
-            document.getElementById(tabId).classList.add('active-tab');
-        };
-
-        document.getElementById('mainLoginBtn').addEventListener('click', openLogin);
-        document.getElementById('backBtn').addEventListener('click', () => {
-            hideAllPanels();
-            document.getElementById('main-content').classList.remove('hidden');
-        });
-        document.getElementById('adminBackBtn').addEventListener('click', () => {
-            hideAllPanels();
-            document.getElementById('main-content').classList.remove('hidden');
-        });
-        document.getElementById('dashboardBtn').addEventListener('click', () => {
-            if (loginType === 'customer') {
-                showCustomerDashboard();
-            } else if (loginType === 'admin') {
-                showAdminPanel();
-            }
-        });
-        document.getElementById('addAccountBtn').addEventListener('click', openLogin);
-        document.getElementById('logoutBtn').addEventListener('click', logout);
-        document.getElementById('profile-form').addEventListener('submit', saveProfile);
-        document.getElementById('checkout-form').addEventListener('submit', placeOrder);
-        document.getElementById('suggestion-form').addEventListener('submit', submitSuggestion);
-        document.getElementById('return-form').addEventListener('submit', submitReturn);
-        document.getElementById('edit-product-form').addEventListener('submit', saveProductChanges);
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            filterProducts(e.target.value);
-        });
-        document.getElementById('phone-number').addEventListener('input', (e) => {
-            const phoneNumber = e.target.value;
-            const passwordField = document.getElementById('password-field');
-            const otpField = document.getElementById('otp-field');
-            const loginButton = document.getElementById('login-button');
-            const loginTitle = document.getElementById('login-title');
-
-            if (phoneNumber === adminNumber) {
-                passwordField.classList.remove('hidden');
-                otpField.classList.add('hidden');
-                loginButton.textContent = 'Login';
-                loginTitle.textContent = 'Admin Login';
-            } else {
-                passwordField.classList.add('hidden');
-                otpField.classList.remove('hidden');
-                loginButton.textContent = 'Login';
-                loginTitle.textContent = 'Customer Login';
-            }
-        });
-        
-        document.getElementById('payment-method').addEventListener('change', (e) => {
-            if (e.target.value === 'UPI') {
-                document.getElementById('upi-details').classList.remove('hidden');
-            } else {
-                document.getElementById('upi-details').classList.add('hidden');
-            }
-        });
-
-        document.getElementById('profile-btn').addEventListener('click', () => {
-            document.getElementById('my-profile-section').classList.remove('hidden');
-            document.getElementById('my-orders-section').classList.add('hidden');
-            document.getElementById('my-suggestions-section').classList.add('hidden');
-            setActiveTab('profile-btn');
-        });
-
-        document.getElementById('orders-btn').addEventListener('click', () => {
-            document.getElementById('my-profile-section').classList.add('hidden');
-            document.getElementById('my-orders-section').classList.remove('hidden');
-            document.getElementById('my-suggestions-section').classList.add('hidden');
-            renderCustomerDashboard(); // Re-render to ensure latest orders are shown
-            setActiveTab('orders-btn');
-        });
-
-        document.getElementById('suggestions-btn').addEventListener('click', () => {
-            document.getElementById('my-profile-section').classList.add('hidden');
-            document.getElementById('my-orders-section').classList.add('hidden');
-            document.getElementById('my-suggestions-section').classList.remove('hidden');
-            renderCustomerDashboard(); // Re-render to show any new replies
-            setActiveTab('suggestions-btn');
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            try {
-                const storedProducts = JSON.parse(localStorage.getItem('allProducts'));
-                if (storedProducts) {
-                    Object.assign(allProducts, storedProducts);
-                }
-                const storedCart = JSON.parse(localStorage.getItem('cart'));
-                if (storedCart) {
-                    cart = storedCart;
-                }
-                const storedCustomers = JSON.parse(localStorage.getItem('customers'));
-                if(storedCustomers) {
-                    customers = storedCustomers;
-                }
-                const storedSuggestions = JSON.parse(localStorage.getItem('suggestions'));
-                if(storedSuggestions) {
-                    suggestions = storedSuggestions;
-                }
-                const storedReturns = JSON.parse(localStorage.getItem('returns'));
-                if(storedReturns) {
-                    returns = storedReturns;
-                }
-            } catch (e) {
-                console.error("Error loading data from localStorage:", e);
-                localStorage.removeItem('allProducts');
-                localStorage.removeItem('cart');
-                localStorage.removeItem('customers');
-                localStorage.removeItem('suggestions');
-                localStorage.removeItem('returns');
-            }
-            renderProducts(allProducts);
-            updateCartCount();
-            if (currentUserId) {
-                loginType = currentUserId === 'admin' ? 'admin' : 'customer';
-                updateLoginState();
-                if (loginType === 'customer') {
-                    if(customers[currentUserId]) {
-                        setLanguage(customers[currentUserId].profile.language || 'en');
-                        showCustomerDashboard();
-                    }
-                } else if (loginType === 'admin') {
-                    showAdminPanel();
-                }
-            } else {
-                document.getElementById('main-content').classList.remove('hidden');
-            }
-        });
-
-        // Event listener for cart icon
-        document.querySelector('.cart-icon').addEventListener('click', (e) => {
-            e.preventDefault();
-            openCart();
-        });
-    </script>
+    // New function to show homepage
+    function showHomePage() {
+      document.getElementById('main-content').classList.remove('hidden');
+      document.getElementById('customer-dashboard').classList.add('hidden');
+      document.getElementById('admin-panel').classList.add('hidden');
+    }
+
+    function renderMySuggestions(){
+      const el = document.getElementById('my-suggestions-list');
+      el.innerHTML = '';
+      if (!currentUserId || currentUserId === 'admin') return;
+      // show suggestions by this user (matching name & email not guaranteed) - show all suggestions and replies as demo
+      suggestions.slice().reverse().forEach(s => {
+        const d = document.createElement('div'); d.className = 'p-2 mb-2 bg-gray-900 rounded';
+        d.innerHTML = `<div><strong>${s.name}</strong> — ${s.date}</div><div class="text-sm text-gray-300">${s.text}</div>
+          <div class="mt-2 text-sm text-gray-400">${s.reply ? ('Reply: ' + s.reply) : ''}</div>`;
+        el.appendChild(d);
+      });
+    }
+
+    // ---------------------------
+    // ADMIN quick helpers
+    // ---------------------------
+    function adminAddSampleOrdersForDemo(){ /* not used */ }
+
+    // ---------------------------
+    // INIT & UI state
+    // ---------------------------
+    function updateLoginState(){
+      if (currentUserId) {
+        document.getElementById('mainLoginBtn').classList.add('hidden');
+        document.getElementById('logged-in-options').classList.remove('hidden');
+        document.getElementById('logoutBtnTop').classList.remove('hidden');
+        // show admin or profile nav
+        if (currentUserId === 'admin') {
+          document.getElementById('dashboardBtn').classList.remove('hidden');
+          document.getElementById('profileNavBtn').classList.add('hidden');
+        } else {
+          document.getElementById('dashboardBtn').classList.add('hidden');
+          document.getElementById('profileNavBtn').classList.remove('hidden');
+        }
+      } else {
+        document.getElementById('mainLoginBtn').classList.remove('hidden');
+        document.getElementById('logged-in-options').classList.add('hidden');
+        document.getElementById('logoutBtnTop').classList.add('hidden');
+      }
+    }
+
+    function logoutUser(){
+      currentUserId = null;
+      localStorage.removeItem('currentUserId');
+      updateLoginState();
+      document.getElementById('admin-panel').classList.add('hidden');
+      document.getElementById('customer-dashboard').classList.add('hidden');
+      document.getElementById('main-content').classList.remove('hidden');
+    }
+
+    // ---------------------------
+    // PAYMENT helper
+    // ---------------------------
+    document.getElementById('payment-method').addEventListener('change', function(e){
+      if (e.target.value === 'UPI') document.getElementById('upi-details').classList.remove('hidden'); else document.getElementById('upi-details').classList.add('hidden');
+    });
+    function verifyUpi(){ const id = document.getElementById('upi-id').value.trim(); if (id === 'fashionhub@upi') { document.getElementById('upi-name').textContent = 'Fashion Hub - Meman Ayan'; alert('UPI verified'); } else { document.getElementById('upi-name').textContent = 'Invalid UPI ID'; alert('Invalid UPI'); } }
+
+    // ---------------------------
+    // STARTUP
+    // ---------------------------
+    function init(){
+      // load possible saved values
+      cart = [];
+      customers = JSON.parse(localStorage.getItem('customers')) || customers;
+      suggestions = JSON.parse(localStorage.getItem('suggestions')) || suggestions;
+      returnRequests = JSON.parse(localStorage.getItem('returnRequests')) || returnRequests;
+      globalOrders = JSON.parse(localStorage.getItem('globalOrders')) || globalOrders;
+      allProducts = JSON.parse(localStorage.getItem('allProducts')) || allProducts;
+      deliveryCharge = Number(localStorage.getItem('deliveryCharge') || deliveryCharge);
+      document.getElementById('admin-delivery-charge').value = deliveryCharge;
+      currentUserId = localStorage.getItem('currentUserId') || currentUserId;
+
+      renderProducts();
+      updateLoginState();
+      updateCartCount();
+      // if logged in as customer, show profile by default
+      if (currentUserId && currentUserId !== 'admin') showCustomerProfile();
+      if (currentUserId === 'admin') showAdminPanel();
+      applyTranslations(localStorage.getItem('siteLang') || 'en');
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
 </body>
 </html>
